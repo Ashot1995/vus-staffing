@@ -19,6 +19,10 @@ Route::get('/spontanansok', [JobController::class, 'spontaneous'])->name('jobs.a
 Route::get('/kontakt', [ContactController::class, 'index'])->name('contact');
 Route::post('/kontakt', [ContactController::class, 'send'])->name('contact.send');
 
+Route::post('/cookie/consent', [\App\Http\Controllers\CookieController::class, 'consent'])->name('cookie.consent');
+Route::post('/newsletter/subscribe', [\App\Http\Controllers\NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+Route::get('/privacy', [\App\Http\Controllers\PageController::class, 'privacy'])->name('privacy');
+
 Route::get('/dashboard', [PageController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

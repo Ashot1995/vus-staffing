@@ -35,6 +35,18 @@
                             @enderror
                         </div>
 
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input @error('gdpr_consent') is-invalid @enderror" type="checkbox" name="gdpr_consent" id="gdpr_consent" value="1" required>
+                                <label class="form-check-label" for="gdpr_consent">
+                                    {{ __('messages.apply.gdpr_consent') }} <a href="{{ route('privacy') }}" target="_blank" style="text-decoration: underline;">{{ __('messages.cookie.privacy_policy') }}</a>
+                                </label>
+                                @error('gdpr_consent')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="d-flex gap-3 mt-4">
                             <button type="submit" class="custom-btn btn">{{ __('messages.apply.submit') }}</button>
                             <a href="{{ route('jobs.show', $job) }}" class="btn btn-outline-secondary">{{ __('messages.apply.cancel') }}</a>

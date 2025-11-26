@@ -1,14 +1,14 @@
 @extends('layouts.main')
 
-@section('title', $job->title . ' - VUS Bemanning')
+@section('title', $job->title . ' - VUS')
 
 @section('content')
 <section class="section-bg-image">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-12 text-center mb-5">
-                <h1 class="text-white">{{ $job->title }}</h1>
-                <p class="text-white"><i class="bi-geo-alt me-2"></i>{{ $job->location }} | {{ ucfirst($job->employment_type) }}</p>
+                <h1>{{ $job->title }}</h1>
+                <p><i class="bi-geo-alt me-2"></i>{{ $job->location }} | {{ ucfirst($job->employment_type) }}</p>
             </div>
         </div>
     </div>

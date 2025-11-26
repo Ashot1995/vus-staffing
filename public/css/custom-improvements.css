@@ -7,9 +7,9 @@
 }
 
 .custom-block:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
-  border-color: var(--primary-color);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+  border-color: #000000;
 }
 
 .custom-block-icon {
@@ -17,16 +17,17 @@
 }
 
 .custom-block:hover .custom-block-icon {
-  transform: scale(1.1);
-  color: var(--primary-color);
+  transform: scale(1.05);
+  background: #FF6B35;
+  border-color: #FF6B35;
+  color: white;
 }
 
 /* Improved Button Styles */
 .custom-btn {
   position: relative;
   overflow: hidden;
-  transition: all 0.3s ease;
-  border: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: 600;
   letter-spacing: 0.5px;
   padding: 12px 30px !important;
@@ -36,26 +37,26 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-}
-
-.custom-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.custom-btn:hover::before {
-  left: 100%;
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
+  color: #000000 !important;
 }
 
 .custom-btn:hover {
+  background: transparent !important;
+  border: 2px solid var(--white-color) !important;
+  color: var(--white-color) !important;
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(13, 202, 240, 0.3) !important;
+}
+
+/* Buttons in cards - keep black text on hover */
+.highlight .custom-btn:hover,
+.custom-block .custom-btn:hover,
+.card .custom-btn:hover {
+  background: transparent !important;
+  border: 2px solid #000000 !important;
+  color: #000000 !important;
+  transform: translateY(-2px);
 }
 
 .custom-btn:active {
@@ -69,10 +70,10 @@
   font-weight: 600;
   letter-spacing: 0.5px;
   font-size: 16px;
-  border: 2px solid #6c757d;
-  color: #6c757d;
-  background: transparent;
-  transition: all 0.3s ease;
+  border: 2px solid #000000 !important;
+  color: #000000 !important;
+  background: #ffffff !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   min-width: 140px;
   display: inline-flex;
   align-items: center;
@@ -80,11 +81,10 @@
 }
 
 .btn-outline-secondary:hover {
-  background: #6c757d;
-  color: white;
-  border-color: #6c757d;
+  background: transparent !important;
+  border: 2px solid var(--white-color) !important;
+  color: var(--white-color) !important;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
 }
 
 .btn-outline-secondary:active {
@@ -96,17 +96,17 @@
   padding: 10px 20px !important;
   border-radius: 8px !important;
   font-weight: 600;
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-  background: transparent;
-  transition: all 0.3s ease;
+  border: 2px solid #000000 !important;
+  color: #000000 !important;
+  background: #ffffff !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-outline-primary:hover {
-  background: var(--primary-color);
-  color: white;
+  background: transparent !important;
+  border: 2px solid var(--white-color) !important;
+  color: var(--white-color) !important;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(13, 202, 240, 0.3);
 }
 
 /* Button Groups - Better Alignment */
@@ -174,7 +174,7 @@ a.btn {
 .btn-outline-secondary:focus,
 .btn-outline-primary:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(13, 202, 240, 0.25);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.15);
 }
 
 /* Disabled Button States */
@@ -242,12 +242,11 @@ a.btn {
   left: 50%;
   width: 0;
   height: 2px;
-  background: var(--primary-color);
+  background: #000000;
   transition: all 0.3s ease;
   transform: translateX(-50%);
 }
 
-.navbar-nav .nav-link:hover::after,
 .navbar-nav .nav-link.active::after {
   width: 60%;
 }
@@ -260,6 +259,11 @@ a.btn {
 .hero-text h1 {
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
   animation: fadeInUp 0.8s ease;
+}
+
+.vus-brand {
+  color: #FF6B35 !important;
+  font-weight: 700;
 }
 
 @keyframes fadeInUp {
@@ -302,8 +306,8 @@ a.btn {
 /* Improved Form Elements */
 .form-control:focus,
 .form-select:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 0.2rem rgba(13, 202, 240, 0.25);
+  border-color: #000000;
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.15);
   outline: none;
 }
 
@@ -321,32 +325,23 @@ a.btn {
 /* Better Section Spacing */
 .section-padding {
   position: relative;
+  padding-top: 60px !important;
+  padding-bottom: 80px !important;
 }
 
 /* Improved Footer */
 .site-footer {
-  background: linear-gradient(135deg, var(--navbar-bg-color) 0%, #1a1f3a 100%) !important;
+  background: #f5f5f5 !important;
   padding-top: 80px !important;
   padding-bottom: 40px !important;
   margin-top: 80px;
   position: relative;
   overflow: hidden;
-}
-
-.site-footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-  opacity: 0.5;
-  pointer-events: none;
+  border-top: 1px solid #e0e0e0;
 }
 
 .site-footer-title {
-  color: var(--primary-color) !important;
+  color: #000000 !important;
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 1.5rem;
@@ -355,20 +350,20 @@ a.btn {
 }
 
 .site-footer .text-white {
-  color: #e0e0e0 !important;
+  color: #000000 !important;
   font-size: 15px;
   line-height: 1.8;
   margin-bottom: 0.75rem;
 }
 
 .site-footer-link {
-  color: #e0e0e0 !important;
+  color: #000000 !important;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 .site-footer-link:hover {
-  color: var(--primary-color) !important;
+  color: #000000 !important;
   text-decoration: underline;
 }
 
@@ -384,7 +379,7 @@ a.btn {
 }
 
 .footer-menu-link {
-  color: #e0e0e0 !important;
+  color: #000000 !important;
   text-decoration: none;
   font-size: 15px;
   transition: all 0.3s ease;
@@ -400,13 +395,14 @@ a.btn {
   bottom: 0;
   width: 0;
   height: 2px;
-  background: var(--primary-color);
+  background: #000000;
   transition: width 0.3s ease;
 }
 
 .footer-menu-link:hover {
-  color: var(--primary-color) !important;
+  color: #000000 !important;
   padding-left: 10px;
+  text-decoration: underline;
 }
 
 .footer-menu-link:hover::before {
@@ -423,14 +419,14 @@ a.btn {
 }
 
 .social-icon-link {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: #f5f5f5 !important;
+  border: 2px solid #000000;
   border-radius: 50% !important;
   width: 45px !important;
   height: 45px !important;
   line-height: 41px !important;
   text-align: center;
-  color: #e0e0e0 !important;
+  color: #000000 !important;
   font-size: 18px !important;
   transition: all 0.3s ease;
   display: flex;
@@ -439,16 +435,16 @@ a.btn {
 }
 
 .social-icon-link:hover {
-  background: var(--primary-color) !important;
-  border-color: var(--primary-color);
+  background: #000000 !important;
+  border-color: #000000;
   color: white !important;
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(13, 202, 240, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Footer Bottom */
 .site-footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid #e0e0e0;
   padding-top: 30px;
   padding-bottom: 30px;
   margin-top: 50px;
@@ -462,7 +458,7 @@ a.btn {
 }
 
 .copyright-text {
-  color: #b0b0b0 !important;
+  color: #000000 !important;
   font-size: 14px;
   margin: 0;
 }
@@ -470,7 +466,7 @@ a.btn {
 /* Footer Icons */
 .site-footer .bi-geo-alt,
 .site-footer .bi-envelope {
-  color: var(--primary-color);
+  color: #000000;
   font-size: 18px;
   margin-right: 10px;
   flex-shrink: 0;
@@ -499,9 +495,9 @@ a.btn {
 
 @media (max-width: 768px) {
   .site-footer {
-    padding-top: 50px;
+    padding-top: 30px;
     padding-bottom: 25px;
-    margin-top: 60px;
+    margin-top: 40px;
   }
   
   .site-footer-bottom {
@@ -611,10 +607,12 @@ html {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: #000000;
   color: white;
   font-size: 28px;
-  box-shadow: 0 5px 15px rgba(13, 202, 240, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 2px solid #000000;
+  transition: all 0.3s ease;
 }
 
 /* Better Text Styling */
@@ -627,20 +625,11 @@ html {
 
 /* Improved Call to Action Section */
 .call-to-action {
-  background: linear-gradient(135deg, var(--navbar-bg-color) 0%, #1a1f3a 100%);
+  background: #f5f5f5;
   position: relative;
   overflow: hidden;
-}
-
-.call-to-action::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-  opacity: 0.3;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .call-to-action .container {
@@ -650,7 +639,12 @@ html {
 
 /* Better Highlight Section */
 .highlight {
-  background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+  background: #f5f5f5;
+  margin-top: 40px;
+}
+
+.highlight .row {
+  margin-top: 20px;
 }
 
 /* Improved Responsive Design */
@@ -727,15 +721,15 @@ a:hover {
 }
 
 .pagination .page-link:hover {
-  background: var(--primary-color);
+  background: #000000;
   color: white;
-  border-color: var(--primary-color);
+  border-color: #000000;
   transform: translateY(-2px);
 }
 
 .pagination .page-item.active .page-link {
-  background: var(--primary-color);
-  border-color: var(--primary-color);
-  box-shadow: 0 4px 12px rgba(13, 202, 240, 0.3);
+  background: #000000;
+  border-color: #000000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 

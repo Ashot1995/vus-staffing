@@ -1,14 +1,14 @@
 @extends('layouts.main')
 
-@section('title', __('messages.contact.title') . ' - VUS Bemanning')
+@section('title', __('messages.contact.title') . ' - VUS')
 
 @section('content')
 <section class="section-bg-image">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-12 text-center mb-5">
-                <h1 class="text-white">{{ __('messages.contact.title') }}</h1>
-                <p class="text-white">{{ __('messages.contact.subtitle') }}</p>
+                <h1>{{ __('messages.contact.title') }}</h1>
+                <p>{{ __('messages.contact.subtitle') }}</p>
             </div>
         </div>
     </div>

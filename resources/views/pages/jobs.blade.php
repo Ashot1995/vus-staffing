@@ -1,14 +1,14 @@
 @extends('layouts.main')
 
-@section('title', __('messages.jobs.title') . ' - VUS Bemanning')
+@section('title', __('messages.jobs.title') . ' - VUS')
 
 @section('content')
 <section class="section-bg-image">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-12 text-center mb-5">
-                <h1 class="text-white">{{ __('messages.jobs.title') }}</h1>
-                <p class="text-white">{{ __('messages.jobs.subtitle') }}</p>
+                <h1>{{ __('messages.jobs.title') }}</h1>
+                <p>{{ __('messages.jobs.subtitle') }}</p>
             </div>
         </div>
     </div>
@@ -51,7 +51,7 @@
                         <div class="custom-block-body">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="mb-0">{{ $job->title }}</h4>
-                                <span class="badge bg-primary">{{ ucfirst($job->employment_type) }}</span>
+                                <span class="badge" style="background: #000000; color: #ffffff;">{{ ucfirst($job->employment_type) }}</span>
                             </div>
                             <p class="mb-2"><i class="bi-geo-alt me-2"></i>{{ $job->location }}</p>
                             @if($job->salary)

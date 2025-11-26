@@ -1,14 +1,14 @@
 @extends('layouts.main')
 
-@section('title', __('messages.employers.title') . ' - VUS Bemanning')
+@section('title', __('messages.employers.title') . ' - VUS')
 
 @section('content')
 <section class="section-bg-image">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-12 text-center mb-5">
-                <h1 class="text-white">{{ __('messages.employers.title') }}</h1>
-                <p class="text-white">{{ __('messages.employers.subtitle') }}</p>
+                <h1>{{ __('messages.employers.title') }}</h1>
+                <p>{{ __('messages.employers.subtitle') }}</p>
             </div>
         </div>
     </div>
@@ -70,11 +70,11 @@
                 <div class="custom-block bg-white shadow-lg p-5">
                     <h3 class="mb-4 text-center">{{ __('messages.employers.why_choose.title') }}</h3>
                     <ul class="list-unstyled">
-                        <li class="mb-3"><i class="bi-check-circle-fill text-success me-2"></i> {{ __('messages.employers.why_choose.experience') }}</li>
-                        <li class="mb-3"><i class="bi-check-circle-fill text-success me-2"></i> {{ __('messages.employers.why_choose.network') }}</li>
-                        <li class="mb-3"><i class="bi-check-circle-fill text-success me-2"></i> {{ __('messages.employers.why_choose.fast') }}</li>
-                        <li class="mb-3"><i class="bi-check-circle-fill text-success me-2"></i> {{ __('messages.employers.why_choose.personal') }}</li>
-                        <li class="mb-3"><i class="bi-check-circle-fill text-success me-2"></i> {{ __('messages.employers.why_choose.support') }}</li>
+                        <li class="mb-3"><i class="bi-check-circle-fill me-2"></i> {{ __('messages.employers.why_choose.experience') }}</li>
+                        <li class="mb-3"><i class="bi-check-circle-fill me-2"></i> {{ __('messages.employers.why_choose.network') }}</li>
+                        <li class="mb-3"><i class="bi-check-circle-fill me-2"></i> {{ __('messages.employers.why_choose.fast') }}</li>
+                        <li class="mb-3"><i class="bi-check-circle-fill me-2"></i> {{ __('messages.employers.why_choose.personal') }}</li>
+                        <li class="mb-3"><i class="bi-check-circle-fill me-2"></i> {{ __('messages.employers.why_choose.support') }}</li>
                     </ul>
                 </div>
             </div>

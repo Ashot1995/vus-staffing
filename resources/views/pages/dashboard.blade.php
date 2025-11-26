@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', __('messages.dashboard.title') . ' - VUS Bemanning')
+@section('title', __('messages.dashboard.title') . ' - VUS')
 
 @section('content')
 <section class="section-padding">
@@ -44,14 +44,7 @@
                                 <h6>{{ __('messages.dashboard.spontaneous_application') }}</h6>
                             @endif
                             <p class="mb-1">
-                                <span class="badge 
-                                    @if($application->status == 'accepted') bg-success
-                                    @elseif($application->status == 'rejected') bg-danger
-                                    @elseif($application->status == 'shortlisted') bg-primary
-                                    @elseif($application->status == 'reviewed') bg-info
-                                    @else bg-secondary
-                                    @endif
-                                ">{{ __('messages.dashboard.status.' . $application->status) }}</span>
+                                <span class="badge">{{ __('messages.dashboard.status.' . $application->status) }}</span>
                             </p>
                             <p class="mb-0"><small class="text-muted">{{ __('messages.dashboard.sent') }}: {{ $application->created_at->diffForHumans() }}</small></p>
                         </div>

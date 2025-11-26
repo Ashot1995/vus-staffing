@@ -57,6 +57,7 @@ class JobController extends Controller
         $validated = $request->validate([
             'cover_letter' => 'required|string',
             'cv' => 'required|file|mimes:pdf,doc,docx|max:5120',
+            'gdpr_consent' => 'required|accepted',
         ]);
 
         $cvPath = $request->file('cv')->store('cvs', 'public');
@@ -68,7 +69,17 @@ class JobController extends Controller
             'cover_letter' => $validated['cover_letter'],
             'is_spontaneous' => false,
             'status' => 'pending',
+            'gdpr_consent' => true,
+            'gdpr_consent_at' => now(),
         ]);
+
+        // Update user GDPR consent if not set
+        $user = auth()->user();
+        if (!$user->gdpr_consent_at) {
+            $user->update([
+                'gdpr_consent_at' => now(),
+            ]);
+        }
 
         return redirect()->route('jobs.show', $job)->with('success', 'Din ansökan har skickats!');
     }
@@ -78,6 +89,7 @@ class JobController extends Controller
         $validated = $request->validate([
             'cover_letter' => 'required|string',
             'cv' => 'required|file|mimes:pdf,doc,docx|max:5120',
+            'gdpr_consent' => 'required|accepted',
         ]);
 
         $cvPath = $request->file('cv')->store('cvs', 'public');
@@ -89,7 +101,17 @@ class JobController extends Controller
             'cover_letter' => $validated['cover_letter'],
             'is_spontaneous' => true,
             'status' => 'pending',
+            'gdpr_consent' => true,
+            'gdpr_consent_at' => now(),
         ]);
+
+        // Update user GDPR consent if not set
+        $user = auth()->user();
+        if (!$user->gdpr_consent_at) {
+            $user->update([
+                'gdpr_consent_at' => now(),
+            ]);
+        }
 
         return redirect()->route('jobs.apply-spontaneous')->with('success', 'Din spontanansökan har skickats!');
     }

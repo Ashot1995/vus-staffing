@@ -1,14 +1,14 @@
 @extends('layouts.main')
 
-@section('title', __('messages.spontaneous.title') . ' - VUS Bemanning')
+@section('title', __('messages.spontaneous.title') . ' - VUS')
 
 @section('content')
 <section class="section-bg-image">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-12 text-center mb-5">
-                <h1 class="text-white">{{ __('messages.spontaneous.title') }}</h1>
-                <p class="text-white">{{ __('messages.spontaneous.subtitle') }}</p>
+                <h1>{{ __('messages.spontaneous.title') }}</h1>
+                <p>{{ __('messages.spontaneous.subtitle') }}</p>
             </div>
         </div>
     </div>
@@ -46,6 +46,18 @@
                                 @error('cover_letter')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input @error('gdpr_consent') is-invalid @enderror" type="checkbox" name="gdpr_consent" id="gdpr_consent" value="1" required>
+                                    <label class="form-check-label" for="gdpr_consent">
+                                        {{ __('messages.apply.gdpr_consent') }} <a href="{{ route('privacy') }}" target="_blank" style="text-decoration: underline;">{{ __('messages.cookie.privacy_policy') }}</a>
+                                    </label>
+                                    @error('gdpr_consent')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
                             <button type="submit" class="custom-btn btn mt-3">{{ __('messages.spontaneous.submit') }}</button>

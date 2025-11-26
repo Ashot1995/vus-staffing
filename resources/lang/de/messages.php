@@ -3,15 +3,17 @@
 return [
     // Navigation
     'nav.home' => 'Startseite',
-    'nav.jobs' => 'Stellen',
+    'nav.jobs' => 'Offene Stellen',
     'nav.for_employers' => 'Für Arbeitgeber',
+    'nav.for_job_seekers' => 'Für Arbeitssuchende',
     'nav.about' => 'Über Uns',
-    'nav.contact' => 'Kontakt',
+    'nav.contact' => 'Kontaktieren Sie uns',
     'nav.login' => 'Anmelden',
     'nav.profile' => 'Mein Profil',
+    'nav.free_services' => 'Kostenlose Dienstleistungen',
     
     // Home Page
-    'home.hero.title' => 'VUS Bemanning - Ihr Partner für Personalvermittlung',
+    'home.hero.title' => 'Welcome to VUS',
     'home.hero.subtitle' => 'Professionelle Personalvermittlung',
     'home.hero.location' => 'Ganze Schweiz',
     'home.find_job.title' => 'Finden Sie Ihren Traumjob',
@@ -23,7 +25,7 @@ return [
     'home.employers.title' => 'Für Arbeitgeber',
     'home.employers.description' => 'Suchen Sie qualifiziertes Personal? Wir helfen Ihnen, die richtigen Mitarbeiter für Ihre Bedürfnisse zu finden.',
     'home.employers.button' => 'Mehr erfahren',
-    'home.why_choose.title' => 'Warum VUS Bemanning wählen?',
+    'home.why_choose.title' => 'Warum VUS wählen?',
     'home.professional_service.title' => 'Professioneller Service',
     'home.professional_service.description' => 'Wir bieten hochwertige Personalvermittlungs- und Rekrutierungsdienstleistungen für Unternehmen in der gesamten Schweiz.',
     'home.broad_competence.title' => 'Breite Kompetenz',
@@ -35,11 +37,19 @@ return [
     'home.cta.jobs' => 'Verfügbare Stellen anzeigen',
     'home.cta.contact' => 'Kontaktieren Sie uns',
     
+    // Customer Reviews
+    'home.reviews.title' => 'Kundenbewertungen',
+    'home.reviews.subtitle' => 'Was unsere Kunden über uns sagen',
+    
+    // Cooperation Partners
+    'home.partners.title' => 'Kooperationspartner',
+    'home.partners.subtitle' => 'Wir arbeiten mit vertrauenswürdigen Partnern',
+    
     // About Page
-    'about.title' => 'Über VUS Bemanning',
+    'about.title' => 'Über VUS',
     'about.subtitle' => 'Ihr Partner für Personalvermittlung und Rekrutierung',
-    'about.welcome.title' => 'Willkommen bei VUS Entreprenad & Bemanning AB',
-    'about.welcome.description' => 'VUS Entreprenad & Bemanning AB ist ein professionelles Rekrutierungs- und Personalvermittlungsunternehmen, das sowohl Arbeitgebern als auch Arbeitssuchenden hilft, die richtige Übereinstimmung zu finden.',
+    'about.welcome.title' => 'Willkommen bei VUS',
+    'about.welcome.description' => 'VUS ist ein professionelles Rekrutierungs- und Personalvermittlungsunternehmen, das sowohl Arbeitgebern als auch Arbeitssuchenden hilft, die richtige Übereinstimmung zu finden.',
     'about.welcome.description2' => 'Wir arbeiten mit Unternehmen in der gesamten Schweiz und bieten Lösungen in den Bereichen Rekrutierung, Personalvermittlung und Beratungsdienstleistungen. Unser Ziel ist es, langfristige Beziehungen aufzubauen und sicherzustellen, dass sowohl unsere Kunden als auch unsere Kandidaten zufrieden sind.',
     'about.vision.title' => 'Unsere Vision',
     'about.vision.description' => 'Die erste Wahl für Unternehmen und Einzelpersonen zu sein, die qualifiziertes Personal oder neue Karrieremöglichkeiten suchen.',

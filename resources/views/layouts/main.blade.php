@@ -3,13 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="VUS Entreprenad & Bemanning AB - Din partner för rekrytering och bemanning">
-    <meta name="author" content="VUS Bemanning">
-    <title>@yield('title', 'VUS Entreprenad & Bemanning AB')</title>
+    <meta name="description" content="VUS - Din partner för rekrytering och bemanning">
+    <meta name="author" content="VUS">
+    <title>@yield('title', 'VUS')</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('css/templatemo-leadership-event.css') }}" rel="stylesheet">
@@ -25,7 +22,7 @@
 
             <a href="{{ route('home') }}" class="navbar-brand mx-auto mx-lg-0">
                 <i class="bi-briefcase brand-logo"></i>
-                <span class="brand-text">VUS <br> Bemanning</span>
+                <span class="brand-text">VUS</span>
             </a>
 
             @guest
@@ -37,16 +34,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->path() === '/' ? 'active' : '' }}" href="{{ route('home') }}">{{ __('messages.nav.home') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('jobs.*') ? 'active' : '' }}" href="{{ route('jobs.index') }}">{{ __('messages.nav.jobs') }}</a>
+                        <a class="nav-link {{ request()->routeIs('home') && !request()->routeIs('about') && !request()->routeIs('for-employers') && !request()->routeIs('contact') && !request()->routeIs('jobs.*') && !request()->routeIs('register') ? 'active' : '' }}" href="{{ route('home') }}">{{ __('messages.nav.home') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('for-employers') ? 'active' : '' }}" href="{{ route('for-employers') }}">{{ __('messages.nav.for_employers') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">{{ __('messages.nav.about') }}</a>
+                        <a class="nav-link {{ request()->routeIs('jobs.*') ? 'active' : '' }}" href="{{ route('jobs.index') }}">{{ __('messages.nav.jobs') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('register') ? 'active' : '' }}" href="{{ route('register') }}">{{ __('messages.nav.for_job_seekers') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">{{ __('messages.nav.contact') }}</a>
@@ -57,7 +54,7 @@
                     @guest
 {{--                        <li class="nav-item">--}}
 {{--                            <a class="nav-link custom-btn btn d-none d-lg-block" href="{{ route('login') }}">{{ __('messages.nav.login') }}</a>--}}
-{{--                        </li>--}}'
+{{--                        </li>--}}
                     @else
 {{--                        <li class="nav-item">--}}
 {{--                            <a class="nav-link custom-btn btn d-none d-lg-block" href="{{ route('dashboard') }}">{{ __('messages.nav.profile') }}</a>--}}
@@ -72,11 +69,13 @@
         @yield('content')
     </main>
 
+    <x-cookie-banner />
+
     <footer class="site-footer">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-12 mb-4">
-                    <h5 class="site-footer-title mb-3">VUS Bemanning</h5>
+                    <h5 class="site-footer-title mb-3">VUS</h5>
                     <p class="text-white d-flex mb-2">
                         <i class="bi-geo-alt me-2"></i>
                         {{ app()->getLocale() === 'en' ? 'Sweden' : (app()->getLocale() === 'de' ? 'Schweiz' : 'Sverige') }}
@@ -92,9 +91,8 @@
                 <div class="col-lg-4 col-12 mb-4">
                     <h5 class="site-footer-title mb-3">{{ __('messages.footer.quick_links') }}</h5>
                     <ul class="footer-menu">
-                        <li class="footer-menu-item"><a href="{{ route('jobs.index') }}" class="footer-menu-link">{{ __('messages.nav.jobs') }}</a></li>
                         <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.for_employers') }}</a></li>
-                        <li class="footer-menu-item"><a href="{{ route('about') }}" class="footer-menu-link">{{ __('messages.nav.about') }}</a></li>
+                        <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.free_services') }}</a></li>
                         <li class="footer-menu-item"><a href="{{ route('contact') }}" class="footer-menu-link">{{ __('messages.nav.contact') }}</a></li>
                     </ul>
                 </div>

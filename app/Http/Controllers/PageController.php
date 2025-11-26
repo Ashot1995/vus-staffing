@@ -25,4 +25,9 @@ class PageController extends Controller
     {
         return view('pages.dashboard');
     }
+
+    public function privacy()
+    {
+        return view('pages.privacy');
+    }
 }

@@ -3,15 +3,17 @@
 return [
     // Navigation
     'nav.home' => 'Home',
-    'nav.jobs' => 'Jobs',
+    'nav.jobs' => 'Vacant Positions',
     'nav.for_employers' => 'For Employers',
+    'nav.for_job_seekers' => 'For Job Seekers',
     'nav.about' => 'About Us',
-    'nav.contact' => 'Contact',
+    'nav.contact' => 'Contact Us',
     'nav.login' => 'Log In',
     'nav.profile' => 'My Profile',
+    'nav.free_services' => 'Free Services',
     
     // Home Page
-    'home.hero.title' => 'VUS Bemanning - Your Partner for Recruitment',
+    'home.hero.title' => 'Welcome to VUS',
     'home.hero.subtitle' => 'Professional Staffing',
     'home.hero.location' => 'All of Sweden',
     'home.find_job.title' => 'Find Your Dream Job',
@@ -23,7 +25,7 @@ return [
     'home.employers.title' => 'For Employers',
     'home.employers.description' => 'Looking for qualified staff? We help you find the right employees for your needs.',
     'home.employers.button' => 'Learn More',
-    'home.why_choose.title' => 'Why Choose VUS Bemanning?',
+    'home.why_choose.title' => 'Why Choose VUS?',
     'home.professional_service.title' => 'Professional Service',
     'home.professional_service.description' => 'We offer high-quality staffing and recruitment services for companies throughout Sweden.',
     'home.broad_competence.title' => 'Broad Competence',
@@ -35,11 +37,19 @@ return [
     'home.cta.jobs' => 'View Available Jobs',
     'home.cta.contact' => 'Contact Us',
     
+    // Customer Reviews
+    'home.reviews.title' => 'Customer Reviews',
+    'home.reviews.subtitle' => 'What our clients say about us',
+    
+    // Cooperation Partners
+    'home.partners.title' => 'Cooperation Partners',
+    'home.partners.subtitle' => 'We work with trusted partners',
+    
     // About Page
-    'about.title' => 'About VUS Bemanning',
+    'about.title' => 'About VUS',
     'about.subtitle' => 'Your partner for recruitment and staffing',
-    'about.welcome.title' => 'Welcome to VUS Entreprenad & Bemanning AB',
-    'about.welcome.description' => 'VUS Entreprenad & Bemanning AB is a professional recruitment and staffing company that helps both employers and job seekers find the right match.',
+    'about.welcome.title' => 'Welcome to VUS',
+    'about.welcome.description' => 'VUS is a professional recruitment and staffing company that helps both employers and job seekers find the right match.',
     'about.welcome.description2' => 'We work with companies throughout Sweden and offer solutions in recruitment, staffing and consulting services. Our goal is to create long-term relationships and ensure that both our customers and candidates are satisfied.',
     'about.vision.title' => 'Our Vision',
     'about.vision.description' => 'To be the obvious choice for companies and individuals seeking qualified personnel or new career opportunities.',
@@ -56,14 +66,14 @@ return [
     'employers.title' => 'For Employers',
     'employers.subtitle' => 'We help you find the right expertise',
     'employers.services.title' => 'Our Services',
-    'employers.services.subtitle' => 'VUS Entreprenad & Bemanning AB offers professional recruitment and staffing',
+    'employers.services.subtitle' => 'VUS offers professional recruitment and staffing',
     'employers.recruitment.title' => 'Recruitment',
     'employers.recruitment.description' => 'We help you find the right candidates for permanent positions through our extensive database and network.',
     'employers.staffing.title' => 'Staffing',
     'employers.staffing.description' => 'Quick access to qualified personnel for both short and long assignments in various industries.',
     'employers.consulting.title' => 'Consulting Services',
     'employers.consulting.description' => 'Experienced consultants in various specialist areas for your projects and special needs.',
-    'employers.why_choose.title' => 'Why Choose VUS Bemanning?',
+    'employers.why_choose.title' => 'Why Choose VUS?',
     'employers.why_choose.experience' => 'Extensive experience in recruitment and staffing',
     'employers.why_choose.network' => 'Comprehensive network of qualified candidates',
     'employers.why_choose.fast' => 'Fast and efficient matching process',
@@ -126,7 +136,7 @@ return [
     // Footer
     'footer.quick_links' => 'Quick Links',
     'footer.follow_us' => 'Follow Us',
-    'footer.copyright' => '© :year VUS Entreprenad & Bemanning AB',
+    'footer.copyright' => '© :year VUS',
     
     // Apply Page
     'apply.title' => 'Apply',
@@ -169,6 +179,21 @@ return [
     'dashboard.status.shortlisted' => 'Shortlisted',
     'dashboard.status.reviewed' => 'Reviewed',
     'dashboard.status.pending' => 'Pending',
+    
+    // Cookie Banner
+    'cookie.text' => 'We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.',
+    'cookie.accept' => 'Accept',
+    'cookie.privacy_policy' => 'Privacy Policy',
+    'cookie.consent_given' => 'Cookie consent saved.',
+    
+    // Newsletter
+    'newsletter.title' => 'Subscribe to Newsletter',
+    'newsletter.subtitle' => 'Get notified about new job openings',
+    'newsletter.email_placeholder' => 'Enter your email',
+    'newsletter.subscribe_button' => 'Subscribe',
+    'newsletter.subscribed' => 'Successfully subscribed to newsletter!',
+    'newsletter.already_subscribed' => 'This email is already subscribed.',
+    'newsletter.error' => 'An error occurred. Please try again.',
     
     // Common
     'common.read_more' => 'Read More',
