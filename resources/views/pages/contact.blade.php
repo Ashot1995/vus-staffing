@@ -85,7 +85,7 @@
 
                     <div class="mb-4">
                         <h5><i class="bi-geo-alt me-2"></i> {{ __('messages.contact.address') }}</h5>
-                        <p>{{ app()->getLocale() === 'en' ? 'Sweden' : (app()->getLocale() === 'de' ? 'Schweiz' : 'Sverige') }}</p>
+                        <p>{{ app()->getLocale() === 'en' ? 'Sweden' : 'Sverige' }}</p>
                     </div>
 
                     <div class="mb-4">

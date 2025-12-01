@@ -146,6 +146,7 @@ return [
     'apply.cover_letter_placeholder' => 'Tell us why you are the right person for this job...',
     'apply.submit' => 'Submit Application',
     'apply.cancel' => 'Cancel',
+    'apply.gdpr_consent' => 'I consent to my personal data being processed in accordance with GDPR.',
     
     // Spontaneous Application Page
     'spontaneous.title' => 'Spontaneous Application',

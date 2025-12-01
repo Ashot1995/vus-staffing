@@ -19,7 +19,7 @@ class SetLocale
     {
         $locale = Session::get('locale', config('app.locale'));
         
-        if (!in_array($locale, ['en', 'de'])) {
+        if (!in_array($locale, ['en', 'sv'])) {
             $locale = 'en';
         }
 

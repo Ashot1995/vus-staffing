@@ -1,7 +1,7 @@
 @php
     $currentLocale = app()->getLocale();
     $isEnglish = $currentLocale === 'en';
-    $isSwiss = $currentLocale === 'de';
+    $isSwedish = $currentLocale === 'sv';
 @endphp
 
 <div class="language-switcher-container" style="position: relative; display: inline-block;">
@@ -14,12 +14,12 @@
                 <span>EN</span>
             </span>
         </a>
-        <a href="{{ route('language.switch', 'de') }}" 
-           class="language-option {{ $isSwiss ? 'active' : '' }}" 
-           style="flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: {{ $isSwiss ? '#fff' : '#706f6c' }}; background: {{ $isSwiss ? '#1b1b18' : 'transparent' }}; transition: all 0.3s ease; position: relative; z-index: 2; font-size: 13px; font-weight: 500;">
+        <a href="{{ route('language.switch', 'sv') }}" 
+           class="language-option {{ $isSwedish ? 'active' : '' }}" 
+           style="flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: {{ $isSwedish ? '#fff' : '#706f6c' }}; background: {{ $isSwedish ? '#1b1b18' : 'transparent' }}; transition: all 0.3s ease; position: relative; z-index: 2; font-size: 13px; font-weight: 500;">
             <span style="display: flex; align-items: center; gap: 5px;">
-                <span style="font-size: 16px; line-height: 1;">🇨🇭</span>
-                <span>DE</span>
+                <span style="font-size: 16px; line-height: 1;">🇸🇪</span>
+                <span>SV</span>
             </span>
         </a>
     </div>

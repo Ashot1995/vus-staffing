@@ -78,7 +78,7 @@
                     <h5 class="site-footer-title mb-3">VUS</h5>
                     <p class="text-white d-flex mb-2">
                         <i class="bi-geo-alt me-2"></i>
-                        {{ app()->getLocale() === 'en' ? 'Sweden' : (app()->getLocale() === 'de' ? 'Schweiz' : 'Sverige') }}
+                        {{ app()->getLocale() === 'en' ? 'Sweden' : 'Sverige' }}
                     </p>
                     <p class="text-white d-flex">
                         <i class="bi-envelope me-2"></i>
