@@ -22,11 +22,7 @@
                     <h3 class="mb-4">{{ __('messages.spontaneous.send_title') }}</h3>
                     <p class="mb-4">{{ __('messages.spontaneous.description') }}</p>
 
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                    @include('components.success-alert')
 
                     @auth
                         <form method="POST" action="{{ route('jobs.submit-spontaneous') }}" enctype="multipart/form-data">
@@ -44,6 +40,28 @@
                                 <label class="form-label">{{ __('messages.spontaneous.cover_letter') }} *</label>
                                 <textarea name="cover_letter" rows="10" class="form-control @error('cover_letter') is-invalid @enderror" placeholder="{{ __('messages.spontaneous.cover_letter_placeholder') }}" required>{{ old('cover_letter') }}</textarea>
                                 @error('cover_letter')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">{{ __('messages.apply.start_date') }} *</label>
+                                <select name="start_date_option" id="start_date_option" class="form-control @error('start_date_option') is-invalid @enderror" required onchange="toggleCustomDate()">
+                                    <option value="">{{ __('messages.apply.start_date_placeholder') }}</option>
+                                    <option value="immediately" {{ old('start_date_option') == 'immediately' ? 'selected' : '' }}>{{ __('messages.apply.start_date_option.immediately') }}</option>
+                                    <option value="one_week" {{ old('start_date_option') == 'one_week' ? 'selected' : '' }}>{{ __('messages.apply.start_date_option.one_week') }}</option>
+                                    <option value="one_month" {{ old('start_date_option') == 'one_month' ? 'selected' : '' }}>{{ __('messages.apply.start_date_option.one_month') }}</option>
+                                    <option value="custom" {{ old('start_date_option') == 'custom' ? 'selected' : '' }}>{{ __('messages.apply.start_date_option.custom') }}</option>
+                                </select>
+                                @error('start_date_option')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-4" id="custom_date_container" style="display: none;">
+                                <label class="form-label">{{ __('messages.apply.start_date_custom') }} *</label>
+                                <input type="date" name="start_date" id="start_date" class="form-control @error('start_date') is-invalid @enderror" value="{{ old('start_date') }}" min="{{ date('Y-m-d') }}">
+                                @error('start_date')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -76,4 +94,26 @@
         </div>
     </div>
 </section>
+
+<script>
+    function toggleCustomDate() {
+        const option = document.getElementById('start_date_option').value;
+        const customDateContainer = document.getElementById('custom_date_container');
+        const customDateInput = document.getElementById('start_date');
+        
+        if (option === 'custom') {
+            customDateContainer.style.display = 'block';
+            customDateInput.required = true;
+        } else {
+            customDateContainer.style.display = 'none';
+            customDateInput.required = false;
+            customDateInput.value = '';
+        }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleCustomDate();
+    });
+</script>
 @endsection

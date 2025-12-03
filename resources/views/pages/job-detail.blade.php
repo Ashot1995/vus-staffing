@@ -16,6 +16,7 @@
 
 <section class="section-padding">
     <div class="container">
+        @include('components.success-alert')
         <div class="row">
             <div class="col-lg-8 col-12">
                 <div class="custom-block bg-white shadow-lg p-5 mb-4">

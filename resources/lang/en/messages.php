@@ -147,6 +147,13 @@ return [
     'apply.submit' => 'Submit Application',
     'apply.cancel' => 'Cancel',
     'apply.gdpr_consent' => 'I consent to my personal data being processed in accordance with GDPR.',
+    'apply.start_date' => 'When can you start work?',
+    'apply.start_date_option.immediately' => 'Immediately',
+    'apply.start_date_option.one_week' => 'After one week',
+    'apply.start_date_option.one_month' => 'After one month',
+    'apply.start_date_option.custom' => 'Custom date',
+    'apply.start_date_custom' => 'Select custom date',
+    'apply.start_date_placeholder' => 'Select date',
     
     // Spontaneous Application Page
     'spontaneous.title' => 'Spontaneous Application',
@@ -195,6 +202,15 @@ return [
     'newsletter.subscribed' => 'Successfully subscribed to newsletter!',
     'newsletter.already_subscribed' => 'This email is already subscribed.',
     'newsletter.error' => 'An error occurred. Please try again.',
+    
+    // Profile
+    'profile.cv' => 'CV / Resume',
+    'profile.cv_description' => 'Upload or update your CV. This CV will be used for all your job applications.',
+    'profile.current_cv' => 'Current CV:',
+    'profile.view_current_cv' => 'View Current CV',
+    'profile.upload_new_cv' => 'Upload New CV',
+    'profile.cv_formats' => 'Accepted formats: PDF, DOC, DOCX. Maximum size: 5MB',
+    'profile.cv_updated' => 'CV Updated.',
     
     // Common
     'common.read_more' => 'Read More',

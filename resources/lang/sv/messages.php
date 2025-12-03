@@ -147,6 +147,13 @@ return [
     'apply.submit' => 'Skicka ansökan',
     'apply.cancel' => 'Avbryt',
     'apply.gdpr_consent' => 'Jag samtycker till att mina personuppgifter behandlas enligt GDPR.',
+    'apply.start_date' => 'När kan du börja arbeta?',
+    'apply.start_date_option.immediately' => 'Omedelbart',
+    'apply.start_date_option.one_week' => 'Efter en vecka',
+    'apply.start_date_option.one_month' => 'Efter en månad',
+    'apply.start_date_option.custom' => 'Anpassat datum',
+    'apply.start_date_custom' => 'Välj anpassat datum',
+    'apply.start_date_placeholder' => 'Välj datum',
     
     // Spontaneous Application Page
     'spontaneous.title' => 'Spontanansökan',
@@ -196,10 +203,20 @@ return [
     'newsletter.already_subscribed' => 'Denna e-post är redan prenumererad.',
     'newsletter.error' => 'Ett fel uppstod. Försök igen.',
     
+    // Profile
+    'profile.cv' => 'CV / Meritförteckning',
+    'profile.cv_description' => 'Ladda upp eller uppdatera ditt CV. Detta CV kommer att användas för alla dina jobbansökningar.',
+    'profile.current_cv' => 'Nuvarande CV:',
+    'profile.view_current_cv' => 'Visa nuvarande CV',
+    'profile.upload_new_cv' => 'Ladda upp nytt CV',
+    'profile.cv_formats' => 'Accepterade format: PDF, DOC, DOCX. Maximal storlek: 5MB',
+    'profile.cv_updated' => 'CV uppdaterat.',
+    
     // Common
     'common.read_more' => 'Läs mer',
     'common.learn_more' => 'Läs mer',
     'common.contact_us' => 'Kontakta oss',
     'common.view_jobs' => 'Visa tjänster',
 ];
+
 

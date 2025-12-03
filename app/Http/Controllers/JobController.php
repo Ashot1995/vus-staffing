@@ -58,9 +58,28 @@ class JobController extends Controller
             'cover_letter' => 'required|string',
             'cv' => 'required|file|mimes:pdf,doc,docx|max:5120',
             'gdpr_consent' => 'required|accepted',
+            'start_date_option' => 'required|in:immediately,one_week,one_month,custom',
+            'start_date' => 'required_if:start_date_option,custom|nullable|date|after_or_equal:today',
         ]);
 
         $cvPath = $request->file('cv')->store('cvs', 'public');
+
+        // Calculate start date based on option
+        $startDate = null;
+        switch ($validated['start_date_option']) {
+            case 'immediately':
+                $startDate = now()->toDateString();
+                break;
+            case 'one_week':
+                $startDate = now()->addWeek()->toDateString();
+                break;
+            case 'one_month':
+                $startDate = now()->addMonth()->toDateString();
+                break;
+            case 'custom':
+                $startDate = $validated['start_date'];
+                break;
+        }
 
         Application::create([
             'job_id' => $job->id,
@@ -71,6 +90,8 @@ class JobController extends Controller
             'status' => 'pending',
             'gdpr_consent' => true,
             'gdpr_consent_at' => now(),
+            'start_date_option' => $validated['start_date_option'],
+            'start_date' => $startDate,
         ]);
 
         // Update user GDPR consent if not set
@@ -90,9 +111,28 @@ class JobController extends Controller
             'cover_letter' => 'required|string',
             'cv' => 'required|file|mimes:pdf,doc,docx|max:5120',
             'gdpr_consent' => 'required|accepted',
+            'start_date_option' => 'required|in:immediately,one_week,one_month,custom',
+            'start_date' => 'required_if:start_date_option,custom|nullable|date|after_or_equal:today',
         ]);
 
         $cvPath = $request->file('cv')->store('cvs', 'public');
+
+        // Calculate start date based on option
+        $startDate = null;
+        switch ($validated['start_date_option']) {
+            case 'immediately':
+                $startDate = now()->toDateString();
+                break;
+            case 'one_week':
+                $startDate = now()->addWeek()->toDateString();
+                break;
+            case 'one_month':
+                $startDate = now()->addMonth()->toDateString();
+                break;
+            case 'custom':
+                $startDate = $validated['start_date'];
+                break;
+        }
 
         Application::create([
             'job_id' => null,
@@ -103,6 +143,8 @@ class JobController extends Controller
             'status' => 'pending',
             'gdpr_consent' => true,
             'gdpr_consent_at' => now(),
+            'start_date_option' => $validated['start_date_option'],
+            'start_date' => $startDate,
         ]);
 
         // Update user GDPR consent if not set

@@ -14,10 +14,13 @@ class Application extends Model
         'cover_letter',
         'is_spontaneous',
         'status',
+        'start_date_option',
+        'start_date',
     ];
 
     protected $casts = [
         'is_spontaneous' => 'boolean',
+        'start_date' => 'date',
     ];
 
     public function job(): BelongsTo
