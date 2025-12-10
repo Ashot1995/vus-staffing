@@ -35,7 +35,14 @@ class JobController extends Controller
             abort(404);
         }
 
-        return view('pages.job-detail', compact('job'));
+        $existingApplication = null;
+        if (auth()->check()) {
+            $existingApplication = Application::where('job_id', $job->id)
+                ->where('user_id', auth()->id())
+                ->first();
+        }
+
+        return view('pages.job-detail', compact('job', 'existingApplication'));
     }
 
     public function spontaneous()
@@ -54,6 +61,17 @@ class JobController extends Controller
 
     public function submitApplication(Request $request, Job $job)
     {
+        // Check if user already applied to this job
+        $existingApplication = Application::where('job_id', $job->id)
+            ->where('user_id', auth()->id())
+            ->first();
+
+        if ($existingApplication) {
+            return redirect()->back()->withErrors([
+                'application' => 'You have already applied to this job. You can edit your application from your profile page.'
+            ])->withInput();
+        }
+
         $validated = $request->validate([
             'cover_letter' => 'required|string',
             'cv' => 'required|file|mimes:pdf,doc,docx|max:5120',

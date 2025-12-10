@@ -26,9 +26,31 @@
             </a>
 
             @guest
-                <a class="nav-link custom-btn btn d-lg-none" href="{{ route('login') }}">{{ __('messages.nav.login') }}</a>
+                <div class="d-lg-none">
+                    <a class="nav-link btn btn-outline-primary btn-sm me-2" href="{{ route('login') }}">{{ __('messages.nav.login') }}</a>
+                    <a class="nav-link custom-btn btn btn-sm" href="{{ route('register') }}">{{ __('messages.nav.register') }}</a>
+                </div>
             @else
-                <a class="nav-link custom-btn btn d-lg-none" href="{{ route('dashboard') }}">{{ __('messages.nav.profile') }}</a>
+                <div class="d-lg-none dropdown">
+                    <a class="nav-link custom-btn btn btn-sm dropdown-toggle" href="#" id="mobileUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ auth()->user()->name }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="mobileUserDropdown">
+                        <li><a class="dropdown-item" href="{{ route('dashboard') }}"><i class="bi-speedometer2 me-2"></i>{{ __('messages.nav.profile') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bi-gear me-2"></i>{{ __('messages.dashboard.edit_profile') }}</a></li>
+                        @if(auth()->user()->is_admin)
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url('/admin') }}" target="_blank"><i class="bi-shield-check me-2"></i>{{ __('Admin Panel') }}</a></li>
+                        @endif
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="dropdown-item"><i class="bi-box-arrow-right me-2"></i>{{ __('messages.nav.logout') }}</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
             @endguest
 
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -52,13 +74,33 @@
                         <x-language-switcher />
                     </li>
                     @guest
-{{--                        <li class="nav-item">--}}
-{{--                            <a class="nav-link custom-btn btn d-none d-lg-block" href="{{ route('login') }}">{{ __('messages.nav.login') }}</a>--}}
-{{--                        </li>--}}
+                        <li class="nav-item me-2">
+                            <a class="nav-link btn btn-outline-primary btn-sm d-none d-lg-block" href="{{ route('login') }}">{{ __('messages.nav.login') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link custom-btn btn btn-sm d-none d-lg-block" href="{{ route('register') }}">{{ __('messages.nav.register') }}</a>
+                        </li>
                     @else
-{{--                        <li class="nav-item">--}}
-{{--                            <a class="nav-link custom-btn btn d-none d-lg-block" href="{{ route('dashboard') }}">{{ __('messages.nav.profile') }}</a>--}}
-{{--                        </li>--}}
+                        <li class="nav-item dropdown me-2">
+                            <a class="nav-link dropdown-toggle d-none d-lg-block" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi-person-circle me-1"></i>{{ auth()->user()->name }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="{{ route('dashboard') }}"><i class="bi-speedometer2 me-2"></i>{{ __('messages.nav.profile') }}</a></li>
+                                <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bi-gear me-2"></i>{{ __('messages.dashboard.edit_profile') }}</a></li>
+                                @if(auth()->user()->is_admin)
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{{ url('/admin') }}" target="_blank"><i class="bi-shield-check me-2"></i>{{ __('Admin Panel') }}</a></li>
+                                @endif
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item"><i class="bi-box-arrow-right me-2"></i>{{ __('messages.nav.logout') }}</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
                     @endguest
                 </ul>
             </div>

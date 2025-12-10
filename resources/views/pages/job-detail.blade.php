@@ -53,7 +53,16 @@
                     </ul>
 
                     @auth
-                        <a href="{{ route('jobs.apply', $job) }}" class="custom-btn btn w-100 mt-3">{{ __('messages.jobs.detail.apply_now') }}</a>
+                        @if($existingApplication)
+                            <div class="alert alert-info mt-3 mb-2">
+                                <p class="mb-2">{{ __('messages.jobs.detail.already_applied') }}</p>
+                                <a href="{{ route('profile.applications.edit', $existingApplication->id) }}" class="btn btn-sm btn-outline-primary w-100">
+                                    {{ __('messages.jobs.detail.edit_application') }}
+                                </a>
+                            </div>
+                        @else
+                            <a href="{{ route('jobs.apply', $job) }}" class="custom-btn btn w-100 mt-3">{{ __('messages.jobs.detail.apply_now') }}</a>
+                        @endif
                     @else
                         <p class="text-center mt-3 mb-2">{{ __('messages.jobs.detail.login_required') }}</p>
                         <a href="{{ route('login') }}" class="custom-btn btn w-100">{{ __('messages.nav.login') }}</a>

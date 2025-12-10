@@ -21,7 +21,7 @@ class ApplicationResource extends Resource
     
     protected static ?string $navigationLabel = 'Applications';
     
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -59,32 +59,20 @@ class ApplicationResource extends Resource
                         
                         Forms\Components\Tabs\Tab::make('CV & Cover Letter')
                             ->schema([
-                                Forms\Components\Section::make('Application CV')
-                                    ->description('CV uploaded with this specific application')
+                                Forms\Components\Section::make('CV Document')
+                                    ->description('View or download the applicant\'s CV')
                                     ->schema([
                                         Forms\Components\ViewField::make('cv_path')
-                                            ->label('Application CV')
+                                            ->label('Current CV')
                                             ->view('filament.components.cv-download')
                                             ->visible(fn ($record) => $record && $record->cv_path),
                                         Forms\Components\FileUpload::make('cv_path')
-                                            ->label('Upload/Update Application CV')
+                                            ->label('Upload/Update CV')
                                             ->directory('cvs')
                                             ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
                                             ->maxSize(5120)
                                             ->downloadable()
                                             ->deletable(),
-                                    ]),
-                                Forms\Components\Section::make('User Profile CV')
-                                    ->description('CV from user\'s profile (if available)')
-                                    ->schema([
-                                        Forms\Components\ViewField::make('user.cv_path')
-                                            ->label('Profile CV')
-                                            ->view('filament.components.cv-download')
-                                            ->visible(fn ($record) => $record && $record->user && $record->user->cv_path),
-                                        Forms\Components\Placeholder::make('no_profile_cv')
-                                            ->label('')
-                                            ->content('User has not uploaded a profile CV.')
-                                            ->visible(fn ($record) => !$record || !$record->user || !$record->user->cv_path),
                                     ]),
                                 Forms\Components\Section::make('Cover Letter')
                                     ->description('Read the applicant\'s cover letter')
@@ -93,27 +81,39 @@ class ApplicationResource extends Resource
                                             ->label('Cover Letter Content')
                                             ->rows(15)
                                             ->columnSpanFull()
-                                            ->disabled()
                                             ->extraAttributes(['class' => 'font-mono text-sm']),
                                     ]),
                             ]),
                         
                         Forms\Components\Tabs\Tab::make('Dates & Timeline')
                             ->schema([
-                                Forms\Components\TextInput::make('start_date_option')
+                                Forms\Components\Select::make('start_date_option')
                                     ->label('Start Date Option')
-                                    ->disabled()
-                                    ->formatStateUsing(fn ($state) => match($state) {
+                                    ->options([
                                         'immediately' => 'Immediately',
                                         'one_week' => 'After one week',
                                         'one_month' => 'After one month',
                                         'custom' => 'Custom date',
-                                        default => $state,
+                                    ])
+                                    ->live()
+                                    ->afterStateUpdated(function ($state, callable $set, $get) {
+                                        if ($state !== 'custom') {
+                                            // Calculate date based on option
+                                            $calculatedDate = match($state) {
+                                                'immediately' => now()->toDateString(),
+                                                'one_week' => now()->addWeek()->toDateString(),
+                                                'one_month' => now()->addMonth()->toDateString(),
+                                                default => null,
+                                            };
+                                            $set('start_date', $calculatedDate);
+                                        }
                                     }),
                                 Forms\Components\DatePicker::make('start_date')
                                     ->label('Expected Start Date')
-                                    ->disabled()
-                                    ->displayFormat('Y-m-d'),
+                                    ->displayFormat('Y-m-d')
+                                    ->visible(fn ($get) => $get('start_date_option') === 'custom')
+                                    ->required(fn ($get) => $get('start_date_option') === 'custom')
+                                    ->helperText('Only required when "Custom date" is selected'),
                                 Forms\Components\DateTimePicker::make('created_at')
                                     ->label('Application Date')
                                     ->disabled()
@@ -187,11 +187,6 @@ class ApplicationResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('view_user')
-                    ->label('View User')
-                    ->icon('heroicon-o-user')
-                    ->url(fn ($record) => \App\Filament\Resources\UserResource::getUrl('view', ['record' => $record->user_id]))
-                    ->visible(fn ($record) => $record->user_id),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
