@@ -13,7 +13,7 @@ return [
     'nav.logout' => 'Log Out',
     'nav.profile' => 'My Profile',
     'nav.free_services' => 'Free Services',
-    
+
     // Home Page
     'home.hero.title' => 'Welcome to VUS',
     'home.hero.subtitle' => 'Professional Staffing',
@@ -38,15 +38,15 @@ return [
     'home.cta.description' => 'Whether you are looking for a job or seeking qualified staff, we are here to help you.',
     'home.cta.jobs' => 'View Available Jobs',
     'home.cta.contact' => 'Contact Us',
-    
+
     // Customer Reviews
     'home.reviews.title' => 'Customer Reviews',
     'home.reviews.subtitle' => 'What our clients say about us',
-    
+
     // Cooperation Partners
     'home.partners.title' => 'Cooperation Partners',
     'home.partners.subtitle' => 'We work with trusted partners',
-    
+
     // About Page
     'about.title' => 'About VUS',
     'about.subtitle' => 'Your partner for recruitment and staffing',
@@ -63,7 +63,7 @@ return [
     'about.values.transparency' => 'Transparency and honesty',
     'about.cta.title' => 'Want to Know More?',
     'about.cta.button' => 'Contact Us',
-    
+
     // For Employers Page
     'employers.title' => 'For Employers',
     'employers.subtitle' => 'We help you find the right expertise',
@@ -84,7 +84,7 @@ return [
     'employers.cta.title' => 'Looking for Staff?',
     'employers.cta.description' => 'Contact us today to discuss your needs',
     'employers.cta.button' => 'Contact Us',
-    
+
     // Jobs Page
     'jobs.title' => 'Available Jobs',
     'jobs.subtitle' => 'Find your next career opportunity with us',
@@ -120,7 +120,7 @@ return [
     'jobs.detail.login_required' => 'You must be logged in to apply',
     'jobs.detail.register' => 'Register',
     'jobs.detail.share' => 'Share job',
-    
+
     // Contact Page
     'contact.title' => 'Contact Us',
     'contact.subtitle' => 'We are happy to help you',
@@ -136,12 +136,12 @@ return [
     'contact.form.phone' => 'Phone',
     'contact.form.subject' => 'Subject',
     'contact.form.message' => 'Message',
-    
+
     // Footer
     'footer.quick_links' => 'Quick Links',
     'footer.follow_us' => 'Follow Us',
     'footer.copyright' => '© :year VUS',
-    
+
     // Apply Page
     'apply.title' => 'Apply',
     'apply.apply_to' => 'Apply to',
@@ -158,7 +158,7 @@ return [
     'apply.start_date_option.custom' => 'Custom date',
     'apply.start_date_custom' => 'Select custom date',
     'apply.start_date_placeholder' => 'Select date',
-    
+
     // Spontaneous Application Page
     'spontaneous.title' => 'Spontaneous Application',
     'spontaneous.subtitle' => 'Submit your application even if there is no available position that suits you right now',
@@ -170,7 +170,7 @@ return [
     'spontaneous.submit' => 'Submit Spontaneous Application',
     'spontaneous.login_required' => 'You must be logged in to submit a spontaneous application.',
     'spontaneous.register' => 'Register',
-    
+
     // Dashboard Page
     'dashboard.title' => 'My Profile',
     'dashboard.welcome' => 'Welcome',
@@ -210,13 +210,13 @@ return [
     'dashboard.table.no_cover_letter' => 'No cover letter provided',
     'dashboard.table.close' => 'Close',
     'dashboard.table.job_application' => 'Job Application',
-    
+
     // Cookie Banner
     'cookie.text' => 'We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.',
     'cookie.accept' => 'Accept',
     'cookie.privacy_policy' => 'Privacy Policy',
     'cookie.consent_given' => 'Cookie consent saved.',
-    
+
     // Newsletter
     'newsletter.title' => 'Subscribe to Newsletter',
     'newsletter.subtitle' => 'Get notified about new job openings',
@@ -225,7 +225,7 @@ return [
     'newsletter.subscribed' => 'Successfully subscribed to newsletter!',
     'newsletter.already_subscribed' => 'This email is already subscribed.',
     'newsletter.error' => 'An error occurred. Please try again.',
-    
+
     // Profile
     'profile.title' => 'My Profile',
     'profile.welcome' => 'Welcome',
@@ -278,11 +278,10 @@ return [
     'profile.applications.expected_start_date' => 'Expected Start Date',
     'profile.applications.application_date' => 'Application Date',
     'profile.applications.last_updated' => 'Last Updated',
-    
+
     // Common
     'common.read_more' => 'Read More',
     'common.learn_more' => 'Learn More',
     'common.contact_us' => 'Contact Us',
     'common.view_jobs' => 'View Jobs',
 ];
-

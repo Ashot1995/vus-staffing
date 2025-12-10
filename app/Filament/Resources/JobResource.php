@@ -3,24 +3,21 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\JobResource\Pages;
-use App\Filament\Resources\JobResource\RelationManagers;
 use App\Models\Job;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class JobResource extends Resource
 {
     protected static ?string $model = Job::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
-    
+
     protected static ?string $navigationLabel = 'Jobs';
-    
+
     protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form

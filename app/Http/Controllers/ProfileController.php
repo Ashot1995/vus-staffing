@@ -28,22 +28,22 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = $request->user();
-        
+
         // Handle CV upload
         if ($request->hasFile('cv')) {
             // Delete old CV if exists
             if ($user->cv_path && Storage::disk('public')->exists($user->cv_path)) {
                 Storage::disk('public')->delete($user->cv_path);
             }
-            
+
             // Store new CV
             $cvPath = $request->file('cv')->store('cvs', 'public');
             $user->cv_path = $cvPath;
             $user->save();
-            
+
             return Redirect::route('profile.edit')->with('status', 'profile-updated');
         }
-        
+
         // Update profile information (name, email)
         $validated = $request->validated();
         $user->fill($validated);
@@ -106,7 +106,7 @@ class ProfileController extends Controller
             if ($application->cv_path && Storage::disk('public')->exists($application->cv_path)) {
                 Storage::disk('public')->delete($application->cv_path);
             }
-            
+
             // Store new CV
             $cvPath = $request->file('cv')->store('cvs', 'public');
             $application->cv_path = $cvPath;

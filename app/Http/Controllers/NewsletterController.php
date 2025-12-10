@@ -33,6 +33,7 @@ class NewsletterController extends Controller
                     'subscribed_at' => now(),
                     'unsubscribed_at' => null,
                 ]);
+
                 return back()->with('newsletter_success', __('messages.newsletter.subscribed'));
             }
         }

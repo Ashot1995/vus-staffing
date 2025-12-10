@@ -5,7 +5,6 @@ namespace App\Filament\Resources\ApplicationResource\Pages;
 use App\Filament\Resources\ApplicationResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
-use Illuminate\Database\Eloquent\Model;
 
 class EditApplication extends EditRecord
 {
@@ -34,7 +33,7 @@ class EditApplication extends EditRecord
                     break;
                 case 'custom':
                     // Keep the custom date if provided
-                    if (!isset($data['start_date']) || empty($data['start_date'])) {
+                    if (! isset($data['start_date']) || empty($data['start_date'])) {
                         $data['start_date'] = null;
                     }
                     break;

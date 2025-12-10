@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\JobController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/language/{locale}', [\App\Http\Controllers\LanguageController::class, 'switch'])->name('language.switch');
@@ -29,11 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
     Route::get('/profile/applications', [ProfileController::class, 'applications'])->name('profile.applications');
     Route::get('/profile/applications/{id}/edit', [ProfileController::class, 'editApplication'])->name('profile.applications.edit');
     Route::patch('/profile/applications/{id}', [ProfileController::class, 'updateApplication'])->name('profile.applications.update');
-    
+
     Route::get('/jobb/{job}/ansok', [JobController::class, 'apply'])->name('jobs.apply');
     Route::post('/jobb/{job}/ansok', [JobController::class, 'submitApplication'])->name('jobs.submit-application');
     Route::post('/spontanansok', [JobController::class, 'submitSpontaneous'])->name('jobs.submit-spontaneous');

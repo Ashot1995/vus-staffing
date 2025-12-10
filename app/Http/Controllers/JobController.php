@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Job;
 use App\Models\Application;
+use App\Models\Job;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -13,11 +13,11 @@ class JobController extends Controller
         $query = Job::where('is_published', true);
 
         if ($request->filled('search')) {
-            $query->where('title', 'like', '%' . $request->search . '%');
+            $query->where('title', 'like', '%'.$request->search.'%');
         }
 
         if ($request->filled('location')) {
-            $query->where('location', 'like', '%' . $request->location . '%');
+            $query->where('location', 'like', '%'.$request->location.'%');
         }
 
         if ($request->filled('employment_type')) {
@@ -31,7 +31,7 @@ class JobController extends Controller
 
     public function show(Job $job)
     {
-        if (!$job->is_published) {
+        if (! $job->is_published) {
             abort(404);
         }
 
@@ -52,7 +52,7 @@ class JobController extends Controller
 
     public function apply(Job $job)
     {
-        if (!$job->is_published) {
+        if (! $job->is_published) {
             abort(404);
         }
 
@@ -68,7 +68,7 @@ class JobController extends Controller
 
         if ($existingApplication) {
             return redirect()->back()->withErrors([
-                'application' => 'You have already applied to this job. You can edit your application from your profile page.'
+                'application' => 'You have already applied to this job. You can edit your application from your profile page.',
             ])->withInput();
         }
 
@@ -114,7 +114,7 @@ class JobController extends Controller
 
         // Update user GDPR consent if not set
         $user = auth()->user();
-        if (!$user->gdpr_consent_at) {
+        if (! $user->gdpr_consent_at) {
             $user->update([
                 'gdpr_consent_at' => now(),
             ]);
@@ -167,7 +167,7 @@ class JobController extends Controller
 
         // Update user GDPR consent if not set
         $user = auth()->user();
-        if (!$user->gdpr_consent_at) {
+        if (! $user->gdpr_consent_at) {
             $user->update([
                 'gdpr_consent_at' => now(),
             ]);

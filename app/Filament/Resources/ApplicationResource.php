@@ -3,24 +3,21 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ApplicationResource\Pages;
-use App\Filament\Resources\ApplicationResource\RelationManagers;
 use App\Models\Application;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ApplicationResource extends Resource
 {
     protected static ?string $model = Application::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
-    
+
     protected static ?string $navigationLabel = 'Applications';
-    
+
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
@@ -56,7 +53,7 @@ class ApplicationResource extends Resource
                                     ->required(),
                             ])
                             ->columns(2),
-                        
+
                         Forms\Components\Tabs\Tab::make('CV & Cover Letter')
                             ->schema([
                                 Forms\Components\Section::make('CV Document')
@@ -84,7 +81,7 @@ class ApplicationResource extends Resource
                                             ->extraAttributes(['class' => 'font-mono text-sm']),
                                     ]),
                             ]),
-                        
+
                         Forms\Components\Tabs\Tab::make('Dates & Timeline')
                             ->schema([
                                 Forms\Components\Select::make('start_date_option')
@@ -99,7 +96,7 @@ class ApplicationResource extends Resource
                                     ->afterStateUpdated(function ($state, callable $set, $get) {
                                         if ($state !== 'custom') {
                                             // Calculate date based on option
-                                            $calculatedDate = match($state) {
+                                            $calculatedDate = match ($state) {
                                                 'immediately' => now()->toDateString(),
                                                 'one_week' => now()->addWeek()->toDateString(),
                                                 'one_month' => now()->addMonth()->toDateString(),
@@ -155,7 +152,7 @@ class ApplicationResource extends Resource
                     ]),
                 Tables\Columns\TextColumn::make('start_date_option')
                     ->label('Start Date')
-                    ->formatStateUsing(fn ($state) => match($state) {
+                    ->formatStateUsing(fn ($state) => match ($state) {
                         'immediately' => 'Immediately',
                         'one_week' => 'After 1 week',
                         'one_month' => 'After 1 month',
