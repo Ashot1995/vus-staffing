@@ -10,10 +10,10 @@
                 </div>
                 <div class="ml-3 flex-1">
                     <h3 class="text-sm font-medium text-primary-800 dark:text-primary-200">
-                        Translation Management
+                        Page Images Management
                     </h3>
                     <div class="mt-2 text-sm text-primary-700 dark:text-primary-300">
-                        <p>Edit translations organized by page sections. Changes are saved to language files (resources/lang/en/messages.php and resources/lang/sv/messages.php).</p>
+                        <p>Upload and manage images for all pages. Images are organized by page and section.</p>
                     </div>
                 </div>
             </div>
@@ -26,12 +26,12 @@
                 <x-filament::button
                     type="button"
                     color="gray"
-                    wire:click="loadTranslations"
+                    wire:click="loadImages"
                 >
                     Reload
                 </x-filament::button>
                 <x-filament::button type="submit">
-                    Save All Translations
+                    Save All Images
                 </x-filament::button>
             </div>
         </form>

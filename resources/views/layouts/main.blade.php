@@ -22,7 +22,7 @@
 
             <a href="{{ route('home') }}" class="navbar-brand mx-auto mx-lg-0">
                 <i class="bi-briefcase brand-logo"></i>
-                <span class="brand-text">VUS</span>
+                <span class="brand-text">V U S</span>
             </a>
 
             @guest
@@ -65,7 +65,14 @@
                         <a class="nav-link {{ request()->routeIs('jobs.*') ? 'active' : '' }}" href="{{ route('jobs.index') }}">{{ __('messages.nav.jobs') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('register') ? 'active' : '' }}" href="{{ route('register') }}">{{ __('messages.nav.for_job_seekers') }}</a>
+                        @guest
+                            <a class="nav-link {{ request()->routeIs('register') ? 'active' : '' }}" href="{{ route('register') }}">{{ __('messages.nav.for_job_seekers') }}</a>
+                        @else
+                            <a class="nav-link {{ request()->routeIs('jobs.*') ? 'active' : '' }}" href="{{ route('jobs.index') }}">{{ __('messages.nav.for_job_seekers') }}</a>
+                        @endguest
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">{{ __('messages.nav.about') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">{{ __('messages.nav.contact') }}</a>
@@ -117,7 +124,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-12 mb-4">
-                    <h5 class="site-footer-title mb-3">VUS</h5>
+                    <h5 class="site-footer-title mb-3">V U S</h5>
                     <p class="text-white d-flex mb-2">
                         <i class="bi-geo-alt me-2"></i>
                         {{ app()->getLocale() === 'en' ? 'Sweden' : 'Sverige' }}
@@ -136,14 +143,6 @@
                         <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.for_employers') }}</a></li>
                         <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.free_services') }}</a></li>
                         <li class="footer-menu-item"><a href="{{ route('contact') }}" class="footer-menu-link">{{ __('messages.nav.contact') }}</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-4 col-12">
-                    <h5 class="site-footer-title mb-3">{{ __('messages.footer.follow_us') }}</h5>
-                    <ul class="social-icon">
-                        <li><a href="#" class="social-icon-link bi-linkedin"></a></li>
-                        <li><a href="#" class="social-icon-link bi-facebook"></a></li>
                     </ul>
                 </div>
             </div>

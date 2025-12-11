@@ -25,6 +25,8 @@ class User extends Authenticatable
         'password',
         'is_admin',
         'cv_path',
+        'last_profile_reminder_at',
+        'profile_reminder_count',
     ];
 
     /**
@@ -48,6 +50,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_admin' => 'boolean',
+            'last_profile_reminder_at' => 'datetime',
         ];
     }
 

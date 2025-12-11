@@ -16,6 +16,7 @@ class Application extends Model
         'status',
         'start_date_option',
         'start_date',
+        'consent_type',
     ];
 
     protected $casts = [

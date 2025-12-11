@@ -25,20 +25,52 @@ class DatabaseTranslationLoader implements LoaderInterface
      */
     public function load($locale, $group, $namespace = null)
     {
-        // First, load translations from files
-        $fileTranslations = $this->fileLoader->load($locale, $group, $namespace);
+        // Load translations from files (primary source)
+        return $this->fileLoader->load($locale, $group, $namespace);
+    }
 
-        // Then, load translations from database
-        try {
-            $databaseTranslations = Translation::getTranslations($locale, $group);
-
-            // Merge database translations with file translations
-            // Database translations take precedence over file translations
-            return array_merge($fileTranslations, $databaseTranslations);
-        } catch (\Exception $e) {
-            // If database is not available or table doesn't exist, return file translations
-            return $fileTranslations;
+    /**
+     * Convert flat array with dot notation keys to nested array
+     * Example: ['home.professional_service.description' => 'value'] 
+     * becomes: ['home' => ['professional_service' => ['description' => 'value']]]
+     */
+    protected function convertToNestedArray(array $flatArray): array
+    {
+        $nested = [];
+        
+        foreach ($flatArray as $key => $value) {
+            $keys = explode('.', $key);
+            $current = &$nested;
+            
+            foreach ($keys as $k) {
+                if (!isset($current[$k]) || !is_array($current[$k])) {
+                    $current[$k] = [];
+                }
+                $current = &$current[$k];
+            }
+            
+            $current = $value;
         }
+        
+        return $nested;
+    }
+
+    /**
+     * Recursively merge arrays, with second array values taking precedence
+     */
+    protected function arrayMergeRecursiveDistinct(array $array1, array $array2): array
+    {
+        $merged = $array1;
+        
+        foreach ($array2 as $key => $value) {
+            if (isset($merged[$key]) && is_array($merged[$key]) && is_array($value)) {
+                $merged[$key] = $this->arrayMergeRecursiveDistinct($merged[$key], $value);
+            } else {
+                $merged[$key] = $value;
+            }
+        }
+        
+        return $merged;
     }
 
     /**
@@ -74,3 +106,4 @@ class DatabaseTranslationLoader implements LoaderInterface
         return $this->fileLoader->namespaces();
     }
 }
+

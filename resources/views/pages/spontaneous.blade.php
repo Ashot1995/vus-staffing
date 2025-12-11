@@ -31,6 +31,7 @@
                             <div class="mb-4">
                                 <label class="form-label">{{ __('messages.spontaneous.upload_cv') }} *</label>
                                 <input type="file" name="cv" class="form-control @error('cv') is-invalid @enderror" accept=".pdf,.doc,.docx" required>
+                                <small class="form-text text-muted">{{ __('messages.apply.file_size_notice') }}</small>
                                 @error('cv')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -46,36 +47,34 @@
 
                             <div class="mb-4">
                                 <label class="form-label">{{ __('messages.apply.start_date') }} *</label>
-                                <select name="start_date_option" id="start_date_option" class="form-control @error('start_date_option') is-invalid @enderror" required onchange="toggleCustomDate()">
+                                <select name="start_date_option" id="start_date_option" class="form-control @error('start_date_option') is-invalid @enderror" required>
                                     <option value="">{{ __('messages.apply.start_date_placeholder') }}</option>
                                     <option value="immediately" {{ old('start_date_option') == 'immediately' ? 'selected' : '' }}>{{ __('messages.apply.start_date_option.immediately') }}</option>
-                                    <option value="one_week" {{ old('start_date_option') == 'one_week' ? 'selected' : '' }}>{{ __('messages.apply.start_date_option.one_week') }}</option>
                                     <option value="one_month" {{ old('start_date_option') == 'one_month' ? 'selected' : '' }}>{{ __('messages.apply.start_date_option.one_month') }}</option>
-                                    <option value="custom" {{ old('start_date_option') == 'custom' ? 'selected' : '' }}>{{ __('messages.apply.start_date_option.custom') }}</option>
+                                    <option value="two_three_months" {{ old('start_date_option') == 'two_three_months' ? 'selected' : '' }}>{{ __('messages.apply.start_date_option.two_three_months') }}</option>
                                 </select>
                                 @error('start_date_option')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <div class="mb-4" id="custom_date_container" style="display: none;">
-                                <label class="form-label">{{ __('messages.apply.start_date_custom') }} *</label>
-                                <input type="date" name="start_date" id="start_date" class="form-control @error('start_date') is-invalid @enderror" value="{{ old('start_date') }}" min="{{ date('Y-m-d') }}">
-                                @error('start_date')
+                            <div class="mb-4">
+                                <label class="form-label">{{ __('messages.apply.consent.required') }} *</label>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input @error('consent_type') is-invalid @enderror" type="radio" name="consent_type" id="consent_full" value="full" {{ old('consent_type') == 'full' ? 'checked' : '' }} required>
+                                    <label class="form-check-label" for="consent_full">
+                                        {{ __('messages.apply.consent.full') }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input @error('consent_type') is-invalid @enderror" type="radio" name="consent_type" id="consent_limited" value="limited" {{ old('consent_type') == 'limited' ? 'checked' : '' }} required>
+                                    <label class="form-check-label" for="consent_limited">
+                                        {{ __('messages.apply.consent.limited') }}
+                                    </label>
+                                </div>
+                                @error('consent_type')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            </div>
-
-                            <div class="mb-4">
-                                <div class="form-check">
-                                    <input class="form-check-input @error('gdpr_consent') is-invalid @enderror" type="checkbox" name="gdpr_consent" id="gdpr_consent" value="1" required>
-                                    <label class="form-check-label" for="gdpr_consent">
-                                        {{ __('messages.apply.gdpr_consent') }} <a href="{{ route('privacy') }}" target="_blank" style="text-decoration: underline;">{{ __('messages.cookie.privacy_policy') }}</a>
-                                    </label>
-                                    @error('gdpr_consent')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
                             </div>
 
                             <button type="submit" class="custom-btn btn mt-3">{{ __('messages.spontaneous.submit') }}</button>
@@ -95,25 +94,4 @@
     </div>
 </section>
 
-<script>
-    function toggleCustomDate() {
-        const option = document.getElementById('start_date_option').value;
-        const customDateContainer = document.getElementById('custom_date_container');
-        const customDateInput = document.getElementById('start_date');
-        
-        if (option === 'custom') {
-            customDateContainer.style.display = 'block';
-            customDateInput.required = true;
-        } else {
-            customDateContainer.style.display = 'none';
-            customDateInput.required = false;
-            customDateInput.value = '';
-        }
-    }
-
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        toggleCustomDate();
-    });
-</script>
 @endsection

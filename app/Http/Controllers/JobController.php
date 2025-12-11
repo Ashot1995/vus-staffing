@@ -74,7 +74,7 @@ class JobController extends Controller
 
         $validated = $request->validate([
             'cover_letter' => 'required|string',
-            'cv' => 'required|file|mimes:pdf,doc,docx|max:5120',
+            'cv' => 'required|file|mimes:pdf,doc,docx|max:3072',
             'gdpr_consent' => 'required|accepted',
             'start_date_option' => 'required|in:immediately,one_week,one_month,custom',
             'start_date' => 'required_if:start_date_option,custom|nullable|date|after_or_equal:today',
@@ -88,14 +88,12 @@ class JobController extends Controller
             case 'immediately':
                 $startDate = now()->toDateString();
                 break;
-            case 'one_week':
-                $startDate = now()->addWeek()->toDateString();
-                break;
             case 'one_month':
                 $startDate = now()->addMonth()->toDateString();
                 break;
-            case 'custom':
-                $startDate = $validated['start_date'];
+            case 'two_three_months':
+                // Set to 2.5 months (average of 2-3 months)
+                $startDate = now()->addMonths(2)->addDays(15)->toDateString();
                 break;
         }
 
@@ -108,6 +106,7 @@ class JobController extends Controller
             'status' => 'pending',
             'gdpr_consent' => true,
             'gdpr_consent_at' => now(),
+            'consent_type' => $validated['consent_type'],
             'start_date_option' => $validated['start_date_option'],
             'start_date' => $startDate,
         ]);
@@ -127,7 +126,7 @@ class JobController extends Controller
     {
         $validated = $request->validate([
             'cover_letter' => 'required|string',
-            'cv' => 'required|file|mimes:pdf,doc,docx|max:5120',
+            'cv' => 'required|file|mimes:pdf,doc,docx|max:3072',
             'gdpr_consent' => 'required|accepted',
             'start_date_option' => 'required|in:immediately,one_week,one_month,custom',
             'start_date' => 'required_if:start_date_option,custom|nullable|date|after_or_equal:today',
@@ -141,14 +140,12 @@ class JobController extends Controller
             case 'immediately':
                 $startDate = now()->toDateString();
                 break;
-            case 'one_week':
-                $startDate = now()->addWeek()->toDateString();
-                break;
             case 'one_month':
                 $startDate = now()->addMonth()->toDateString();
                 break;
-            case 'custom':
-                $startDate = $validated['start_date'];
+            case 'two_three_months':
+                // Set to 2.5 months (average of 2-3 months)
+                $startDate = now()->addMonths(2)->addDays(15)->toDateString();
                 break;
         }
 
@@ -161,6 +158,7 @@ class JobController extends Controller
             'status' => 'pending',
             'gdpr_consent' => true,
             'gdpr_consent_at' => now(),
+            'consent_type' => $validated['consent_type'],
             'start_date_option' => $validated['start_date_option'],
             'start_date' => $startDate,
         ]);

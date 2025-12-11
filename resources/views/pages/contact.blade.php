@@ -20,7 +20,7 @@
             <div class="col-lg-6 col-12 mb-4">
                 <div class="custom-block bg-white shadow-lg p-5 h-100">
                     <h3 class="mb-4">{{ __('messages.contact.send_message') }}</h3>
-                    
+
                     @if(session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
@@ -77,7 +77,7 @@
             <div class="col-lg-6 col-12">
                 <div class="custom-block bg-white shadow-lg p-5 mb-4">
                     <h3 class="mb-4">{{ __('messages.contact.contact_info') }}</h3>
-                    
+
                     <div class="mb-4">
                         <h5><i class="bi-envelope me-2"></i> {{ __('messages.contact.email') }}</h5>
                         <p><a href="mailto:info@vus-bemanning.se">info@vus-bemanning.se</a></p>
@@ -93,14 +93,6 @@
                         <p>{{ __('messages.contact.hours_weekdays') }}<br>
                         {{ __('messages.contact.hours_weekend') }}</p>
                     </div>
-                </div>
-
-                <div class="custom-block bg-white shadow-lg p-5">
-                    <h3 class="mb-4">{{ __('messages.contact.follow_us') }}</h3>
-                    <ul class="social-icon">
-                        <li><a href="#" class="social-icon-link bi-linkedin"></a></li>
-                        <li><a href="#" class="social-icon-link bi-facebook"></a></li>
-                    </ul>
                 </div>
             </div>
         </div>

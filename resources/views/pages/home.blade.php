@@ -10,7 +10,7 @@
                 <div class="hero-text">
                     <h1 class="mb-4">
                         <span class="text-white">Welcome to </span>
-                        <span class="vus-brand">VUS</span>
+                        <span class="vus-brand">V U S</span>
                     </h1>
                     <div class="d-flex justify-content-center align-items-center">
                         <span class="date-text">{{ __('messages.home.hero.subtitle') }}</span>

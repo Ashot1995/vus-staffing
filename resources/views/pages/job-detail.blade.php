@@ -61,7 +61,7 @@
                                 </a>
                             </div>
                         @else
-                            <a href="{{ route('jobs.apply', $job) }}" class="custom-btn btn w-100 mt-3">{{ __('messages.jobs.detail.apply_now') }}</a>
+                        <a href="{{ route('jobs.apply', $job) }}" class="custom-btn btn w-100 mt-3">{{ __('messages.jobs.detail.apply_now') }}</a>
                         @endif
                     @else
                         <p class="text-center mt-3 mb-2">{{ __('messages.jobs.detail.login_required') }}</p>
