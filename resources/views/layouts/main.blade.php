@@ -11,6 +11,7 @@
     <link href="{{ asset('css/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('css/templatemo-leadership-event.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom-improvements.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.3/build/css/intlTelInput.css">
     @stack('styles')
 </head>
 <body>
@@ -63,13 +64,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('jobs.*') ? 'active' : '' }}" href="{{ route('jobs.index') }}">{{ __('messages.nav.jobs') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        @guest
-                            <a class="nav-link {{ request()->routeIs('register') ? 'active' : '' }}" href="{{ route('register') }}">{{ __('messages.nav.for_job_seekers') }}</a>
-                        @else
-                            <a class="nav-link {{ request()->routeIs('jobs.*') ? 'active' : '' }}" href="{{ route('jobs.index') }}">{{ __('messages.nav.for_job_seekers') }}</a>
-                        @endguest
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">{{ __('messages.nav.about') }}</a>
@@ -164,6 +158,7 @@
     <script src="{{ asset('js/jquery.sticky.js') }}"></script>
     <script src="{{ asset('js/click-scroll.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.3/build/js/intlTelInput.min.js"></script>
     @stack('scripts')
 </body>
 </html>

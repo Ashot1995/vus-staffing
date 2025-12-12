@@ -58,17 +58,17 @@
                                 @enderror
                             </div>
 
-                            <div class="mb-4">
-                                <label class="form-label">{{ __('messages.apply.consent.required') }} *</label>
-                                <div class="form-check mb-2">
+                            <div class="mb-5">
+                                <label class="form-label mb-3" style="text-transform: capitalize;">{{ __('messages.apply.consent.required') }} *</label>
+                                <div class="form-check mb-3">
                                     <input class="form-check-input @error('consent_type') is-invalid @enderror" type="radio" name="consent_type" id="consent_full" value="full" {{ old('consent_type') == 'full' ? 'checked' : '' }} required>
-                                    <label class="form-check-label" for="consent_full">
+                                    <label class="form-check-label" for="consent_full" style="text-transform: capitalize;">
                                         {{ __('messages.apply.consent.full') }}
                                     </label>
                                 </div>
-                                <div class="form-check">
+                                <div class="form-check mb-3">
                                     <input class="form-check-input @error('consent_type') is-invalid @enderror" type="radio" name="consent_type" id="consent_limited" value="limited" {{ old('consent_type') == 'limited' ? 'checked' : '' }} required>
-                                    <label class="form-check-label" for="consent_limited">
+                                    <label class="form-check-label" for="consent_limited" style="text-transform: capitalize;">
                                         {{ __('messages.apply.consent.limited') }}
                                     </label>
                                 </div>

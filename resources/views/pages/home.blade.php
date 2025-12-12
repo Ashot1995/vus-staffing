@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@php
+use Illuminate\Support\Facades\Storage;
+@endphp
+
 @section('title', 'VUS - ' . __('messages.nav.home'))
 
 @section('content')
@@ -182,46 +186,39 @@
     </div>
 </section>
 
+@if($partners->count() > 0)
 <section class="section-padding" id="section_5" style="background: #f5f5f5;">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-12 text-center mb-5">
                 <h2 class="mb-3">{{ __('messages.home.partners.title') }}</h2>
-                <p>{{ __('messages.home.partners.subtitle') }}</p>
+                <p class="lead">{{ __('messages.home.partners.subtitle') }}</p>
             </div>
         </div>
-        <div class="row align-items-center justify-content-center">
-            <div class="col-lg-3 col-md-4 col-6 mb-4 text-center">
-                <a href="https://example.com" target="_blank" class="d-block">
-                    <div class="custom-block bg-white shadow-lg p-4 h-100 d-flex align-items-center justify-content-center" style="min-height: 120px;">
-                        <span style="font-size: 24px; font-weight: bold; color: #000000;">Partner 1</span>
-                    </div>
-                </a>
+        
+        <div class="row justify-content-center">
+            @foreach($partners as $partner)
+            <div class="col-lg-3 col-md-4 col-6 mb-4">
+                <div class="custom-block bg-white shadow-lg p-4 h-100 d-flex align-items-center justify-content-center" style="min-height: 150px;">
+                    @if($partner->logo)
+                        <a href="{{ $partner->website_url ?? '#' }}" target="{{ $partner->website_url ? '_blank' : '_self' }}" class="text-decoration-none w-100 h-100 d-flex align-items-center justify-content-center">
+                            <img src="{{ Storage::url($partner->logo) }}" alt="{{ $partner->name }}" class="img-fluid" style="max-height: 100px; max-width: 100%; object-fit: contain;">
+                        </a>
+                    @else
+                        <div class="text-center w-100">
+                            <h5 class="mb-0">{{ $partner->name }}</h5>
+                            @if($partner->website_url)
+                                <a href="{{ $partner->website_url }}" target="_blank" class="text-decoration-none text-muted small">{{ __('messages.home.partners.visit_website') }}</a>
+                            @endif
+                        </div>
+                    @endif
+                </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-6 mb-4 text-center">
-                <a href="https://example.com" target="_blank" class="d-block">
-                    <div class="custom-block bg-white shadow-lg p-4 h-100 d-flex align-items-center justify-content-center" style="min-height: 120px;">
-                        <span style="font-size: 24px; font-weight: bold; color: #000000;">Partner 2</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6 mb-4 text-center">
-                <a href="https://example.com" target="_blank" class="d-block">
-                    <div class="custom-block bg-white shadow-lg p-4 h-100 d-flex align-items-center justify-content-center" style="min-height: 120px;">
-                        <span style="font-size: 24px; font-weight: bold; color: #000000;">Partner 3</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6 mb-4 text-center">
-                <a href="https://example.com" target="_blank" class="d-block">
-                    <div class="custom-block bg-white shadow-lg p-4 h-100 d-flex align-items-center justify-content-center" style="min-height: 120px;">
-                        <span style="font-size: 24px; font-weight: bold; color: #000000;">Partner 4</span>
-                    </div>
-                </a>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
+@endif
 
 <section class="call-to-action section-padding">
     <div class="container">

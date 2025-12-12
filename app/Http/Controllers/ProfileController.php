@@ -104,11 +104,33 @@ class ProfileController extends Controller
         $application = $user->applications()->findOrFail($id);
 
         $validated = $request->validate([
-            'cover_letter' => 'required|string',
+            'first_name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'birth_month' => 'required|integer|min:1|max:12',
+            'birth_day' => 'required|integer|min:1|max:31',
+            'birth_year' => 'required|integer|min:1900|max:' . date('Y'),
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:255',
+            'address' => 'required|string|max:500',
             'cv' => 'nullable|file|mimes:pdf,doc,docx|max:3072',
-            'start_date_option' => 'required|in:immediately,one_week,one_month,custom',
-            'start_date' => 'required_if:start_date_option,custom|nullable|date|after_or_equal:today',
+            'personal_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'driving_license_b' => 'nullable|boolean',
+            'driving_license_own_car' => 'nullable|boolean',
+            'other' => 'nullable|string|max:1000',
+            'start_date_option' => 'required|in:immediately,one_month,two_three_months',
+            'consent_type' => 'required|in:full,limited',
         ]);
+
+        // Build date of birth
+        $dateOfBirth = sprintf('%04d-%02d-%02d', $validated['birth_year'], $validated['birth_month'], $validated['birth_day']);
+        
+        // Validate date
+        if (!checkdate($validated['birth_month'], $validated['birth_day'], $validated['birth_year'])) {
+            return redirect()->back()->withErrors(['date_of_birth' => 'Invalid date of birth'])->withInput();
+        }
+
+        // Build phone with country code
+        $phoneWithCode = ($request->input('phone_country_code', '+46') . ' ' . $validated['phone']);
 
         // Handle CV upload if provided
         if ($request->hasFile('cv')) {
@@ -119,7 +141,19 @@ class ProfileController extends Controller
 
             // Store new CV
             $cvPath = $request->file('cv')->store('cvs', 'public');
-            $application->cv_path = $cvPath;
+            $validated['cv_path'] = $cvPath;
+        }
+
+        // Handle personal image upload if provided
+        if ($request->hasFile('personal_image')) {
+            // Delete old image if exists
+            if ($application->personal_image_path && Storage::disk('public')->exists($application->personal_image_path)) {
+                Storage::disk('public')->delete($application->personal_image_path);
+            }
+
+            // Store new image
+            $personalImagePath = $request->file('personal_image')->store('personal-images', 'public');
+            $validated['personal_image_path'] = $personalImagePath;
         }
 
         // Calculate start date based on option
@@ -128,21 +162,30 @@ class ProfileController extends Controller
             case 'immediately':
                 $startDate = now()->toDateString();
                 break;
-            case 'one_week':
-                $startDate = now()->addWeek()->toDateString();
-                break;
             case 'one_month':
                 $startDate = now()->addMonth()->toDateString();
                 break;
-            case 'custom':
-                $startDate = $validated['start_date'];
+            case 'two_three_months':
+                // Set to 2.5 months (average of 2-3 months)
+                $startDate = now()->addMonths(2)->addDays(15)->toDateString();
                 break;
         }
 
         $application->update([
-            'cover_letter' => $validated['cover_letter'],
+            'first_name' => $validated['first_name'],
+            'surname' => $validated['surname'],
+            'date_of_birth' => $dateOfBirth,
+            'phone' => $phoneWithCode,
+            'address' => $validated['address'],
+            'email' => $validated['email'],
+            'cv_path' => $validated['cv_path'] ?? $application->cv_path,
+            'personal_image_path' => $validated['personal_image_path'] ?? $application->personal_image_path,
             'start_date_option' => $validated['start_date_option'],
             'start_date' => $startDate,
+            'consent_type' => $validated['consent_type'],
+            'driving_license_b' => $request->has('driving_license_b'),
+            'driving_license_own_car' => $request->has('driving_license_own_car'),
+            'other' => $validated['other'] ?? null,
         ]);
 
         return Redirect::route('profile.applications')->with('status', 'application-updated');

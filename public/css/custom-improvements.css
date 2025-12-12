@@ -1,5 +1,180 @@
 /* Modern Design Improvements */
 
+/* intl-tel-input Styling */
+.iti {
+  width: 100%;
+}
+
+.iti__flag-container {
+  z-index: 1;
+}
+
+.iti__selected-flag {
+  padding: 0 8px 0 12px;
+  border-right: 1px solid #dee2e6;
+}
+
+.iti__selected-flag:hover {
+  background-color: #f8f9fa;
+}
+
+.iti__country-list {
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-control.iti-input {
+  padding-left: 52px;
+}
+
+/* Form Field Styling Improvements */
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #212529;
+  text-transform: capitalize;
+}
+
+.form-control:focus {
+  border-color: #000000;
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.1);
+}
+
+/* Checkbox and Radio Button Styling */
+.form-check {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.form-check-input {
+  margin-top: 0.25rem;
+  margin-left: -1.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  cursor: pointer;
+}
+
+.form-check-label {
+  margin-left: 0.75rem;
+  cursor: pointer;
+  font-weight: 400;
+  color: #212529;
+  line-height: 1.5;
+  text-transform: capitalize;
+}
+
+.form-check-input:checked {
+  background-color: #000000;
+  border-color: #000000;
+}
+
+.form-check-input:focus {
+  border-color: #000000;
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.1);
+}
+
+/* Radio Button Specific */
+input[type="radio"] {
+  margin-right: 0.75rem;
+  margin-bottom: 0;
+}
+
+input[type="radio"] + label,
+input[type="radio"] + span,
+.form-check-input[type="radio"] + .form-check-label {
+  margin-left: 0.75rem;
+  display: inline-block;
+  margin-bottom: 0;
+  text-transform: capitalize;
+}
+
+/* Add spacing after radio button groups */
+label:has(input[type="radio"]),
+.form-check:has(input[type="radio"]) {
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* Checkbox Specific */
+input[type="checkbox"] {
+  margin-right: 0.75rem;
+  margin-bottom: 0;
+}
+
+input[type="checkbox"] + label,
+input[type="checkbox"] + span,
+.form-check-input[type="checkbox"] + .form-check-label {
+  margin-left: 0.75rem;
+  display: inline-block;
+  margin-bottom: 0;
+  text-transform: capitalize;
+}
+
+/* Add spacing after checkbox groups */
+label:has(input[type="checkbox"]),
+.form-check:has(input[type="checkbox"]) {
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* Spacing for flex checkbox/radio containers - ensure each is on new line */
+.flex.items-center:has(input[type="checkbox"]),
+.flex.items-center:has(input[type="radio"]),
+.inline-flex.items-center:has(input[type="checkbox"]),
+.inline-flex.items-center:has(input[type="radio"]) {
+  margin-bottom: 1rem;
+  display: flex;
+  width: 100%;
+}
+
+/* Spacing for checkbox/radio groups */
+div:has(> input[type="checkbox"]),
+div:has(> input[type="radio"]) {
+  margin-bottom: 1.5rem;
+}
+
+/* Additional spacing after form-check elements */
+.form-check {
+  margin-bottom: 1rem !important;
+}
+
+.form-check:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Ensure proper spacing between radio/checkbox groups */
+.mb-4:has(.form-check),
+.mb-5:has(.form-check) {
+  margin-bottom: 1.5rem !important;
+}
+
+/* Section Headings */
+h5.mb-3.mt-4,
+h4.text-md {
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 1rem !important;
+  margin-top: 1.5rem !important;
+  text-transform: capitalize;
+}
+
+/* Date of Birth Fields */
+select[name="birth_month"],
+input[name="birth_day"],
+input[name="birth_year"] {
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  padding: 0.375rem 0.75rem;
+}
+
+select[name="birth_month"]:focus,
+input[name="birth_day"]:focus,
+input[name="birth_year"]:focus {
+  border-color: #000000;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.1);
+}
+
 /* Enhanced Card Hover Effects */
 .custom-block {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -49,6 +224,16 @@
   transform: translateY(-2px);
 }
 
+/* Grey hover only when button is on white background (body or white sections) */
+body:not(.hero) .custom-btn:hover,
+.section-padding .custom-btn:hover,
+.bg-white .custom-btn:hover,
+section:not(.hero):not(.highlight) .custom-btn:hover {
+  background: #6c757d !important;
+  border: 2px solid #6c757d !important;
+  color: #ffffff !important;
+}
+
 /* Buttons in cards - keep black text on hover */
 .highlight .custom-btn:hover,
 .custom-block .custom-btn:hover,
@@ -87,6 +272,16 @@
   transform: translateY(-2px);
 }
 
+/* Grey hover only when button is on white background */
+body:not(.hero) .btn-outline-secondary:hover,
+.section-padding .btn-outline-secondary:hover,
+.bg-white .btn-outline-secondary:hover,
+section:not(.hero):not(.highlight) .btn-outline-secondary:hover {
+  background: #6c757d !important;
+  border: 2px solid #6c757d !important;
+  color: #ffffff !important;
+}
+
 .btn-outline-secondary:active {
   transform: translateY(0);
 }
@@ -107,6 +302,16 @@
   border: 2px solid var(--white-color) !important;
   color: var(--white-color) !important;
   transform: translateY(-2px);
+}
+
+/* Grey hover only when button is on white background */
+body:not(.hero) .btn-outline-primary:hover,
+.section-padding .btn-outline-primary:hover,
+.bg-white .btn-outline-primary:hover,
+section:not(.hero):not(.highlight) .btn-outline-primary:hover {
+  background: #6c757d !important;
+  border: 2px solid #6c757d !important;
+  color: #ffffff !important;
 }
 
 /* Button Groups - Better Alignment */

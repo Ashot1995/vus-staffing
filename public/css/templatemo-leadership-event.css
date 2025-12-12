@@ -284,6 +284,16 @@ strong {
   transform: translateY(-2px);
 }
 
+/* Grey hover only when button is on white background */
+body:not(.hero) .custom-btn:hover,
+.section-padding .custom-btn:hover,
+.bg-white .custom-btn:hover,
+section:not(.hero):not(.highlight) .custom-btn:hover {
+  background: #6c757d;
+  border: 2px solid #6c757d;
+  color: #ffffff;
+}
+
 /* Buttons in cards - keep black text on hover */
 .highlight .custom-btn:hover,
 .custom-block .custom-btn:hover,

@@ -6,7 +6,11 @@ class PageController extends Controller
 {
     public function home()
     {
-        return view('pages.home');
+        $partners = \App\Models\Partner::where('is_active', true)
+            ->orderBy('sort_order')
+            ->get();
+        
+        return view('pages.home', compact('partners'));
     }
 
     public function about()

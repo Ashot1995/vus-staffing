@@ -54,7 +54,44 @@ class ApplicationResource extends Resource
                             ])
                             ->columns(2),
 
-                        Forms\Components\Tabs\Tab::make('CV & Cover Letter')
+                        Forms\Components\Tabs\Tab::make('Personal Information')
+                            ->schema([
+                                Forms\Components\TextInput::make('first_name')
+                                    ->label('First Name')
+                                    ->required()
+                                    ->maxLength(255),
+                                
+                                Forms\Components\TextInput::make('surname')
+                                    ->label('Surname')
+                                    ->required()
+                                    ->maxLength(255),
+                                
+                                Forms\Components\DatePicker::make('date_of_birth')
+                                    ->label('Date of Birth')
+                                    ->displayFormat('Y-m-d')
+                                    ->required(),
+                                
+                                Forms\Components\TextInput::make('email')
+                                    ->label('Email')
+                                    ->email()
+                                    ->required()
+                                    ->maxLength(255),
+                                
+                                Forms\Components\TextInput::make('phone')
+                                    ->label('Phone')
+                                    ->tel()
+                                    ->required()
+                                    ->maxLength(255),
+                                
+                                Forms\Components\Textarea::make('address')
+                                    ->label('Address')
+                                    ->required()
+                                    ->maxLength(500)
+                                    ->rows(2),
+                            ])
+                            ->columns(2),
+
+                        Forms\Components\Tabs\Tab::make('CV & Documents')
                             ->schema([
                                 Forms\Components\Section::make('CV Document')
                                     ->description('View or download the applicant\'s CV')
@@ -66,51 +103,94 @@ class ApplicationResource extends Resource
                                         Forms\Components\FileUpload::make('cv_path')
                                             ->label('Upload/Update CV')
                                             ->directory('cvs')
+                                            ->disk('public')
                                             ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
-                                            ->maxSize(5120)
+                                            ->maxSize(3072)
                                             ->downloadable()
                                             ->deletable(),
                                     ]),
-                                Forms\Components\Section::make('Cover Letter')
-                                    ->description('Read the applicant\'s cover letter')
+                                Forms\Components\Section::make('Personal Image')
+                                    ->description('Applicant\'s personal photo')
                                     ->schema([
-                                        Forms\Components\Textarea::make('cover_letter')
-                                            ->label('Cover Letter Content')
-                                            ->rows(15)
-                                            ->columnSpanFull()
-                                            ->extraAttributes(['class' => 'font-mono text-sm']),
+                                        Forms\Components\ViewField::make('personal_image_path')
+                                            ->label('Current Image')
+                                            ->view('filament.components.image-preview')
+                                            ->visible(fn ($record) => $record && $record->personal_image_path),
+                                        Forms\Components\FileUpload::make('personal_image_path')
+                                            ->label('Upload/Update Personal Image')
+                                            ->directory('personal-images')
+                                            ->disk('public')
+                                            ->image()
+                                            ->maxSize(2048)
+                                            ->imageEditor()
+                                            ->downloadable()
+                                            ->deletable(),
                                     ]),
                             ]),
 
-                        Forms\Components\Tabs\Tab::make('Dates & Timeline')
+                        Forms\Components\Tabs\Tab::make('Additional Information')
                             ->schema([
-                                Forms\Components\Select::make('start_date_option')
-                                    ->label('Start Date Option')
-                                    ->options([
-                                        'immediately' => 'Immediately',
-                                        'one_week' => 'After one week',
-                                        'one_month' => 'After one month',
-                                        'custom' => 'Custom date',
+                                Forms\Components\Section::make('Driving License Privileges')
+                                    ->schema([
+                                        Forms\Components\Toggle::make('driving_license_b')
+                                            ->label('B Driving License')
+                                            ->default(false),
+                                        
+                                        Forms\Components\Toggle::make('driving_license_own_car')
+                                            ->label('Own Car')
+                                            ->default(false),
                                     ])
-                                    ->live()
-                                    ->afterStateUpdated(function ($state, callable $set, $get) {
-                                        if ($state !== 'custom') {
-                                            // Calculate date based on option
-                                            $calculatedDate = match ($state) {
-                                                'immediately' => now()->toDateString(),
-                                                'one_week' => now()->addWeek()->toDateString(),
-                                                'one_month' => now()->addMonth()->toDateString(),
-                                                default => null,
-                                            };
-                                            $set('start_date', $calculatedDate);
-                                        }
-                                    }),
-                                Forms\Components\DatePicker::make('start_date')
-                                    ->label('Expected Start Date')
-                                    ->displayFormat('Y-m-d')
-                                    ->visible(fn ($get) => $get('start_date_option') === 'custom')
-                                    ->required(fn ($get) => $get('start_date_option') === 'custom')
-                                    ->helperText('Only required when "Custom date" is selected'),
+                                    ->columns(2),
+                                
+                                Forms\Components\Section::make('Availability & Other')
+                                    ->schema([
+                                        Forms\Components\Select::make('start_date_option')
+                                            ->label('Availability')
+                                            ->options([
+                                                'immediately' => 'Immediately',
+                                                'one_month' => 'Within a month',
+                                                'two_three_months' => 'Within two to three months',
+                                            ])
+                                            ->required()
+                                            ->live()
+                                            ->afterStateUpdated(function ($state, callable $set) {
+                                                $calculatedDate = match ($state) {
+                                                    'immediately' => now()->toDateString(),
+                                                    'one_month' => now()->addMonth()->toDateString(),
+                                                    'two_three_months' => now()->addMonths(2)->addDays(15)->toDateString(),
+                                                    default => null,
+                                                };
+                                                $set('start_date', $calculatedDate);
+                                            }),
+                                        
+                                        Forms\Components\DatePicker::make('start_date')
+                                            ->label('Expected Start Date')
+                                            ->displayFormat('Y-m-d')
+                                            ->disabled()
+                                            ->dehydrated(),
+                                        
+                                        Forms\Components\Textarea::make('other')
+                                            ->label('Other Information')
+                                            ->rows(3)
+                                            ->maxLength(1000)
+                                            ->columnSpanFull(),
+                                    ])
+                                    ->columns(2),
+                                
+                                Forms\Components\Section::make('Consent')
+                                    ->schema([
+                                        Forms\Components\Select::make('consent_type')
+                                            ->label('Consent Type')
+                                            ->options([
+                                                'full' => 'Full Consent - Can be used for matching with other jobs',
+                                                'limited' => 'Limited Consent - Only for this application',
+                                            ])
+                                            ->required(),
+                                    ]),
+                            ]),
+
+                        Forms\Components\Tabs\Tab::make('Timeline')
+                            ->schema([
                                 Forms\Components\DateTimePicker::make('created_at')
                                     ->label('Application Date')
                                     ->disabled()
@@ -131,15 +211,45 @@ class ApplicationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('job.title')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('user.email')
+                    ->label('Job')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_spontaneous')
+                    ->label('Type')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-sparkles')
+                    ->falseIcon('heroicon-o-briefcase')
+                    ->trueColor('info')
+                    ->falseColor('gray'),
+                Tables\Columns\TextColumn::make('first_name')
+                    ->label('First Name')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('surname')
+                    ->label('Surname')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('email')
+                    ->label('Email')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('phone')
+                    ->label('Phone')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('date_of_birth')
+                    ->label('Date of Birth')
+                    ->date()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('address')
+                    ->label('Address')
+                    ->searchable()
+                    ->limit(30)
+                    ->tooltip(fn ($record) => $record->address),
+                Tables\Columns\IconColumn::make('driving_license_b')
+                    ->label('B License')
+                    ->boolean(),
+                Tables\Columns\IconColumn::make('driving_license_own_car')
+                    ->label('Own Car')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
@@ -149,14 +259,14 @@ class ApplicationResource extends Resource
                         'success' => 'shortlisted',
                         'danger' => 'rejected',
                         'primary' => 'accepted',
-                    ]),
+                    ])
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('start_date_option')
-                    ->label('Start Date')
+                    ->label('Availability')
                     ->formatStateUsing(fn ($state) => match ($state) {
                         'immediately' => 'Immediately',
-                        'one_week' => 'After 1 week',
-                        'one_month' => 'After 1 month',
-                        'custom' => 'Custom',
+                        'one_month' => 'Within a month',
+                        'two_three_months' => 'Within 2-3 months',
                         default => '-',
                     })
                     ->badge()
@@ -165,6 +275,18 @@ class ApplicationResource extends Resource
                     ->label('Expected Start')
                     ->date()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('consent_type')
+                    ->label('Consent')
+                    ->formatStateUsing(fn ($state) => match ($state) {
+                        'full' => 'Full',
+                        'limited' => 'Limited',
+                        default => '-',
+                    })
+                    ->badge()
+                    ->colors([
+                        'success' => 'full',
+                        'warning' => 'limited',
+                    ]),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Applied Date')
                     ->dateTime()

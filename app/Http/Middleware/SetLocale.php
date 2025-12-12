@@ -17,10 +17,20 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $locale = Session::get('locale', config('app.locale'));
+        // Get locale from session, default to Swedish if not set
+        $locale = Session::get('locale');
+        
+        // If no locale in session, use default from config (which is 'sv')
+        if (!$locale) {
+            $locale = config('app.locale', 'sv');
+            // Save to session so it persists
+            Session::put('locale', $locale);
+        }
 
+        // Validate locale
         if (! in_array($locale, ['en', 'sv'])) {
-            $locale = 'en';
+            $locale = 'sv';
+            Session::put('locale', $locale);
         }
 
         App::setLocale($locale);

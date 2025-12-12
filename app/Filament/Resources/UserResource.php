@@ -24,62 +24,19 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Tabs::make('User Information')
-                    ->tabs([
-                        Forms\Components\Tabs\Tab::make('Basic Information')
-                            ->schema([
-                                Forms\Components\TextInput::make('name')
-                                    ->required()
-                                    ->maxLength(255),
-                                Forms\Components\TextInput::make('email')
-                                    ->email()
-                                    ->required()
-                                    ->maxLength(255),
-                                Forms\Components\TextInput::make('password')
-                                    ->password()
-                                    ->dehydrated(fn ($state) => filled($state))
-                                    ->maxLength(255)
-                                    ->helperText('Leave empty to keep current password (when editing)')
-                                    ->required(fn ($livewire) => $livewire instanceof \App\Filament\Resources\UserResource\Pages\CreateUser),
-                                Forms\Components\Toggle::make('is_admin')
-                                    ->label('Admin User')
-                                    ->helperText('Admin users can access the admin panel'),
-                            ])
-                            ->columns(2),
-
-                        Forms\Components\Tabs\Tab::make('CV / Resume')
-                            ->schema([
-                                Forms\Components\Section::make('User CV')
-                                    ->description('View or update the user\'s CV')
-                                    ->schema([
-                                        Forms\Components\ViewField::make('cv_path')
-                                            ->label('Current CV')
-                                            ->view('filament.components.cv-download')
-                                            ->visible(fn ($record) => $record && $record->cv_path),
-                                        Forms\Components\FileUpload::make('cv_path')
-                                            ->label('Upload/Update CV')
-                                            ->directory('cvs')
-                                            ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
-                                            ->maxSize(5120)
-                                            ->downloadable()
-                                            ->deletable(),
-                                    ]),
-                            ]),
-
-                        Forms\Components\Tabs\Tab::make('Additional Information')
-                            ->schema([
-                                Forms\Components\DateTimePicker::make('email_verified_at')
-                                    ->label('Email Verified At'),
-                                Forms\Components\DateTimePicker::make('gdpr_consent_at')
-                                    ->label('GDPR Consent At'),
-                                Forms\Components\DateTimePicker::make('gdpr_reminder_sent_at')
-                                    ->label('GDPR Reminder Sent At'),
-                                Forms\Components\Toggle::make('newsletter_subscribed')
-                                    ->label('Newsletter Subscribed'),
-                            ])
-                            ->columns(2),
-                    ])
-                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('email')
+                    ->email()
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('password')
+                    ->password()
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->maxLength(255)
+                    ->helperText('Leave empty to keep current password (when editing)')
+                    ->required(fn ($livewire) => $livewire instanceof \App\Filament\Resources\UserResource\Pages\CreateUser),
             ]);
     }
 
@@ -88,34 +45,14 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
+                    ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('gdpr_consent_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('gdpr_reminder_sent_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\IconColumn::make('newsletter_subscribed')
-                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Registered At')
                     ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\IconColumn::make('is_admin')
-                    ->label('Admin')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('applications_count')
-                    ->label('Applications')
-                    ->counts('applications')
                     ->sortable(),
             ])
             ->filters([

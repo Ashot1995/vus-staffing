@@ -73,14 +73,59 @@ class JobController extends Controller
         }
 
         $validated = $request->validate([
-            'cover_letter' => 'required|string',
-            'cv' => 'required|file|mimes:pdf,doc,docx|max:3072',
-            'gdpr_consent' => 'required|accepted',
-            'start_date_option' => 'required|in:immediately,one_week,one_month,custom',
-            'start_date' => 'required_if:start_date_option,custom|nullable|date|after_or_equal:today',
+            'first_name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'birth_month' => 'required|integer|min:1|max:12',
+            'birth_day' => 'required|integer|min:1|max:31',
+            'birth_year' => 'required|integer|min:1900|max:' . date('Y'),
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:255',
+            'address' => 'required|string|max:500',
+            'cv' => [
+                'required',
+                'file',
+                'mimes:pdf,doc,docx',
+                'max:3072',
+            ],
+            'personal_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'driving_license_b' => 'nullable|boolean',
+            'driving_license_own_car' => 'nullable|boolean',
+            'other' => 'nullable|string|max:1000',
+            'start_date_option' => 'required|in:immediately,one_month,two_three_months',
+            'consent_type' => 'required|in:full,limited',
         ]);
 
-        $cvPath = $request->file('cv')->store('cvs', 'public');
+        // Build date of birth
+        $dateOfBirth = sprintf('%04d-%02d-%02d', $validated['birth_year'], $validated['birth_month'], $validated['birth_day']);
+        
+        // Validate date
+        if (!checkdate($validated['birth_month'], $validated['birth_day'], $validated['birth_year'])) {
+            return redirect()->back()->withErrors(['date_of_birth' => 'Invalid date of birth'])->withInput();
+        }
+
+        // Handle CV upload with error handling
+        try {
+            if (!$request->hasFile('cv')) {
+                return redirect()->back()->withErrors(['cv' => 'CV file is required'])->withInput();
+            }
+            
+            $cvFile = $request->file('cv');
+            $cvPath = $cvFile->store('cvs', 'public');
+            
+            if (!$cvPath) {
+                return redirect()->back()->withErrors(['cv' => 'Failed to upload CV. Please try again.'])->withInput();
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['cv' => 'CV upload failed: ' . $e->getMessage()])->withInput();
+        }
+        
+        $personalImagePath = null;
+        if ($request->hasFile('personal_image')) {
+            $personalImagePath = $request->file('personal_image')->store('personal-images', 'public');
+        }
+
+        // Build phone with country code
+        $phoneWithCode = ($request->input('phone_country_code', '+46') . ' ' . $validated['phone']);
 
         // Calculate start date based on option
         $startDate = null;
@@ -100,15 +145,22 @@ class JobController extends Controller
         Application::create([
             'job_id' => $job->id,
             'user_id' => auth()->id(),
+            'first_name' => $validated['first_name'],
+            'surname' => $validated['surname'],
+            'date_of_birth' => $dateOfBirth,
+            'phone' => $phoneWithCode,
+            'address' => $validated['address'],
             'cv_path' => $cvPath,
-            'cover_letter' => $validated['cover_letter'],
+            'personal_image_path' => $personalImagePath,
+            'cover_letter' => '', // Not in new form, but keep for compatibility
             'is_spontaneous' => false,
             'status' => 'pending',
-            'gdpr_consent' => true,
-            'gdpr_consent_at' => now(),
             'consent_type' => $validated['consent_type'],
             'start_date_option' => $validated['start_date_option'],
             'start_date' => $startDate,
+            'driving_license_b' => $request->has('driving_license_b'),
+            'driving_license_own_car' => $request->has('driving_license_own_car'),
+            'other' => $validated['other'] ?? null,
         ]);
 
         // Update user GDPR consent if not set

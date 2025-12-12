@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/applications', [ProfileController::class, 'applications'])->name('profile.applications');
     Route::get('/profile/applications/{id}/edit', [ProfileController::class, 'editApplication'])->name('profile.applications.edit');
     Route::patch('/profile/applications/{id}', [ProfileController::class, 'updateApplication'])->name('profile.applications.update');
-
+    
     Route::get('/jobb/{job}/ansok', [JobController::class, 'apply'])->name('jobs.apply');
     Route::post('/jobb/{job}/ansok', [JobController::class, 'submitApplication'])->name('jobs.submit-application');
     Route::post('/spontanansok', [JobController::class, 'submitSpontaneous'])->name('jobs.submit-spontaneous');
