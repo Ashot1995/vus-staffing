@@ -68,21 +68,6 @@
                         <a href="{{ route('login') }}" class="custom-btn btn w-100">{{ __('messages.nav.login') }}</a>
                         <a href="{{ route('register') }}" class="btn btn-outline-secondary w-100 mt-2">{{ __('messages.jobs.detail.register') }}</a>
                     @endauth
-
-                    <div class="mt-4">
-                        <h6>{{ __('messages.jobs.detail.share') }}</h6>
-                        <div class="d-flex gap-2">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('jobs.show', $job)) }}" target="_blank" class="btn btn-sm btn-outline-primary">
-                                <i class="bi-facebook"></i>
-                            </a>
-                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(route('jobs.show', $job)) }}" target="_blank" class="btn btn-sm btn-outline-primary">
-                                <i class="bi-linkedin"></i>
-                            </a>
-                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('jobs.show', $job)) }}&text={{ urlencode($job->title) }}" target="_blank" class="btn btn-sm btn-outline-primary">
-                                <i class="bi-twitter"></i>
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

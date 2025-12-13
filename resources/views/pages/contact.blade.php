@@ -78,21 +78,54 @@
                 <div class="custom-block bg-white shadow-lg p-5 mb-4">
                     <h3 class="mb-4">{{ __('messages.contact.contact_info') }}</h3>
 
-                    <div class="mb-4">
-                        <h5><i class="bi-envelope me-2"></i> {{ __('messages.contact.email') }}</h5>
-                        <p><a href="mailto:info@vus-bemanning.se">info@vus-bemanning.se</a></p>
-                    </div>
+                    @if($contactSetting)
+                        <div class="mb-4">
+                            <h5><i class="bi-envelope me-2"></i> {{ __('messages.contact.email') }}</h5>
+                            <p><a href="mailto:{{ $contactSetting->email }}">{{ $contactSetting->email }}</a></p>
+                        </div>
 
-                    <div class="mb-4">
-                        <h5><i class="bi-geo-alt me-2"></i> {{ __('messages.contact.address') }}</h5>
-                        <p>{{ app()->getLocale() === 'en' ? 'Sweden' : 'Sverige' }}</p>
-                    </div>
+                        @if($contactSetting->phone)
+                            <div class="mb-4">
+                                <h5><i class="bi-telephone me-2"></i> {{ __('messages.contact.form.phone') }}</h5>
+                                <p><a href="tel:{{ $contactSetting->phone }}">{{ $contactSetting->phone }}</a></p>
+                            </div>
+                        @endif
 
-                    <div class="mb-4">
-                        <h5><i class="bi-clock me-2"></i> {{ __('messages.contact.hours') }}</h5>
-                        <p>{{ __('messages.contact.hours_weekdays') }}<br>
-                        {{ __('messages.contact.hours_weekend') }}</p>
-                    </div>
+                        <div class="mb-4">
+                            <h5><i class="bi-geo-alt me-2"></i> {{ __('messages.contact.address') }}</h5>
+                            <p>{{ app()->getLocale() === 'en' ? ($contactSetting->address_en ?? 'Sweden') : ($contactSetting->address_sv ?? 'Sverige') }}</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5><i class="bi-clock me-2"></i> {{ __('messages.contact.hours') }}</h5>
+                            <p>
+                                @if(app()->getLocale() === 'en')
+                                    {{ $contactSetting->hours_weekdays_en ?? __('messages.contact.hours_weekdays') }}<br>
+                                    {{ $contactSetting->hours_weekend_en ?? __('messages.contact.hours_weekend') }}
+                                @else
+                                    {{ $contactSetting->hours_weekdays_sv ?? __('messages.contact.hours_weekdays') }}<br>
+                                    {{ $contactSetting->hours_weekend_sv ?? __('messages.contact.hours_weekend') }}
+                                @endif
+                            </p>
+                        </div>
+                    @else
+                        {{-- Fallback to default values if no settings exist --}}
+                        <div class="mb-4">
+                            <h5><i class="bi-envelope me-2"></i> {{ __('messages.contact.email') }}</h5>
+                            <p><a href="mailto:info@vus-bemanning.se">info@vus-bemanning.se</a></p>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5><i class="bi-geo-alt me-2"></i> {{ __('messages.contact.address') }}</h5>
+                            <p>{{ app()->getLocale() === 'en' ? 'Sweden' : 'Sverige' }}</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5><i class="bi-clock me-2"></i> {{ __('messages.contact.hours') }}</h5>
+                            <p>{{ __('messages.contact.hours_weekdays') }}<br>
+                            {{ __('messages.contact.hours_weekend') }}</p>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

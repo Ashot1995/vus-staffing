@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactSetting;
+use App\Models\ContactSubmission;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
     public function index()
     {
-        return view('pages.contact');
+        $contactSetting = ContactSetting::first();
+        
+        return view('pages.contact', [
+            'contactSetting' => $contactSetting,
+        ]);
     }
 
     public function send(Request $request)
@@ -20,6 +26,9 @@ class ContactController extends Controller
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ]);
+
+        // Save the submission to database
+        ContactSubmission::create($validated);
 
         return back()->with('success', 'Tack för ditt meddelande! Vi återkommer så snart som möjligt.');
     }

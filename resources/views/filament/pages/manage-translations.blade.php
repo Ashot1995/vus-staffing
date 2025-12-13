@@ -1,24 +1,5 @@
 <x-filament-panels::page>
     <div class="space-y-6">
-        <div class="rounded-lg bg-primary-50 dark:bg-primary-900/10 p-4">
-            <div class="flex items-start">
-                <div class="flex-shrink-0">
-                    <x-filament::icon
-                        icon="heroicon-o-information-circle"
-                        class="h-5 w-5 text-primary-600 dark:text-primary-400"
-                    />
-                </div>
-                <div class="ml-3 flex-1">
-                    <h3 class="text-sm font-medium text-primary-800 dark:text-primary-200">
-                        Translation Management
-                    </h3>
-                    <div class="mt-2 text-sm text-primary-700 dark:text-primary-300">
-                        <p>Edit translations organized by page sections. Changes are saved to language files (resources/lang/en/messages.php and resources/lang/sv/messages.php).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <form wire:submit="save">
             {{ $this->form }}
 
