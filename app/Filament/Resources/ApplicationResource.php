@@ -121,6 +121,7 @@ class ApplicationResource extends Resource
                                             ->directory('personal-images')
                                             ->disk('public')
                                             ->image()
+                                            ->acceptedFileTypes(['image/*'])
                                             ->maxSize(2048)
                                             ->imageEditor()
                                             ->downloadable()

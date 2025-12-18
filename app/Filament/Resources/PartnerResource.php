@@ -69,7 +69,7 @@ class PartnerResource extends Resource
                             ])
                             ->helperText('Upload partner logo. Recommended size: 300x200px or larger.')
                             ->columnSpanFull()
-                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp']),
+                            ->acceptedFileTypes(['image/*']),
                     ]),
 
                 Forms\Components\Section::make('Settings')

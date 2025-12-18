@@ -64,6 +64,7 @@ class ManagePageImages extends Page implements HasForms
                         Forms\Components\FileUpload::make($fieldName)
                             ->label('Upload Image')
                             ->image()
+                            ->acceptedFileTypes(['image/*'])
                             ->directory('page-images')
                             ->visibility('public')
                             ->maxSize(5120) // 5 MB
