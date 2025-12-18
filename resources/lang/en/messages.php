@@ -331,4 +331,13 @@ return [
     'spontaneous.subtitle' => 'Submit your application even if there is no available position that suits you right now',
     'spontaneous.title' => 'Spontaneous Application',
     'spontaneous.upload_cv' => 'Upload CV (PDF, DOC, DOCX)',
+
+    // Validation Errors
+    'validation.already_applied' => 'You have already applied to this job. You can edit your application from your profile page.',
+    'validation.date_of_birth_invalid' => 'Invalid date of birth',
+    'validation.cv_required' => 'CV file is required',
+    'validation.cv_upload_failed' => 'Failed to upload CV. Please try again.',
+    'validation.cv_upload_error' => 'CV upload failed: :message',
+    'validation.application_sent' => 'Your application has been sent!',
+    'validation.spontaneous_sent' => 'Your spontaneous application has been sent!',
 ];

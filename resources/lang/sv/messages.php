@@ -331,4 +331,13 @@ return [
     'spontaneous.subtitle' => 'Skicka in din ansökan även om det inte finns någon tillgänglig tjänst som passar dig just nu',
     'spontaneous.title' => 'Spontanansökan',
     'spontaneous.upload_cv' => 'Ladda upp CV (PDF, DOC, DOCX)',
+
+    // Validation Errors
+    'validation.already_applied' => 'Du har redan ansökt till detta jobb. Du kan redigera din ansökan från din profil.',
+    'validation.date_of_birth_invalid' => 'Ogiltigt födelsedatum',
+    'validation.cv_required' => 'CV-fil krävs',
+    'validation.cv_upload_failed' => 'CV-uppladdningen misslyckades. Försök igen.',
+    'validation.cv_upload_error' => 'CV-uppladdning misslyckades: :message',
+    'validation.application_sent' => 'Din ansökan har skickats!',
+    'validation.spontaneous_sent' => 'Din spontanansökan har skickats!',
 ];

@@ -126,7 +126,7 @@ class ProfileController extends Controller
         
         // Validate date
         if (!checkdate($validated['birth_month'], $validated['birth_day'], $validated['birth_year'])) {
-            return redirect()->back()->withErrors(['date_of_birth' => 'Invalid date of birth'])->withInput();
+            return redirect()->back()->withErrors(['date_of_birth' => __('messages.validation.date_of_birth_invalid')])->withInput();
         }
 
         // Build phone with country code

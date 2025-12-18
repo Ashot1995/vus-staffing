@@ -68,7 +68,7 @@ class JobController extends Controller
 
         if ($existingApplication) {
             return redirect()->back()->withErrors([
-                'application' => 'You have already applied to this job. You can edit your application from your profile page.',
+                'application' => __('messages.validation.already_applied'),
             ])->withInput();
         }
 
@@ -100,23 +100,23 @@ class JobController extends Controller
         
         // Validate date
         if (!checkdate($validated['birth_month'], $validated['birth_day'], $validated['birth_year'])) {
-            return redirect()->back()->withErrors(['date_of_birth' => 'Invalid date of birth'])->withInput();
+            return redirect()->back()->withErrors(['date_of_birth' => __('messages.validation.date_of_birth_invalid')])->withInput();
         }
 
         // Handle CV upload with error handling
         try {
             if (!$request->hasFile('cv')) {
-                return redirect()->back()->withErrors(['cv' => 'CV file is required'])->withInput();
+                return redirect()->back()->withErrors(['cv' => __('messages.validation.cv_required')])->withInput();
             }
             
             $cvFile = $request->file('cv');
             $cvPath = $cvFile->store('cvs', 'public');
             
             if (!$cvPath) {
-                return redirect()->back()->withErrors(['cv' => 'Failed to upload CV. Please try again.'])->withInput();
+                return redirect()->back()->withErrors(['cv' => __('messages.validation.cv_upload_failed')])->withInput();
             }
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['cv' => 'CV upload failed: ' . $e->getMessage()])->withInput();
+            return redirect()->back()->withErrors(['cv' => __('messages.validation.cv_upload_error', ['message' => $e->getMessage()])])->withInput();
         }
         
         $personalImagePath = null;
@@ -171,7 +171,7 @@ class JobController extends Controller
             ]);
         }
 
-        return redirect()->route('jobs.show', $job)->with('success', 'Din ansökan har skickats!');
+        return redirect()->route('jobs.show', $job)->with('success', __('messages.validation.application_sent'));
     }
 
     public function submitSpontaneous(Request $request)
@@ -223,6 +223,6 @@ class JobController extends Controller
             ]);
         }
 
-        return redirect()->route('jobs.apply-spontaneous')->with('success', 'Din spontanansökan har skickats!');
+        return redirect()->route('jobs.apply-spontaneous')->with('success', __('messages.validation.spontaneous_sent'));
     }
 }
