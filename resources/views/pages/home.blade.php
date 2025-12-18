@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Storage;
                         <span class="text-white">Welcome to </span>
                         <span class="vus-brand">V U S</span>
                     </h1>
-                    <div class="d-flex justify-content-center align-items-center">
+                    <div class="d-flex justify-content-center align-items-center" style="gap: 2rem;">
                         <span class="date-text">{{ __('messages.home.hero.subtitle') }}</span>
                         <span class="location-text">{{ __('messages.home.hero.location') }}</span>
                     </div>

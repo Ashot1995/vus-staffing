@@ -571,7 +571,7 @@ section:not(.hero):not(.highlight) .custom-btn:hover {
 }
 
 .date-text {
-  border-right: 0;
+  border-right: 1px solid var(--white-color);
 }
 
 
