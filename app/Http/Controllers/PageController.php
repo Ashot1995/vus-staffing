@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Partner;
+
 class PageController extends Controller
 {
     public function home()
     {
-        $partners = \App\Models\Partner::where('is_active', true)
-            ->orderBy('sort_order')
+        $partners = Partner::where('is_active', true)
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('name', 'asc')
             ->get();
         
         return view('pages.home', compact('partners'));

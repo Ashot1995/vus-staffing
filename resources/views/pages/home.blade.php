@@ -186,6 +186,19 @@ use Illuminate\Support\Facades\Storage;
     </div>
 </section>
 
+<section class="call-to-action section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12 mx-auto text-center">
+                <h2 class="mb-4">{{ __('messages.home.cta.title') }}</h2>
+                <p>{{ __('messages.home.cta.description') }}</p>
+                <a href="{{ route('jobs.index') }}" class="custom-btn btn btn-lg mt-3 me-3">{{ __('messages.home.cta.jobs') }}</a>
+                <a href="{{ route('contact') }}" class="custom-btn btn btn-lg mt-3">{{ __('messages.home.cta.contact') }}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
 @if($partners->count() > 0)
 <section class="section-padding" id="section_5" style="background: #f5f5f5;">
     <div class="container">
@@ -219,17 +232,4 @@ use Illuminate\Support\Facades\Storage;
     </div>
 </section>
 @endif
-
-<section class="call-to-action section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-12 mx-auto text-center">
-                <h2 class="mb-4">{{ __('messages.home.cta.title') }}</h2>
-                <p>{{ __('messages.home.cta.description') }}</p>
-                <a href="{{ route('jobs.index') }}" class="custom-btn btn btn-lg mt-3 me-3">{{ __('messages.home.cta.jobs') }}</a>
-                <a href="{{ route('contact') }}" class="custom-btn btn btn-lg mt-3">{{ __('messages.home.cta.contact') }}</a>
-            </div>
-        </div>
-    </div>
-</section>
 @endsection
