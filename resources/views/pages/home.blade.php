@@ -147,8 +147,8 @@ use Illuminate\Support\Facades\Storage;
                             <i class="bi-star-fill" style="color: #000000;"></i>
                             <i class="bi-star-fill" style="color: #000000;"></i>
                         </div>
-                        <p class="mb-3">"VUS helped us find the perfect candidates for our construction projects. Their service is professional and efficient."</p>
-                        <h6 class="mb-0"><strong>Construction Company AB</strong></h6>
+                        <p class="mb-3">"{{ __('messages.home.reviews.review1.text') }}"</p>
+                        <h6 class="mb-0"><strong>{{ __('messages.home.reviews.review1.company') }}</strong></h6>
                     </div>
                 </div>
             </div>
@@ -162,8 +162,8 @@ use Illuminate\Support\Facades\Storage;
                             <i class="bi-star-fill" style="color: #000000;"></i>
                             <i class="bi-star-fill" style="color: #000000;"></i>
                         </div>
-                        <p class="mb-3">"Excellent staffing solutions! VUS understands our needs and always delivers qualified personnel on time."</p>
-                        <h6 class="mb-0"><strong>Logistics Solutions Ltd</strong></h6>
+                        <p class="mb-3">"{{ __('messages.home.reviews.review2.text') }}"</p>
+                        <h6 class="mb-0"><strong>{{ __('messages.home.reviews.review2.company') }}</strong></h6>
                     </div>
                 </div>
             </div>
@@ -177,8 +177,8 @@ use Illuminate\Support\Facades\Storage;
                             <i class="bi-star-fill" style="color: #000000;"></i>
                             <i class="bi-star-fill" style="color: #000000;"></i>
                         </div>
-                        <p class="mb-3">"We've been working with VUS for over 2 years. They are reliable partners who truly care about matching the right people with the right jobs."</p>
-                        <h6 class="mb-0"><strong>Tech Innovations Inc</strong></h6>
+                        <p class="mb-3">"{{ __('messages.home.reviews.review3.text') }}"</p>
+                        <h6 class="mb-0"><strong>{{ __('messages.home.reviews.review3.company') }}</strong></h6>
                     </div>
                 </div>
             </div>

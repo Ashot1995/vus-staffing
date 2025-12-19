@@ -16,6 +16,7 @@ class Application extends Model
         'phone',
         'address',
         'cv_path',
+        'additional_files',
         'personal_image_path',
         'cover_letter',
         'is_spontaneous',
@@ -34,6 +35,7 @@ class Application extends Model
         'date_of_birth' => 'date',
         'driving_license_b' => 'boolean',
         'driving_license_own_car' => 'boolean',
+        'additional_files' => 'array',
     ];
 
     public function job(): BelongsTo

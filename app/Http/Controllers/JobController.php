@@ -178,13 +178,28 @@ class JobController extends Controller
     {
         $validated = $request->validate([
             'cover_letter' => 'required|string',
-            'cv' => 'required|file|mimes:pdf,doc,docx|max:3072',
-            'gdpr_consent' => 'required|accepted',
-            'start_date_option' => 'required|in:immediately,one_week,one_month,custom',
-            'start_date' => 'required_if:start_date_option,custom|nullable|date|after_or_equal:today',
+            'files' => 'required|array|min:1|max:3',
+            'files.0' => 'required|file|mimes:pdf,doc,docx,jpeg,png,jpg,gif|max:3072',
+            'files.1' => 'nullable|file|mimes:pdf,doc,docx,jpeg,png,jpg,gif|max:3072',
+            'files.2' => 'nullable|file|mimes:pdf,doc,docx,jpeg,png,jpg,gif|max:3072',
+            'start_date_option' => 'required|in:immediately,one_month,two_three_months',
+            'spontaneous_consent' => 'required|accepted',
         ]);
 
-        $cvPath = $request->file('cv')->store('cvs', 'public');
+        // Store files
+        $filePaths = [];
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                if ($file && $file->isValid()) {
+                    $filePaths[] = $file->store('spontaneous-files', 'public');
+                }
+            }
+        }
+
+        // First file is the CV
+        $cvPath = !empty($filePaths) ? $filePaths[0] : null;
+        // Additional files (2nd and 3rd)
+        $additionalFiles = count($filePaths) > 1 ? array_slice($filePaths, 1) : [];
 
         // Calculate start date based on option
         $startDate = null;
@@ -205,12 +220,11 @@ class JobController extends Controller
             'job_id' => null,
             'user_id' => auth()->id(),
             'cv_path' => $cvPath,
+            'additional_files' => !empty($additionalFiles) ? $additionalFiles : null,
             'cover_letter' => $validated['cover_letter'],
             'is_spontaneous' => true,
             'status' => 'pending',
-            'gdpr_consent' => true,
-            'gdpr_consent_at' => now(),
-            'consent_type' => $validated['consent_type'],
+            'consent_type' => 'full', // Spontaneous applications always use full consent
             'start_date_option' => $validated['start_date_option'],
             'start_date' => $startDate,
         ]);

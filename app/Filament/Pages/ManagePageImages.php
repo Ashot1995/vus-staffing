@@ -62,7 +62,7 @@ class ManagePageImages extends Page implements HasForms
                     ->description($config['description'] ?? '')
                     ->schema([
                         Forms\Components\FileUpload::make($fieldName)
-                            ->label('Upload Image')
+                            ->label(__('messages.admin.page_images.upload'))
                             ->image()
                             ->acceptedFileTypes(['image/*'])
                             ->directory('page-images')
@@ -79,7 +79,7 @@ class ManagePageImages extends Page implements HasForms
                             ->default($image ? $image->image_path : null),
                         
                         Forms\Components\TextInput::make("{$fieldName}_alt")
-                            ->label('Alt Text')
+                            ->label(__('messages.admin.page_images.alt_text'))
                             ->default($image ? $image->alt_text : '')
                             ->maxLength(255),
                     ])

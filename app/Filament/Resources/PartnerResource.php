@@ -32,18 +32,18 @@ class PartnerResource extends Resource
                 Forms\Components\Section::make('Basic Information')
                     ->schema([
                         Forms\Components\TextInput::make('name')
-                            ->label('Partner Name')
+                            ->label(__('messages.admin.partner.name'))
                             ->required()
                             ->maxLength(255)
                             ->columnSpanFull(),
                         
                         Forms\Components\Textarea::make('description')
-                            ->label('Description')
+                            ->label(__('messages.admin.partner.description'))
                             ->rows(3)
                             ->columnSpanFull(),
                         
                         Forms\Components\TextInput::make('website_url')
-                            ->label('Website URL')
+                            ->label(__('messages.admin.partner.website'))
                             ->url()
                             ->maxLength(255)
                             ->placeholder('https://example.com')
@@ -54,7 +54,7 @@ class PartnerResource extends Resource
                 Forms\Components\Section::make('Logo')
                     ->schema([
                         Forms\Components\FileUpload::make('logo')
-                            ->label('Partner Logo')
+                            ->label(__('messages.admin.partner.logo'))
                             ->image()
                             ->directory('partners')
                             ->disk('public')
@@ -75,12 +75,12 @@ class PartnerResource extends Resource
                 Forms\Components\Section::make('Settings')
                     ->schema([
                         Forms\Components\Toggle::make('is_active')
-                            ->label('Active')
+                            ->label(__('messages.admin.partner.active'))
                             ->default(true)
                             ->helperText('Only active partners will be displayed on the website.'),
                         
                         Forms\Components\TextInput::make('sort_order')
-                            ->label('Sort Order')
+                            ->label(__('messages.admin.partner.sort_order'))
                             ->numeric()
                             ->default(0)
                             ->helperText('Lower numbers appear first.'),
@@ -94,44 +94,44 @@ class PartnerResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('logo')
-                    ->label('Logo')
+                    ->label(__('messages.admin.partner.logo'))
                     ->disk('public')
                     ->circular()
                     ->size(50),
                 
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Name')
+                    ->label(__('messages.admin.partner.name'))
                     ->searchable()
                     ->sortable(),
                 
                 Tables\Columns\TextColumn::make('website_url')
-                    ->label('Website')
+                    ->label(__('messages.admin.partner.website'))
                     ->url(fn ($record) => $record->website_url)
                     ->openUrlInNewTab()
                     ->limit(30)
                     ->searchable(),
                 
                 Tables\Columns\IconColumn::make('is_active')
-                    ->label('Active')
+                    ->label(__('messages.admin.partner.active'))
                     ->boolean()
                     ->sortable(),
                 
                 Tables\Columns\TextColumn::make('sort_order')
-                    ->label('Order')
+                    ->label(__('messages.admin.partner.order'))
                     ->sortable(),
                 
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('messages.admin.partner.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\TernaryFilter::make('is_active')
-                    ->label('Active')
+                    ->label(__('messages.admin.partner.active'))
                     ->placeholder('All partners')
-                    ->trueLabel('Active only')
-                    ->falseLabel('Inactive only'),
+                    ->trueLabel(__('messages.admin.partner.active_only'))
+                    ->falseLabel(__('messages.admin.partner.inactive_only')),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

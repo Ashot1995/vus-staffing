@@ -28,11 +28,32 @@
                         <form method="POST" action="{{ route('jobs.submit-spontaneous') }}" enctype="multipart/form-data">
                             @csrf
                             
+                            <h5 class="mb-3 mt-4">{{ __('messages.spontaneous.upload_files') }}</h5>
+                            <p class="text-muted mb-4">{{ __('messages.spontaneous.upload_files_description') }}</p>
+
                             <div class="mb-4">
-                                <label class="form-label">{{ __('messages.spontaneous.upload_cv') }} *</label>
-                                <input type="file" name="cv" class="form-control @error('cv') is-invalid @enderror" accept=".pdf,.doc,.docx" required>
+                                <label class="form-label">{{ __('messages.spontaneous.file') }} 1 *</label>
+                                <input type="file" name="files[]" class="form-control @error('files.0') is-invalid @enderror" accept=".pdf,.doc,.docx,image/*" required>
                                 <small class="form-text text-muted">{{ __('messages.apply.file_size_notice') }}</small>
-                                @error('cv')
+                                @error('files.0')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">{{ __('messages.spontaneous.file') }} 2</label>
+                                <input type="file" name="files[]" class="form-control @error('files.1') is-invalid @enderror" accept=".pdf,.doc,.docx,image/*">
+                                <small class="form-text text-muted">{{ __('messages.apply.file_size_notice') }}</small>
+                                @error('files.1')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">{{ __('messages.spontaneous.file') }} 3</label>
+                                <input type="file" name="files[]" class="form-control @error('files.2') is-invalid @enderror" accept=".pdf,.doc,.docx,image/*">
+                                <small class="form-text text-muted">{{ __('messages.apply.file_size_notice') }}</small>
+                                @error('files.2')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -59,21 +80,14 @@
                             </div>
 
                             <div class="mb-5">
-                                <label class="form-label mb-3" style="text-transform: capitalize;">{{ __('messages.apply.consent.required') }} *</label>
-                                <div class="form-check mb-3">
-                                    <input class="form-check-input @error('consent_type') is-invalid @enderror" type="radio" name="consent_type" id="consent_full" value="full" {{ old('consent_type') == 'full' ? 'checked' : '' }} required>
-                                    <label class="form-check-label" for="consent_full" style="text-transform: capitalize;">
-                                        {{ __('messages.apply.consent.full') }}
+                                <div class="form-check">
+                                    <input class="form-check-input @error('spontaneous_consent') is-invalid @enderror" type="checkbox" name="spontaneous_consent" id="spontaneous_consent" value="1" {{ old('spontaneous_consent') ? 'checked' : '' }} required>
+                                    <label class="form-check-label" for="spontaneous_consent">
+                                        {{ __('messages.spontaneous.consent') }} *
                                     </label>
                                 </div>
-                                <div class="form-check mb-3">
-                                    <input class="form-check-input @error('consent_type') is-invalid @enderror" type="radio" name="consent_type" id="consent_limited" value="limited" {{ old('consent_type') == 'limited' ? 'checked' : '' }} required>
-                                    <label class="form-check-label" for="consent_limited" style="text-transform: capitalize;">
-                                        {{ __('messages.apply.consent.limited') }}
-                                    </label>
-                                </div>
-                                @error('consent_type')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @error('spontaneous_consent')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
                             </div>
 

@@ -30,18 +30,18 @@ class ContactSubmissionResource extends Resource
                 Forms\Components\Section::make('Contact Information')
                     ->schema([
                         Forms\Components\TextInput::make('name')
-                            ->label('Name')
+                            ->label(__('messages.admin.contact.name'))
                             ->disabled()
                             ->dehydrated(),
                         
                         Forms\Components\TextInput::make('email')
-                            ->label('Email')
+                            ->label(__('messages.admin.contact.email'))
                             ->email()
                             ->disabled()
                             ->dehydrated(),
                         
                         Forms\Components\TextInput::make('phone')
-                            ->label('Phone')
+                            ->label(__('messages.admin.contact.phone'))
                             ->disabled()
                             ->dehydrated(),
                     ])
@@ -50,13 +50,13 @@ class ContactSubmissionResource extends Resource
                 Forms\Components\Section::make('Message Details')
                     ->schema([
                         Forms\Components\TextInput::make('subject')
-                            ->label('Subject')
+                            ->label(__('messages.admin.contact.subject'))
                             ->disabled()
                             ->dehydrated()
                             ->columnSpanFull(),
                         
                         Forms\Components\Textarea::make('message')
-                            ->label('Message')
+                            ->label(__('messages.admin.contact.message'))
                             ->disabled()
                             ->dehydrated()
                             ->rows(6)
@@ -66,7 +66,7 @@ class ContactSubmissionResource extends Resource
                 Forms\Components\Section::make('Submission Info')
                     ->schema([
                         Forms\Components\DateTimePicker::make('created_at')
-                            ->label('Submitted At')
+                            ->label(__('messages.admin.contact.submitted_at'))
                             ->disabled()
                             ->dehydrated(),
                     ])
@@ -94,7 +94,7 @@ class ContactSubmissionResource extends Resource
                     ->sortable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Submitted')
+                    ->label(__('messages.admin.contact.submitted_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(),
@@ -103,9 +103,9 @@ class ContactSubmissionResource extends Resource
                 Tables\Filters\Filter::make('created_at')
                     ->form([
                         Forms\Components\DatePicker::make('created_from')
-                            ->label('Created From'),
+                            ->label(__('messages.admin.contact.created_from')),
                         Forms\Components\DatePicker::make('created_until')
-                            ->label('Created Until'),
+                            ->label(__('messages.admin.contact.created_until')),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query

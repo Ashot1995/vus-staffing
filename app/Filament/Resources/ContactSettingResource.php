@@ -32,7 +32,7 @@ class ContactSettingResource extends Resource
                 Forms\Components\Section::make('Contact Information')
                     ->schema([
                         Forms\Components\TextInput::make('email')
-                            ->label('Email')
+                            ->label(__('messages.admin.contact.email'))
                             ->email()
                             ->required()
                             ->maxLength(255)
@@ -40,7 +40,7 @@ class ContactSettingResource extends Resource
                             ->columnSpanFull(),
                         
                         Forms\Components\TextInput::make('phone')
-                            ->label('Phone')
+                            ->label(__('messages.admin.contact.phone'))
                             ->tel()
                             ->maxLength(255)
                             ->columnSpanFull(),
@@ -50,12 +50,12 @@ class ContactSettingResource extends Resource
                 Forms\Components\Section::make('Address')
                     ->schema([
                         Forms\Components\Textarea::make('address_en')
-                            ->label('Address (English)')
+                            ->label(__('messages.admin.contact.address_en'))
                             ->rows(2)
                             ->columnSpan(1),
                         
                         Forms\Components\Textarea::make('address_sv')
-                            ->label('Address (Swedish)')
+                            ->label(__('messages.admin.contact.address_sv'))
                             ->rows(2)
                             ->columnSpan(1),
                     ])
@@ -64,25 +64,25 @@ class ContactSettingResource extends Resource
                 Forms\Components\Section::make('Business Hours')
                     ->schema([
                         Forms\Components\TextInput::make('hours_weekdays_en')
-                            ->label('Weekdays Hours (English)')
+                            ->label(__('messages.admin.contact.hours_weekdays_en'))
                             ->placeholder('Monday - Friday: 9:00 AM - 5:00 PM')
                             ->maxLength(255)
                             ->columnSpan(1),
                         
                         Forms\Components\TextInput::make('hours_weekdays_sv')
-                            ->label('Weekdays Hours (Swedish)')
+                            ->label(__('messages.admin.contact.hours_weekdays_sv'))
                             ->placeholder('Måndag - Fredag: 9:00 - 17:00')
                             ->maxLength(255)
                             ->columnSpan(1),
                         
                         Forms\Components\TextInput::make('hours_weekend_en')
-                            ->label('Weekend Hours (English)')
+                            ->label(__('messages.admin.contact.hours_weekend_en'))
                             ->placeholder('Saturday - Sunday: Closed')
                             ->maxLength(255)
                             ->columnSpan(1),
                         
                         Forms\Components\TextInput::make('hours_weekend_sv')
-                            ->label('Weekend Hours (Swedish)')
+                            ->label(__('messages.admin.contact.hours_weekend_sv'))
                             ->placeholder('Lördag - Söndag: Stängt')
                             ->maxLength(255)
                             ->columnSpan(1),
