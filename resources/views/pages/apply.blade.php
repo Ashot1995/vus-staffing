@@ -64,6 +64,26 @@
                             </div>
                         </div>
 
+                        <!-- Age Verification -->
+                        <div class="mb-4">
+                            <label class="form-label">{{ __('messages.apply.is_18_or_older') }} ({{ __('messages.apply.required') }})</label>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input @error('is_18_or_older') is-invalid @enderror" type="radio" name="is_18_or_older" id="is_18_yes" value="1" {{ old('is_18_or_older') == '1' ? 'checked' : '' }} required>
+                                <label class="form-check-label" for="is_18_yes">
+                                    {{ __('messages.apply.is_18_or_older.yes') }}
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input @error('is_18_or_older') is-invalid @enderror" type="radio" name="is_18_or_older" id="is_18_no" value="0" {{ old('is_18_or_older') == '0' ? 'checked' : '' }} required>
+                                <label class="form-check-label" for="is_18_no">
+                                    {{ __('messages.apply.is_18_or_older.no') }}
+                                </label>
+                            </div>
+                            @error('is_18_or_older')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <div class="mb-3">
                             <label class="form-label">{{ __('messages.apply.email') }} ({{ __('messages.apply.required') }})</label>
                             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', auth()->user()->email ?? '') }}" required>
@@ -159,6 +179,15 @@
                         <div class="mb-4">
                             <textarea name="other" class="form-control @error('other') is-invalid @enderror" rows="3" placeholder="{{ __('messages.apply.other_placeholder') }}">{{ old('other') }}</textarea>
                             @error('other')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Additional Information (Optional) -->
+                        <h5 class="mb-3 mt-4">{{ __('messages.apply.additional_information') }}</h5>
+                        <div class="mb-4">
+                            <textarea name="additional_information" rows="5" class="form-control @error('additional_information') is-invalid @enderror" placeholder="{{ __('messages.apply.additional_information_placeholder') }}">{{ old('additional_information') }}</textarea>
+                            @error('additional_information')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

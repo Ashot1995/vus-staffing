@@ -22,7 +22,7 @@
             </button>
 
             <a href="{{ route('home') }}" class="navbar-brand mx-auto mx-lg-0">
-                <img src="{{ asset('images/logo.png') }}" alt="V U S" class="brand-logo navbar-logo">
+                <img src="{{ asset('images/logo.png') }}" alt="V U S" style="height:50px" class="brand-logo navbar-logo">
             </a>
 
             @guest
@@ -117,7 +117,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-12 mb-4">
-                    <img src="{{ asset('images/logo.png') }}" alt="V U S" class="brand-logo footer-logo mb-3">
+                    <img src="{{ asset('images/logo.png') }}" alt="V U S" style="height:50px" class="brand-logo footer-logo mb-3">
                     <p class="text-white d-flex mb-2">
                         <i class="bi-geo-alt me-2"></i>
                         {{ __('messages.common.country.sweden') }}

@@ -78,6 +78,7 @@ class JobController extends Controller
             'birth_month' => 'required|integer|min:1|max:12',
             'birth_day' => 'required|integer|min:1|max:31',
             'birth_year' => 'required|integer|min:1900|max:' . date('Y'),
+            'is_18_or_older' => 'required|boolean',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:255',
             'address' => 'required|string|max:500',
@@ -91,6 +92,7 @@ class JobController extends Controller
             'driving_license_b' => 'nullable|boolean',
             'driving_license_own_car' => 'nullable|boolean',
             'other' => 'nullable|string|max:1000',
+            'additional_information' => 'nullable|string|max:2000',
             'start_date_option' => 'required|in:immediately,one_month,two_three_months',
             'consent_type' => 'required|in:full,limited',
         ]);
@@ -148,6 +150,7 @@ class JobController extends Controller
             'first_name' => $validated['first_name'],
             'surname' => $validated['surname'],
             'date_of_birth' => $dateOfBirth,
+            'is_18_or_older' => (bool)$validated['is_18_or_older'],
             'phone' => $phoneWithCode,
             'address' => $validated['address'],
             'cv_path' => $cvPath,
@@ -161,6 +164,7 @@ class JobController extends Controller
             'driving_license_b' => $request->has('driving_license_b'),
             'driving_license_own_car' => $request->has('driving_license_own_car'),
             'other' => $validated['other'] ?? null,
+            'additional_information' => $validated['additional_information'] ?? null,
         ]);
 
         // Update user GDPR consent if not set
@@ -176,30 +180,81 @@ class JobController extends Controller
 
     public function submitSpontaneous(Request $request)
     {
+        // Handle registration if user is not authenticated
+        if (!auth()->check()) {
+            $registrationValidated = $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],
+            ]);
+
+            $user = \App\Models\User::create([
+                'name' => $registrationValidated['name'],
+                'email' => $registrationValidated['email'],
+                'password' => \Illuminate\Support\Facades\Hash::make($registrationValidated['password']),
+            ]);
+
+            \Illuminate\Support\Facades\Auth::login($user);
+            \Illuminate\Auth\Events\Registered::dispatch($user);
+        }
+
+        // Validate application data
         $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'birth_month' => 'required|integer|min:1|max:12',
+            'birth_day' => 'required|integer|min:1|max:31',
+            'birth_year' => 'required|integer|min:1900|max:' . date('Y'),
+            'is_18_or_older' => 'required|boolean',
+            'application_email' => 'required|email|max:255',
+            'phone' => 'required|string|max:255',
+            'address' => 'required|string|max:500',
+            'cv' => [
+                'required',
+                'file',
+                'mimes:pdf,doc,docx',
+                'max:3072',
+            ],
+            'personal_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'driving_license_b' => 'nullable|boolean',
+            'driving_license_own_car' => 'nullable|boolean',
             'cover_letter' => 'required|string',
-            'files' => 'required|array|min:1|max:3',
-            'files.0' => 'required|file|mimes:pdf,doc,docx,jpeg,png,jpg,gif|max:3072',
-            'files.1' => 'nullable|file|mimes:pdf,doc,docx,jpeg,png,jpg,gif|max:3072',
-            'files.2' => 'nullable|file|mimes:pdf,doc,docx,jpeg,png,jpg,gif|max:3072',
+            'additional_information' => 'nullable|string|max:2000',
             'start_date_option' => 'required|in:immediately,one_month,two_three_months',
             'spontaneous_consent' => 'required|accepted',
         ]);
 
-        // Store files
-        $filePaths = [];
-        if ($request->hasFile('files')) {
-            foreach ($request->file('files') as $file) {
-                if ($file && $file->isValid()) {
-                    $filePaths[] = $file->store('spontaneous-files', 'public');
-                }
-            }
+        // Build date of birth
+        $dateOfBirth = sprintf('%04d-%02d-%02d', $validated['birth_year'], $validated['birth_month'], $validated['birth_day']);
+        
+        // Validate date
+        if (!checkdate($validated['birth_month'], $validated['birth_day'], $validated['birth_year'])) {
+            return redirect()->back()->withErrors(['date_of_birth' => __('messages.validation.date_of_birth_invalid')])->withInput();
         }
 
-        // First file is the CV
-        $cvPath = !empty($filePaths) ? $filePaths[0] : null;
-        // Additional files (2nd and 3rd)
-        $additionalFiles = count($filePaths) > 1 ? array_slice($filePaths, 1) : [];
+        // Handle CV upload
+        try {
+            if (!$request->hasFile('cv')) {
+                return redirect()->back()->withErrors(['cv' => __('messages.validation.cv_required')])->withInput();
+            }
+            
+            $cvFile = $request->file('cv');
+            $cvPath = $cvFile->store('cvs', 'public');
+            
+            if (!$cvPath) {
+                return redirect()->back()->withErrors(['cv' => __('messages.validation.cv_upload_failed')])->withInput();
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['cv' => __('messages.validation.cv_upload_error', ['message' => $e->getMessage()])])->withInput();
+        }
+        
+        $personalImagePath = null;
+        if ($request->hasFile('personal_image')) {
+            $personalImagePath = $request->file('personal_image')->store('personal-images', 'public');
+        }
+
+        // Build phone with country code
+        $phoneWithCode = ($request->input('phone_country_code', '+46') . ' ' . $validated['phone']);
 
         // Calculate start date based on option
         $startDate = null;
@@ -219,14 +274,23 @@ class JobController extends Controller
         Application::create([
             'job_id' => null,
             'user_id' => auth()->id(),
+            'first_name' => $validated['first_name'],
+            'surname' => $validated['surname'],
+            'date_of_birth' => $dateOfBirth,
+            'is_18_or_older' => (bool)$validated['is_18_or_older'],
+            'phone' => $phoneWithCode,
+            'address' => $validated['address'],
             'cv_path' => $cvPath,
-            'additional_files' => !empty($additionalFiles) ? $additionalFiles : null,
+            'personal_image_path' => $personalImagePath,
             'cover_letter' => $validated['cover_letter'],
+            'additional_information' => $validated['additional_information'] ?? null,
             'is_spontaneous' => true,
             'status' => 'pending',
             'consent_type' => 'full', // Spontaneous applications always use full consent
             'start_date_option' => $validated['start_date_option'],
             'start_date' => $startDate,
+            'driving_license_b' => $request->has('driving_license_b'),
+            'driving_license_own_car' => $request->has('driving_license_own_car'),
         ]);
 
         // Update user GDPR consent if not set

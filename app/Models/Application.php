@@ -13,6 +13,7 @@ class Application extends Model
         'first_name',
         'surname',
         'date_of_birth',
+        'is_18_or_older',
         'phone',
         'address',
         'cv_path',
@@ -27,6 +28,7 @@ class Application extends Model
         'driving_license_b',
         'driving_license_own_car',
         'other',
+        'additional_information',
     ];
 
     protected $casts = [
@@ -35,6 +37,7 @@ class Application extends Model
         'date_of_birth' => 'date',
         'driving_license_b' => 'boolean',
         'driving_license_own_car' => 'boolean',
+        'is_18_or_older' => 'boolean',
         'additional_files' => 'array',
     ];
 

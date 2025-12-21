@@ -71,6 +71,10 @@ class ApplicationResource extends Resource
                                     ->displayFormat('Y-m-d')
                                     ->required(),
                                 
+                                Forms\Components\Toggle::make('is_18_or_older')
+                                    ->label('18+ Years Old')
+                                    ->default(false),
+                                
                                 Forms\Components\TextInput::make('email')
                                     ->label(__('messages.admin.application.email'))
                                     ->email()
@@ -174,6 +178,12 @@ class ApplicationResource extends Resource
                                             ->label(__('messages.admin.application.other'))
                                             ->rows(3)
                                             ->maxLength(1000)
+                                            ->columnSpanFull(),
+                                        
+                                        Forms\Components\Textarea::make('additional_information')
+                                            ->label('Additional Information (Optional)')
+                                            ->rows(4)
+                                            ->maxLength(2000)
                                             ->columnSpanFull(),
                                     ])
                                     ->columns(2),
