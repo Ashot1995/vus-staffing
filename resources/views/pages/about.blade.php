@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@php
+use Illuminate\Support\Facades\Storage;
+@endphp
+
 @section('title', __('messages.about.title') . ' - V U S')
 
 @section('content')

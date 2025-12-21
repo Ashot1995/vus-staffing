@@ -34,7 +34,7 @@
                             <ul class="list-unstyled">
                                 <li class="mb-2"><a href="{{ route('profile.edit') }}" class="text-decoration-none"><i class="bi-person me-2"></i>{{ __('messages.dashboard.edit_profile') }}</a></li>
                                 @if(auth()->user()->is_admin)
-                                    <li class="mb-2"><a href="{{ url('/admin') }}" target="_blank" class="text-decoration-none"><i class="bi-shield-check me-2"></i>{{ __('Admin Panel') }}</a></li>
+                                    <li class="mb-2"><a href="{{ url('/admin') }}" target="_blank" class="text-decoration-none"><i class="bi-shield-check me-2"></i>{{ __('messages.auth.admin_panel') }}</a></li>
                                 @endif
                             </ul>
                         </div>

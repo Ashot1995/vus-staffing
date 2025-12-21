@@ -22,8 +22,7 @@
             </button>
 
             <a href="{{ route('home') }}" class="navbar-brand mx-auto mx-lg-0">
-                <i class="bi-briefcase brand-logo"></i>
-                <span class="brand-text">V U S</span>
+                <img src="{{ asset('images/logo.png') }}" alt="V U S" class="brand-logo navbar-logo">
             </a>
 
             @guest
@@ -41,7 +40,7 @@
                         <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bi-gear me-2"></i>{{ __('messages.dashboard.edit_profile') }}</a></li>
                         @if(auth()->user()->is_admin)
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ url('/admin') }}" target="_blank"><i class="bi-shield-check me-2"></i>{{ __('Admin Panel') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/admin') }}" target="_blank"><i class="bi-shield-check me-2"></i>{{ __('messages.auth.admin_panel') }}</a></li>
                         @endif
                         <li><hr class="dropdown-divider"></li>
                         <li>
@@ -91,7 +90,7 @@
                                 <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bi-gear me-2"></i>{{ __('messages.dashboard.edit_profile') }}</a></li>
                                 @if(auth()->user()->is_admin)
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="{{ url('/admin') }}" target="_blank"><i class="bi-shield-check me-2"></i>{{ __('Admin Panel') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('/admin') }}" target="_blank"><i class="bi-shield-check me-2"></i>{{ __('messages.auth.admin_panel') }}</a></li>
                                 @endif
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
@@ -118,10 +117,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-12 mb-4">
-                    <h5 class="site-footer-title mb-3">V U S</h5>
+                    <img src="{{ asset('images/logo.png') }}" alt="V U S" class="brand-logo footer-logo mb-3">
                     <p class="text-white d-flex mb-2">
                         <i class="bi-geo-alt me-2"></i>
-                        {{ app()->getLocale() === 'en' ? 'Sweden' : 'Sverige' }}
+                        {{ __('messages.common.country.sweden') }}
                     </p>
                     <p class="text-white d-flex">
                         <i class="bi-envelope me-2"></i>
@@ -137,6 +136,7 @@
                         <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.for_employers') }}</a></li>
                         <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.free_services') }}</a></li>
                         <li class="footer-menu-item"><a href="{{ route('contact') }}" class="footer-menu-link">{{ __('messages.nav.contact') }}</a></li>
+                        <li class="footer-menu-item"><a href="{{ route('privacy') }}" class="footer-menu-link">{{ __('messages.cookie.privacy_policy') }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -147,6 +147,9 @@
                 <div class="row">
                     <div class="col-lg-6 col-12">
                         <p class="copyright-text mb-0">{{ __('messages.footer.copyright', ['year' => date('Y')]) }}</p>
+                    </div>
+                    <div class="col-lg-6 col-12 text-lg-end">
+                        <a href="#" onclick="showCookieSettings(); return false;" class="site-footer-link" style="text-decoration: underline;">{{ __('messages.cookie.settings.title') }}</a>
                     </div>
                 </div>
             </div>

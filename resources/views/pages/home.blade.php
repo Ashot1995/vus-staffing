@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Storage;
             <div class="col-lg-5 col-12 m-auto">
                 <div class="hero-text">
                     <h1 class="mb-4">
-                        <span class="text-white">Welcome to </span>
-                        <span class="vus-brand">V U S</span>
+                        <span class="text-white">{{ __('messages.home.hero.title_prefix') }}</span>
+                        <span class="vus-brand">{{ __('messages.home.hero.title_vus') }}</span>
                     </h1>
-                    <div class="d-flex justify-content-center align-items-center" style="gap: 2rem;">
-                        <span class="date-text">{{ __('messages.home.hero.subtitle') }}</span>
-                        <span class="location-text">{{ __('messages.home.hero.location') }}</span>
+                    <div class="d-flex justify-content-center align-items-center gap-3 mb-4">
+                        <a href="{{ route('for-employers') }}" class="custom-btn btn">{{ __('messages.home.hero.button_for_employers') }}</a>
+                        <a href="{{ route('jobs.index') }}" class="custom-btn btn">{{ __('messages.home.hero.button_available_jobs') }}</a>
                     </div>
                     <a href="#section_2" class="custom-link bi-arrow-down arrow-icon"></a>
                 </div>
@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Storage;
     <div class="video-wrap">
         <video autoplay loop muted class="custom-video" poster="">
             <source src="{{ asset('videos/pexels-pavel-danilyuk-8716790.mp4') }}" type="video/mp4">
-            Your browser does not support the video tag.
+            {{ __('messages.common.video_not_supported') }}
         </video>
     </div>
 </section>
@@ -208,7 +208,7 @@ use Illuminate\Support\Facades\Storage;
                 <p class="lead">{{ __('messages.home.partners.subtitle') }}</p>
             </div>
         </div>
-        
+
         <div class="row justify-content-center">
             @foreach($partners as $partner)
             <div class="col-lg-3 col-md-4 col-6 mb-4">

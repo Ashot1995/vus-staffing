@@ -419,18 +419,18 @@ a.btn {
     font-size: 15px;
     min-width: 120px;
   }
-  
+
   .btn-lg {
     padding: 12px 28px !important;
     font-size: 16px;
     min-width: 140px;
   }
-  
+
   .d-flex.gap-3 {
     flex-direction: column;
     width: 100%;
   }
-  
+
   .d-flex.gap-3 .btn,
   .d-flex.gap-3 .custom-btn {
     width: 100%;
@@ -470,14 +470,45 @@ a.btn {
 }
 
 /* Improved Hero Section */
+.hero-text {
+  color: #ffffff !important;
+}
+
 .hero-text h1 {
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  color: #ffffff !important;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
   animation: fadeInUp 0.8s ease;
+}
+
+.hero-text h1 .text-white {
+  color: #ffffff !important;
+}
+
+.hero-text h1 span:not(.vus-brand) {
+  color: #ffffff !important;
 }
 
 .vus-brand {
   color: #FF6B35 !important;
   font-weight: 700;
+}
+
+/* Hero Section Buttons */
+.hero .custom-btn {
+  background: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  font-weight: 600;
+  padding: 12px 30px !important;
+  min-width: 160px;
+  transition: all 0.3s ease;
+}
+
+.hero .custom-btn:hover {
+  background: transparent !important;
+  border: 2px solid #ffffff !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
 @keyframes fadeInUp {
@@ -692,16 +723,16 @@ a.btn {
     padding-top: 60px;
     padding-bottom: 30px;
   }
-  
+
   .site-footer-title {
     font-size: 18px;
     margin-bottom: 1rem;
   }
-  
+
   .site-footer .col-lg-4 {
     margin-bottom: 2rem;
   }
-  
+
   .social-icon {
     justify-content: flex-start;
   }
@@ -713,13 +744,13 @@ a.btn {
     padding-bottom: 25px;
     margin-top: 40px;
   }
-  
+
   .site-footer-bottom {
     margin-top: 30px;
     padding-top: 20px;
     padding-bottom: 20px;
   }
-  
+
   .copyright-text {
     text-align: center;
     font-size: 13px;
@@ -866,7 +897,7 @@ html {
   .custom-block:hover {
     transform: translateY(-4px);
   }
-  
+
   .hero-text h1 {
     font-size: 2.5rem;
   }

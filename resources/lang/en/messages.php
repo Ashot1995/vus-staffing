@@ -154,7 +154,13 @@ return [
     'contact.form.message' => 'Message',
     'contact.form.name' => 'Name',
     'contact.form.phone' => 'Phone',
+    'contact.form.privacy_consent_text' => 'I agree to the',
+    'contact.form.response_time' => 'We\'ll get back to you within 24 hours.',
     'contact.form.subject' => 'Subject',
+    'contact.form.success_message' => 'Thank you for your message! We will get back to you as soon as possible.',
+    'contact.form.type' => 'Are you a private individual or a company?',
+    'contact.form.type_company' => 'Company',
+    'contact.form.type_private' => 'Private',
     'contact.hours' => 'Opening Hours',
     'contact.hours_weekdays' => 'Monday - Friday: 09:00 - 17:00',
     'contact.hours_weekend' => 'Saturday - Sunday: Closed',
@@ -165,7 +171,19 @@ return [
     // Cookie
     'cookie.accept' => 'Accept',
     'cookie.consent_given' => 'Cookie consent saved.',
+    'cookie.customize' => 'Customize',
     'cookie.privacy_policy' => 'Privacy Policy',
+    'cookie.reject' => 'Reject',
+    'cookie.settings.analytics.description' => 'Help us understand how visitors interact with our website.',
+    'cookie.settings.analytics.title' => 'Analytics Cookies',
+    'cookie.settings.cancel' => 'Cancel',
+    'cookie.settings.description' => 'Choose which cookies you want to accept.',
+    'cookie.settings.essential.description' => 'Required for the website to function properly.',
+    'cookie.settings.essential.title' => 'Essential Cookies',
+    'cookie.settings.marketing.description' => 'Used to deliver personalized advertisements.',
+    'cookie.settings.marketing.title' => 'Marketing Cookies',
+    'cookie.settings.save' => 'Save Preferences',
+    'cookie.settings.title' => 'Cookie Settings',
     'cookie.text' => 'We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.',
 
     // Dashboard
@@ -249,9 +267,13 @@ return [
     'home.find_job.button' => 'View Available Jobs',
     'home.find_job.description' => 'Search through our available positions and find the perfect match for your skills and experience.',
     'home.find_job.title' => 'Find Your Dream Job',
+    'home.hero.button_available_jobs' => 'Available Jobs',
+    'home.hero.button_for_employers' => 'For Employers',
     'home.hero.location' => 'All of Sweden',
     'home.hero.subtitle' => 'Professional Staffing',
-    'home.hero.title' => 'Welcome to VUS',
+    'home.hero.title' => 'Welcome to V U S',
+    'home.hero.title_prefix' => 'Welcome to',
+    'home.hero.title_vus' => 'V U S',
     'home.partners.subtitle' => 'We work with trusted partners',
     'home.partners.title' => 'Cooperation Partners',
     'home.partners.visit_website' => 'Visit Website',
@@ -307,7 +329,7 @@ return [
     'jobs.title' => 'Available Jobs',
 
     // Nav
-    'nav.about' => 'About Us1',
+    'nav.about' => 'About Us',
     'nav.contact' => 'Contact Us',
     'nav.for_employers' => 'For Employers',
     'nav.for_job_seekers' => 'For Job Seekers',
@@ -327,6 +349,21 @@ return [
     'newsletter.subscribed' => 'Successfully subscribed to newsletter!',
     'newsletter.subtitle' => 'Get notified about new job openings',
     'newsletter.title' => 'Subscribe to Newsletter',
+
+    // Privacy
+    'privacy.contact.text' => 'If you have any questions about this Privacy Policy, please contact us at info@vus-bemanning.se',
+    'privacy.contact.title' => 'Contact Us',
+    'privacy.cookies.text' => 'We use cookies to enhance your browsing experience. You can manage your cookie preferences through your browser settings.',
+    'privacy.cookies.title' => 'Cookies',
+    'privacy.data_collection.text' => 'We collect personal information that you provide to us when applying for jobs, including your name, email address, phone number, CV, and other relevant information.',
+    'privacy.data_collection.title' => 'Data Collection',
+    'privacy.data_usage.text' => 'We use your personal information to process job applications, match you with suitable positions, and communicate with you about opportunities.',
+    'privacy.data_usage.title' => 'How We Use Your Data',
+    'privacy.introduction.text' => 'At VUS, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information.',
+    'privacy.introduction.title' => 'Introduction',
+    'privacy.rights.text' => 'You have the right to access, correct, or delete your personal information at any time. You can also withdraw your consent for data processing.',
+    'privacy.rights.title' => 'Your Rights',
+    'privacy.title' => 'Privacy Policy',
 
     // Profile
     'profile.applications.actions' => 'Actions',
@@ -410,4 +447,20 @@ return [
     'validation.cv_upload_failed' => 'Failed to upload CV. Please try again.',
     'validation.date_of_birth_invalid' => 'Invalid date of birth',
     'validation.spontaneous_sent' => 'Your spontaneous application has been sent!',
+
+    // Auth
+    'auth.email' => 'Email',
+    'auth.password' => 'Password',
+    'auth.password_confirmation' => 'Confirm Password',
+    'auth.remember_me' => 'Remember me',
+    'auth.forgot_password' => 'Forgot your password?',
+    'auth.login' => 'Log in',
+    'auth.register' => 'Register',
+    'auth.name' => 'Name',
+    'auth.already_registered' => 'Already registered?',
+    'auth.admin_panel' => 'Admin Panel',
+
+    // Common UI
+    'common.country.sweden' => 'Sweden',
+    'common.video_not_supported' => 'Your browser does not support the video tag.',
 ];

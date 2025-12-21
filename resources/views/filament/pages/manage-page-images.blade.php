@@ -10,10 +10,12 @@
                 </div>
                 <div class="ml-3 flex-1">
                     <h3 class="text-sm font-medium text-primary-800 dark:text-primary-200">
-                        Page Images Management
+                        Manage All Page Images
                     </h3>
                     <div class="mt-2 text-sm text-primary-700 dark:text-primary-300">
-                        <p>Upload and manage images for all pages. Images are organized by page and section.</p>
+                        <p><strong>Upload and manage images for all website pages.</strong> Images are organized by page and section. You can upload images, edit them with the built-in image editor, and add alt text for accessibility and SEO.</p>
+                        <p class="mt-1"><strong>Available Pages:</strong> About Us, Home, For Employers, Contact, Jobs, Spontaneous Application, Privacy Policy</p>
+                        <p class="mt-1"><strong>Note:</strong> Maximum file size is 5MB. Supported formats: JPG, PNG, GIF, WebP.</p>
                     </div>
                 </div>
             </div>

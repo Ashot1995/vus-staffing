@@ -318,8 +318,9 @@ section:not(.hero):not(.highlight) .custom-btn:hover {
   right: 0;
   left: 0;
   transition: all 0.3s;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  min-height: 60px;
 }
 
 .navbar-brand {
@@ -334,9 +335,72 @@ section:not(.hero):not(.highlight) .custom-btn:hover {
 }
 
 .brand-logo {
-  font-size: 38px;
-  display: inline-flex;
-  align-items: center;
+  display: inline-block;
+  height: 100px;
+  width: auto;
+  max-width: 300px;
+  object-fit: contain;
+}
+
+.brand-logo.navbar-logo {
+  height: 45px;
+  max-height: 45px;
+  min-height: 40px;
+}
+
+.brand-logo.footer-logo {
+  height: 70px;
+  max-height: 70px;
+  min-height: 50px;
+  filter: brightness(0) invert(1);
+}
+
+.brand-logo.auth-logo {
+  height: 120px;
+  max-height: 120px;
+  min-height: 100px;
+  width: auto;
+}
+
+/* Responsive logo heights */
+@media screen and (max-width: 991px) {
+  .brand-logo.navbar-logo {
+    height: 40px;
+    max-height: 40px;
+    min-height: 35px;
+  }
+  
+  .brand-logo.footer-logo {
+    height: 60px;
+    max-height: 60px;
+    min-height: 45px;
+  }
+  
+  .brand-logo.auth-logo {
+    height: 100px;
+    max-height: 100px;
+    min-height: 80px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .brand-logo.navbar-logo {
+    height: 35px;
+    max-height: 35px;
+    min-height: 30px;
+  }
+  
+  .brand-logo.footer-logo {
+    height: 50px;
+    max-height: 50px;
+    min-height: 40px;
+  }
+  
+  .brand-logo.auth-logo {
+    height: 80px;
+    max-height: 80px;
+    min-height: 70px;
+  }
 }
 
 .brand-text {
@@ -563,15 +627,10 @@ section:not(.hero):not(.highlight) .custom-btn:hover {
 
 .date-text,
 .location-text {
-  border: 1px solid var(--white-color);
   color: var(--white-color);
-  background: rgba(0, 0, 0, 0.5);
-  display: inline-block;
-  padding: 10px 20px;
-}
-
-.date-text {
-  border-right: 1px solid var(--white-color);
+  font-size: 16px;
+  font-weight: 500;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 

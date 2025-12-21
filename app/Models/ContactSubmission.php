@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class ContactSubmission extends Model
 {
     protected $fillable = [
+        'type',
         'name',
         'email',
         'phone',
         'subject',
         'message',
+        'privacy_consent',
     ];
 }

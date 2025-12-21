@@ -30,6 +30,25 @@
                     <form method="POST" action="{{ route('contact.send') }}">
                         @csrf
                         <div class="mb-3">
+                            <label class="form-label">{{ __('messages.contact.form.type') }} *</label>
+                            <div class="form-check">
+                                <input class="form-check-input @error('type') is-invalid @enderror" type="radio" name="type" id="type_private" value="private" {{ old('type') == 'private' ? 'checked' : '' }} required>
+                                <label class="form-check-label" for="type_private">
+                                    {{ __('messages.contact.form.type_private') }}
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input @error('type') is-invalid @enderror" type="radio" name="type" id="type_company" value="company" {{ old('type') == 'company' ? 'checked' : '' }} required>
+                                <label class="form-check-label" for="type_company">
+                                    {{ __('messages.contact.form.type_company') }}
+                                </label>
+                            </div>
+                            @error('type')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
                             <label class="form-label">{{ __('messages.contact.form.name') }} *</label>
                             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required>
                             @error('name')
@@ -69,6 +88,20 @@
                             @enderror
                         </div>
 
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input @error('privacy_consent') is-invalid @enderror" type="checkbox" name="privacy_consent" id="privacy_consent" value="1" {{ old('privacy_consent') ? 'checked' : '' }} required>
+                                <label class="form-check-label" for="privacy_consent">
+                                    {{ __('messages.contact.form.privacy_consent_text') }} <a href="{{ route('privacy') }}" target="_blank" style="text-decoration: underline;">{{ __('messages.cookie.privacy_policy') }}</a> *
+                                </label>
+                            </div>
+                            @error('privacy_consent')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <p class="text-muted small mb-3">{{ __('messages.contact.form.response_time') }}</p>
+
                         <button type="submit" class="custom-btn btn w-100">{{ __('messages.contact.send_message') }}</button>
                     </form>
                 </div>
@@ -93,7 +126,7 @@
 
                         <div class="mb-4">
                             <h5><i class="bi-geo-alt me-2"></i> {{ __('messages.contact.address') }}</h5>
-                            <p>{{ app()->getLocale() === 'en' ? ($contactSetting->address_en ?? 'Sweden') : ($contactSetting->address_sv ?? 'Sverige') }}</p>
+                            <p>{{ app()->getLocale() === 'en' ? ($contactSetting->address_en ?? __('messages.common.country.sweden')) : ($contactSetting->address_sv ?? __('messages.common.country.sweden')) }}</p>
                         </div>
 
                         <div class="mb-4">
@@ -117,7 +150,7 @@
 
                         <div class="mb-4">
                             <h5><i class="bi-geo-alt me-2"></i> {{ __('messages.contact.address') }}</h5>
-                            <p>{{ app()->getLocale() === 'en' ? 'Sweden' : 'Sverige' }}</p>
+                            <p>{{ __('messages.common.country.sweden') }}</p>
                         </div>
 
                         <div class="mb-4">

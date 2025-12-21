@@ -81,7 +81,7 @@ class ManageTranslations extends Page implements HasForms
         $enFlat = $this->flattenArray($enTranslations);
         $svFlat = $this->flattenArray($svTranslations);
         
-        // Get all unique keys
+        // Get all unique keys from both languages
         $allKeys = array_unique(array_merge(array_keys($enFlat), array_keys($svFlat)));
         
         // Group by section
@@ -97,6 +97,14 @@ class ManageTranslations extends Page implements HasForms
                 'en' => $enFlat[$key] ?? '',
                 'sv' => $svFlat[$key] ?? '',
             ];
+        }
+        
+        // Ensure all sections from getSections() are present (even if empty)
+        $sections = $this->getSections();
+        foreach ($sections as $sectionKey => $sectionName) {
+            if (!isset($this->translationData[$sectionKey])) {
+                $this->translationData[$sectionKey] = [];
+            }
         }
     }
 
@@ -124,11 +132,15 @@ class ManageTranslations extends Page implements HasForms
                     $this->keyMapping[$enFieldName] = ['key' => $key, 'locale' => 'en'];
                     $this->keyMapping[$svFieldName] = ['key' => $key, 'locale' => 'sv'];
                     
-                    $enText = $values['en'] ?? '(empty)';
-                    $svText = $values['sv'] ?? '(empty)';
+                    $enText = $values['en'] ?? '';
+                    $svText = $values['sv'] ?? '';
+                    
+                    // Determine if field is empty
+                    $enEmpty = empty($enText);
+                    $svEmpty = empty($svText);
                     
                     $fields[] = Forms\Components\Section::make($keyLabel)
-                        ->description("Key: <code class='text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded'>{$key}</code>")
+                        ->description("Translation Key: <code class='text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded'>{$key}</code>")
                         ->schema([
                             // Input fields that show current values and allow editing
                             Forms\Components\Grid::make(2)
@@ -136,33 +148,40 @@ class ManageTranslations extends Page implements HasForms
                                     Forms\Components\Textarea::make("formData.{$enFieldName}")
                                         ->label('🇬🇧 English')
                                         ->rows(6)
-                                        ->default($this->formData[$enFieldName] ?? $values['en'] ?? '')
+                                        ->default($this->formData[$enFieldName] ?? $enText)
                                         ->required()
                                         ->placeholder('Enter English translation...')
-                                        ->helperText('Current: ' . ($enText !== '(empty)' ? $enText : 'No translation'))
-                                        ->extraAttributes(['style' => 'min-height: 120px;']),
+                                        ->helperText($enEmpty ? '⚠️ No English translation yet' : 'Current: ' . Str::limit($enText, 100))
+                                        ->extraAttributes(['style' => 'min-height: 120px;'])
+                                        ->columnSpan(1),
                                     Forms\Components\Textarea::make("formData.{$svFieldName}")
                                         ->label('🇸🇪 Swedish')
                                         ->rows(6)
-                                        ->default($this->formData[$svFieldName] ?? $values['sv'] ?? '')
+                                        ->default($this->formData[$svFieldName] ?? $svText)
                                         ->required()
                                         ->placeholder('Enter Swedish translation...')
-                                        ->helperText('Current: ' . ($svText !== '(empty)' ? $svText : 'No translation'))
-                                        ->extraAttributes(['style' => 'min-height: 120px;']),
+                                        ->helperText($svEmpty ? '⚠️ No Swedish translation yet' : 'Current: ' . Str::limit($svText, 100))
+                                        ->extraAttributes(['style' => 'min-height: 120px;'])
+                                        ->columnSpan(1),
                                 ]),
                         ])
                         ->collapsible()
                         ->collapsed(false);
                 }
+            } else {
+                // Show empty state for sections with no translations
+                $fields[] = Forms\Components\Section::make('No Translations')
+                    ->description("This section doesn't have any translations yet.")
+                    ->schema([]);
             }
 
-            if (!empty($fields)) {
-                $tabIndex = count($tabs);
-                $tabIndexMap[$sectionKey] = $tabIndex;
-                $tabs[] = Forms\Components\Tabs\Tab::make($sectionName)
-                    ->badge(count($fields))
-                    ->schema($fields);
-            }
+            // Always show the tab, even if empty
+            $tabIndex = count($tabs);
+            $tabIndexMap[$sectionKey] = $tabIndex;
+            $translationCount = isset($this->translationData[$sectionKey]) ? count($this->translationData[$sectionKey]) : 0;
+            $tabs[] = Forms\Components\Tabs\Tab::make($sectionName)
+                ->badge($translationCount > 0 ? $translationCount : null)
+                ->schema($fields);
         }
 
         // Find the index of the selected section
@@ -356,6 +375,7 @@ class ManageTranslations extends Page implements HasForms
         return [
             'nav' => 'Navigation',
             'home' => 'Home Page',
+            'about' => 'About Page',
             'employers' => 'For Employers',
             'jobs' => 'Jobs Page',
             'contact' => 'Contact Page',
@@ -366,6 +386,10 @@ class ManageTranslations extends Page implements HasForms
             'profile' => 'Profile',
             'cookie' => 'Cookie Banner',
             'newsletter' => 'Newsletter',
+            'privacy' => 'Privacy Policy',
+            'validation' => 'Validation Messages',
+            'auth' => 'Authentication',
+            'admin' => 'Admin',
             'common' => 'Common',
         ];
     }

@@ -32,7 +32,7 @@ class ManagePageImages extends Page implements HasForms
         $this->loadImages();
     }
 
-    protected function loadImages(): void
+    public function loadImages(): void
     {
         $imageSections = $this->getImageSections();
         
@@ -44,6 +44,14 @@ class ManagePageImages extends Page implements HasForms
                 $this->formData["{$fieldName}_alt"] = $image ? $image->alt_text : '';
             }
         }
+        
+        $this->form->fill($this->formData);
+        
+        Notification::make()
+            ->title('Images reloaded')
+            ->body('All images have been reloaded from the database.')
+            ->success()
+            ->send();
     }
 
     public function form(Form $form): Form
@@ -76,14 +84,23 @@ class ManagePageImages extends Page implements HasForms
                                 '1:1',
                             ])
                             ->helperText($config['helper'] ?? '')
-                            ->default($image ? $image->image_path : null),
+                            ->default($image ? $image->image_path : null)
+                            ->imagePreviewHeight('250')
+                            ->loadingIndicatorPosition('left')
+                            ->panelAspectRatio('2:1')
+                            ->panelLayout('integrated')
+                            ->removeUploadedFileButtonPosition('right')
+                            ->uploadButtonPosition('left')
+                            ->uploadProgressIndicatorPosition('left'),
                         
                         Forms\Components\TextInput::make("{$fieldName}_alt")
                             ->label(__('messages.admin.page_images.alt_text'))
                             ->default($image ? $image->alt_text : '')
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->helperText('Alt text for accessibility and SEO'),
                     ])
-                    ->collapsible();
+                    ->collapsible()
+                    ->collapsed(false);
             }
 
             $sections[] = Forms\Components\Tabs\Tab::make(ucfirst($page) . ' Page')
@@ -158,30 +175,85 @@ class ManagePageImages extends Page implements HasForms
             'about' => [
                 'main_image' => [
                     'label' => 'Main Image (Below Text)',
-                    'description' => 'Large image displayed below the main text content',
-                    'helper' => 'Recommended size: 1200x500px or larger',
+                    'description' => 'Large image displayed below the main text content on the About Us page',
+                    'helper' => 'Recommended size: 1200x500px or larger. This image appears below the welcome text.',
                 ],
                 'team_member_1' => [
                     'label' => 'Team Member 1 - Abdulrazek Mahmoud',
-                    'description' => 'Portrait image for first team member',
-                    'helper' => 'Recommended size: 400x500px (portrait)',
+                    'description' => 'Portrait image for Abdulrazek Mahmoud (Founder & Chairman of the Board)',
+                    'helper' => 'Recommended size: 400x500px (portrait orientation). Square images work best.',
                 ],
                 'team_member_2' => [
                     'label' => 'Team Member 2 - Hrayr Hovhannisyan',
-                    'description' => 'Portrait image for second team member',
-                    'helper' => 'Recommended size: 400x500px (portrait)',
+                    'description' => 'Portrait image for Hrayr Hovhannisyan (Founder & Board Member)',
+                    'helper' => 'Recommended size: 400x500px (portrait orientation). Square images work best.',
                 ],
                 'team_member_3' => [
                     'label' => 'Team Member 3 - Abdulhamid Wadi',
-                    'description' => 'Portrait image for third team member',
-                    'helper' => 'Recommended size: 400x500px (portrait)',
+                    'description' => 'Portrait image for Abdulhamid Wadi (Founder & Board Member)',
+                    'helper' => 'Recommended size: 400x500px (portrait orientation). Square images work best.',
                 ],
             ],
             'home' => [
                 'hero_image' => [
-                    'label' => 'Hero Background Image/Video',
-                    'description' => 'Background for hero section',
-                    'helper' => 'Recommended size: 1920x1080px',
+                    'label' => 'Hero Background Image (Optional)',
+                    'description' => 'Background image for hero section (currently using video, but you can add a fallback image)',
+                    'helper' => 'Recommended size: 1920x1080px. Note: Currently a video is used in the hero section, this would be a fallback.',
+                ],
+                'section_2_image' => [
+                    'label' => 'Section 2 Background Image (Optional)',
+                    'description' => 'Background image for the highlight section with three cards',
+                    'helper' => 'Recommended size: 1920x600px. Optional background image.',
+                ],
+                'section_3_image' => [
+                    'label' => 'Section 3 Background Image (Optional)',
+                    'description' => 'Background image for "Why Choose VUS" section',
+                    'helper' => 'Recommended size: 1920x600px. Optional background image.',
+                ],
+            ],
+            'employers' => [
+                'header_image' => [
+                    'label' => 'Header Background Image',
+                    'description' => 'Background image for the header section on For Employers page',
+                    'helper' => 'Recommended size: 1920x600px. This appears behind the page title.',
+                ],
+                'services_image' => [
+                    'label' => 'Services Section Image (Optional)',
+                    'description' => 'Optional image for the services section',
+                    'helper' => 'Recommended size: 1200x500px. Optional decorative image.',
+                ],
+            ],
+            'contact' => [
+                'header_image' => [
+                    'label' => 'Header Background Image',
+                    'description' => 'Background image for the header section on Contact page',
+                    'helper' => 'Recommended size: 1920x600px. This appears behind the page title.',
+                ],
+                'map_image' => [
+                    'label' => 'Map Image (Optional)',
+                    'description' => 'Optional map or location image for contact page',
+                    'helper' => 'Recommended size: 800x600px. Optional map image.',
+                ],
+            ],
+            'jobs' => [
+                'header_image' => [
+                    'label' => 'Header Background Image',
+                    'description' => 'Background image for the header section on Jobs listing page',
+                    'helper' => 'Recommended size: 1920x600px. This appears behind the page title.',
+                ],
+            ],
+            'spontaneous' => [
+                'header_image' => [
+                    'label' => 'Header Background Image',
+                    'description' => 'Background image for the header section on Spontaneous Application page',
+                    'helper' => 'Recommended size: 1920x600px. This appears behind the page title.',
+                ],
+            ],
+            'privacy' => [
+                'header_image' => [
+                    'label' => 'Header Background Image',
+                    'description' => 'Background image for the header section on Privacy Policy page',
+                    'helper' => 'Recommended size: 1920x600px. This appears behind the page title.',
                 ],
             ],
         ];
