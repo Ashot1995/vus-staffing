@@ -9,15 +9,15 @@
             <div class="col-lg-8 col-12 mx-auto">
                 <div class="custom-block bg-white shadow-lg p-5">
                     <h2 class="mb-4">{{ __('messages.apply.apply_to') }}: {{ $job->title }}</h2>
-                    
+
                     @include('components.success-alert')
 
                     <form method="POST" action="{{ route('jobs.submit-application', $job) }}" enctype="multipart/form-data">
                         @csrf
-                        
+
                         <!-- Personal Information Section -->
                         <h5 class="mb-3 mt-4">{{ __('messages.apply.personal_info') }}</h5>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">{{ __('messages.apply.first_name') }} ({{ __('messages.apply.required') }})</label>
@@ -112,7 +112,7 @@
 
                         <!-- Upload Section -->
                         <h5 class="mb-3 mt-4">{{ __('messages.apply.uploads') }}</h5>
-                        
+
                         <div class="mb-3">
                             <label class="form-label">{{ __('messages.apply.upload_cv') }} ({{ __('messages.apply.required') }})</label>
                             <input type="file" name="cv" class="form-control @error('cv') is-invalid @enderror" accept=".pdf,.doc,.docx" required>
@@ -195,13 +195,13 @@
                         <!-- Consent -->
                         <div class="mb-5">
                             <label class="form-label mb-3" style="text-transform: capitalize;">{{ __('messages.apply.consent.required') }} *</label>
-                            <div class="form-check mb-3">
+                            <div class="d-flex form-check mb-3">
                                 <input class="form-check-input @error('consent_type') is-invalid @enderror" type="radio" name="consent_type" id="consent_full" value="full" {{ old('consent_type') == 'full' ? 'checked' : '' }} required>
                                 <label class="form-check-label" for="consent_full">
                                     {{ __('messages.apply.consent.full') }}
                                 </label>
                             </div>
-                            <div class="form-check mb-3">
+                            <div class="d-flex form-check mb-3">
                                 <input class="form-check-input @error('consent_type') is-invalid @enderror" type="radio" name="consent_type" id="consent_limited" value="limited" {{ old('consent_type') == 'limited' ? 'checked' : '' }} required>
                                 <label class="form-check-label" for="consent_limited">
                                     {{ __('messages.apply.consent.limited') }}
