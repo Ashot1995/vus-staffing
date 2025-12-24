@@ -145,8 +145,11 @@ return [
     'apply.surname' => 'Surname',
     'apply.title' => 'Apply',
     'apply.upload_cv' => 'Upload CV (PDF, DOC, DOCX)',
+    'apply.upload_additional_file_1' => 'Upload Additional File 1 (PDF, DOC, DOCX, Images)',
+    'apply.upload_additional_file_2' => 'Upload Additional File 2 (PDF, DOC, DOCX, Images)',
     'apply.upload_personal_image' => 'Upload Personal image',
     'apply.uploads' => 'Uploads',
+    'apply.optional' => 'Optional',
     'apply.year' => 'Year',
 
     // Auth
@@ -373,7 +376,7 @@ return [
     'newsletter.title' => 'Subscribe to Newsletter',
 
     // Privacy
-    'privacy.contact.text' => 'If you have any questions about this Privacy Policy, please contact us at info@vus-bemanning.se',
+    'privacy.contact.text' => 'If you have any questions about this Privacy Policy, please contact us at abdulrazek.mahmoud@vus-bemanning.se',
     'privacy.contact.title' => 'Contact Us',
     'privacy.cookies.text' => 'We use cookies to enhance your browsing experience. You can manage your cookie preferences through your browser settings.',
     'privacy.cookies.title' => 'Cookies',

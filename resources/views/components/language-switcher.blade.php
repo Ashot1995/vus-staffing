@@ -10,7 +10,10 @@
            class="language-option {{ $isSwedish ? 'active' : '' }}"
            style="flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: {{ $isSwedish ? '#fff' : '#706f6c' }}; background: {{ $isSwedish ? '#1b1b18' : 'transparent' }}; transition: all 0.3s ease; position: relative; z-index: 2; font-size: 13px; font-weight: 500;">
             <span style="display: flex; align-items: center; gap: 5px;">
-                <span style="font-size: 16px; line-height: 1;">🇸🇪</span>
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
+                    <rect width="16" height="12" fill="#006AA7"/>
+                    <rect y="4" width="16" height="4" fill="#FECC00"/>
+                </svg>
                 <span>SV</span>
             </span>
         </a>
@@ -18,7 +21,15 @@
            class="language-option {{ $isEnglish ? 'active' : '' }}"
            style="flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: {{ $isEnglish ? '#fff' : '#706f6c' }}; background: {{ $isEnglish ? '#1b1b18' : 'transparent' }}; transition: all 0.3s ease; position: relative; z-index: 2; font-size: 13px; font-weight: 500;">
             <span style="display: flex; align-items: center; gap: 5px;">
-                <span style="font-size: 16px; line-height: 1;">🇬🇧</span>
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
+                    <rect width="16" height="12" fill="#012169"/>
+                    <path d="M0 0L16 12M16 0L0 12" stroke="white" stroke-width="1.5"/>
+                    <path d="M0 0L16 12M16 0L0 12" stroke="#C8102E" stroke-width="1"/>
+                    <rect x="0" y="5" width="16" height="2" fill="white"/>
+                    <rect x="0" y="5" width="16" height="2" fill="#C8102E" fill-opacity="0.7"/>
+                    <rect x="7" y="0" width="2" height="12" fill="white"/>
+                    <rect x="7" y="0" width="2" height="12" fill="#C8102E" fill-opacity="0.7"/>
+                </svg>
                 <span>EN</span>
             </span>
         </a>

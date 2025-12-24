@@ -145,8 +145,11 @@ return [
     'apply.surname' => 'Efternamn',
     'apply.title' => 'Ansök',
     'apply.upload_cv' => 'Ladda upp CV (PDF, DOC, DOCX)',
+    'apply.upload_additional_file_1' => 'Ladda upp Ytterligare Fil 1 (PDF, DOC, DOCX, Bilder)',
+    'apply.upload_additional_file_2' => 'Ladda upp Ytterligare Fil 2 (PDF, DOC, DOCX, Bilder)',
     'apply.upload_personal_image' => 'Ladda upp Personlig bild',
     'apply.uploads' => 'Uppladdningar',
+    'apply.optional' => 'Valfritt',
     'apply.year' => 'År',
 
     // Auth
@@ -373,7 +376,7 @@ return [
     'newsletter.title' => 'Prenumerera på Nyhetsbrev',
 
     // Privacy
-    'privacy.contact.text' => 'Om du har några frågor om denna integritetspolicy, vänligen kontakta oss på info@vus-bemanning.se',
+    'privacy.contact.text' => 'Om du har några frågor om denna integritetspolicy, vänligen kontakta oss på abdulrazek.mahmoud@vus-bemanning.se',
     'privacy.contact.title' => 'Kontakta Oss',
     'privacy.cookies.text' => 'Vi använder cookies för att förbättra din upplevelse. Du kan hantera dina cookie-inställningar genom dina webbläsarinställningar.',
     'privacy.cookies.title' => 'Cookies',

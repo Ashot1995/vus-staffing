@@ -124,8 +124,8 @@
                     </p>
                     <p class="text-white d-flex">
                         <i class="bi-envelope me-2"></i>
-                        <a href="mailto:info@vus-bemanning.se" class="site-footer-link">
-                            info@vus-bemanning.se
+                        <a href="mailto:abdulrazek.mahmoud@vus-bemanning.se" class="site-footer-link">
+                            abdulrazek.mahmoud@vus-bemanning.se
                         </a>
                     </p>
                 </div>

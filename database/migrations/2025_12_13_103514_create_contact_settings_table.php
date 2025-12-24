@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('contact_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->default('info@vus-bemanning.se');
+            $table->string('email')->default('abdulrazek.mahmoud@vus-bemanning.se');
             $table->string('phone')->nullable();
             $table->text('address_en')->nullable();
             $table->text('address_sv')->nullable();

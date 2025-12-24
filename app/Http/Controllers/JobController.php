@@ -88,10 +88,11 @@ class JobController extends Controller
                 'mimes:pdf,doc,docx',
                 'max:3072',
             ],
+            'additional_file_1' => 'nullable|file|mimes:pdf,doc,docx,jpeg,png,jpg,gif|max:3072',
+            'additional_file_2' => 'nullable|file|mimes:pdf,doc,docx,jpeg,png,jpg,gif|max:3072',
             'personal_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'driving_license_b' => 'nullable|boolean',
             'driving_license_own_car' => 'nullable|boolean',
-            'other' => 'nullable|string|max:1000',
             'additional_information' => 'nullable|string|max:2000',
             'start_date_option' => 'required|in:immediately,one_month,two_three_months',
             'consent_type' => 'required|in:full,limited',
@@ -121,6 +122,31 @@ class JobController extends Controller
             return redirect()->back()->withErrors(['cv' => __('messages.validation.cv_upload_error', ['message' => $e->getMessage()])])->withInput();
         }
         
+        // Handle additional files
+        $additionalFiles = [];
+        if ($request->hasFile('additional_file_1')) {
+            try {
+                $file1 = $request->file('additional_file_1');
+                $file1Path = $file1->store('additional-files', 'public');
+                if ($file1Path) {
+                    $additionalFiles[] = $file1Path;
+                }
+            } catch (\Exception $e) {
+                // Log error but don't fail the entire submission
+            }
+        }
+        if ($request->hasFile('additional_file_2')) {
+            try {
+                $file2 = $request->file('additional_file_2');
+                $file2Path = $file2->store('additional-files', 'public');
+                if ($file2Path) {
+                    $additionalFiles[] = $file2Path;
+                }
+            } catch (\Exception $e) {
+                // Log error but don't fail the entire submission
+            }
+        }
+
         $personalImagePath = null;
         if ($request->hasFile('personal_image')) {
             $personalImagePath = $request->file('personal_image')->store('personal-images', 'public');
@@ -154,6 +180,7 @@ class JobController extends Controller
             'phone' => $phoneWithCode,
             'address' => $validated['address'],
             'cv_path' => $cvPath,
+            'additional_files' => !empty($additionalFiles) ? $additionalFiles : null,
             'personal_image_path' => $personalImagePath,
             'cover_letter' => '', // Not in new form, but keep for compatibility
             'is_spontaneous' => false,
@@ -163,7 +190,6 @@ class JobController extends Controller
             'start_date' => $startDate,
             'driving_license_b' => $request->has('driving_license_b'),
             'driving_license_own_car' => $request->has('driving_license_own_car'),
-            'other' => $validated['other'] ?? null,
             'additional_information' => $validated['additional_information'] ?? null,
         ]);
 
@@ -215,6 +241,8 @@ class JobController extends Controller
                 'mimes:pdf,doc,docx',
                 'max:3072',
             ],
+            'additional_file_1' => 'nullable|file|mimes:pdf,doc,docx,jpeg,png,jpg,gif|max:3072',
+            'additional_file_2' => 'nullable|file|mimes:pdf,doc,docx,jpeg,png,jpg,gif|max:3072',
             'personal_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'driving_license_b' => 'nullable|boolean',
             'driving_license_own_car' => 'nullable|boolean',
@@ -248,6 +276,31 @@ class JobController extends Controller
             return redirect()->back()->withErrors(['cv' => __('messages.validation.cv_upload_error', ['message' => $e->getMessage()])])->withInput();
         }
         
+        // Handle additional files
+        $additionalFiles = [];
+        if ($request->hasFile('additional_file_1')) {
+            try {
+                $file1 = $request->file('additional_file_1');
+                $file1Path = $file1->store('additional-files', 'public');
+                if ($file1Path) {
+                    $additionalFiles[] = $file1Path;
+                }
+            } catch (\Exception $e) {
+                // Log error but don't fail the entire submission
+            }
+        }
+        if ($request->hasFile('additional_file_2')) {
+            try {
+                $file2 = $request->file('additional_file_2');
+                $file2Path = $file2->store('additional-files', 'public');
+                if ($file2Path) {
+                    $additionalFiles[] = $file2Path;
+                }
+            } catch (\Exception $e) {
+                // Log error but don't fail the entire submission
+            }
+        }
+
         $personalImagePath = null;
         if ($request->hasFile('personal_image')) {
             $personalImagePath = $request->file('personal_image')->store('personal-images', 'public');
@@ -281,6 +334,7 @@ class JobController extends Controller
             'phone' => $phoneWithCode,
             'address' => $validated['address'],
             'cv_path' => $cvPath,
+            'additional_files' => !empty($additionalFiles) ? $additionalFiles : null,
             'personal_image_path' => $personalImagePath,
             'cover_letter' => $validated['cover_letter'],
             'additional_information' => $validated['additional_information'] ?? null,
