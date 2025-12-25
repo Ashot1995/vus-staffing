@@ -65,6 +65,24 @@
             </div>
         </div>
 
+        @if($content)
+        <div class="row mt-5">
+            <div class="col-lg-10 col-12 mx-auto">
+                <div class="custom-block bg-white shadow-lg p-5">
+                    <div class="content-section">
+                        @if(app()->getLocale() === 'sv' && $content->content_sv)
+                            {!! $content->content_sv !!}
+                        @elseif($content->content_en)
+                            {!! $content->content_en !!}
+                        @elseif($content->content_sv)
+                            {!! $content->content_sv !!}
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <div class="row mt-5">
             <div class="col-lg-8 col-12 mx-auto">
                 <div class="custom-block bg-white shadow-lg p-5">

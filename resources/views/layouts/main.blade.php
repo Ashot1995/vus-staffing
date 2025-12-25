@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     @php
         $siteUrl = config('app.url', 'https://vus-bemanning.se');
         $currentUrl = url()->current();
@@ -11,7 +11,7 @@
         $pageDescription = isset($pageDescription) ? $pageDescription : __('messages.about.subtitle');
         $pageImage = isset($pageImage) ? $pageImage : asset('images/logo.png');
     @endphp
-    
+
     <!-- Primary Meta Tags -->
     <title>@yield('title', 'VUS - ' . $pageTitle)</title>
     <meta name="title" content="@yield('title', 'VUS - ' . $pageTitle)">
@@ -19,7 +19,7 @@
     <meta name="author" content="VUS Bemanning">
     <meta name="keywords" content="rekrytering, bemanning, staffing, recruitment, Sverige, Sweden, jobb, lediga tjänster">
     <link rel="canonical" href="{{ $currentUrl }}">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ $currentUrl }}">
@@ -28,17 +28,17 @@
     <meta property="og:image" content="{{ $pageImage }}">
     <meta property="og:site_name" content="VUS Bemanning">
     <meta property="og:locale" content="{{ app()->getLocale() === 'sv' ? 'sv_SE' : 'en_US' }}">
-    
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="{{ $currentUrl }}">
     <meta name="twitter:title" content="@yield('title', 'VUS - ' . $pageTitle)">
     <meta name="twitter:description" content="{{ $pageDescription }}">
     <meta name="twitter:image" content="{{ $pageImage }}">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}">
-    
+
     <!-- Stylesheets -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-icons.css') }}" rel="stylesheet">
@@ -46,7 +46,7 @@
     <link href="{{ asset('css/custom-improvements.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.3/build/css/intlTelInput.css">
     @stack('styles')
-    
+
     <!-- Structured Data (JSON-LD) -->
     @php
         $organizationJson = json_encode([
@@ -69,7 +69,7 @@
             ],
             'sameAs' => []
         ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        
+
         $websiteJson = json_encode([
             '@context' => 'https://schema.org',
             '@type' => 'WebSite',
@@ -88,11 +88,11 @@
     <script type="application/ld+json">
     {!! $organizationJson !!}
     </script>
-    
+
     <script type="application/ld+json">
     {!! $websiteJson !!}
     </script>
-    
+
     @stack('structured-data')
 </head>
 <body>
@@ -198,7 +198,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-12 mb-4">
-                    <img src="{{ asset('images/logo.png') }}" alt="V U S" style="height:50px" class="brand-logo footer-logo mb-3">
+                    <img src="{{ asset('images/logo.png') }}" alt="V U S" style="height:50px" class=" mb-3">
                     <p class="text-white d-flex mb-2">
                         <i class="bi-geo-alt me-2"></i>
                         {{ __('messages.common.country.sweden') }}
