@@ -2,6 +2,13 @@
 
 @section('title', __('messages.contact.title') . ' - VUS')
 
+@push('structured-data')
+<x-breadcrumbs :items="[
+    ['name' => __('messages.nav.home'), 'url' => route('home')],
+    ['name' => __('messages.nav.contact'), 'url' => route('contact')]
+]" />
+@endpush
+
 @section('content')
 <section class="section-bg-image">
     <div class="container">
