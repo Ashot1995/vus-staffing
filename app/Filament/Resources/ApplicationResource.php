@@ -147,7 +147,7 @@ class ApplicationResource extends Resource
                                     ])
                                     ->columns(2),
                                 
-                                Forms\Components\Section::make('Availability & Other')
+                                Forms\Components\Section::make('Availability')
                                     ->schema([
                                         Forms\Components\Select::make('start_date_option')
                                             ->label(__('messages.admin.application.availability'))
@@ -173,12 +173,6 @@ class ApplicationResource extends Resource
                                             ->displayFormat('Y-m-d')
                                             ->disabled()
                                             ->dehydrated(),
-                                        
-                                        Forms\Components\Textarea::make('other')
-                                            ->label(__('messages.admin.application.other'))
-                                            ->rows(3)
-                                            ->maxLength(1000)
-                                            ->columnSpanFull(),
                                         
                                         Forms\Components\Textarea::make('additional_information')
                                             ->label('Additional Information (Optional)')

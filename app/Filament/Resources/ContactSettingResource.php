@@ -36,7 +36,7 @@ class ContactSettingResource extends Resource
                             ->email()
                             ->required()
                             ->maxLength(255)
-                            ->default('info@vus-bemanning.se')
+                            ->default('abdulrazek.mahmoud@vus-bemanning.se')
                             ->columnSpanFull(),
                         
                         Forms\Components\TextInput::make('phone')

@@ -199,7 +199,7 @@ use Illuminate\Support\Facades\Storage;
     </div>
 </section>
 
-@if($partners->count() > 0)
+@if(isset($partners) && $partners->count() > 0)
 <section class="section-padding" id="section_5" style="background: #f5f5f5;">
     <div class="container">
         <div class="row">

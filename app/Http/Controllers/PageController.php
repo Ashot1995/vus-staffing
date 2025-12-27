@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Partner;
+use App\Models\EmployersPageContent;
 
 class PageController extends Controller
 {
@@ -23,7 +24,11 @@ class PageController extends Controller
 
     public function forEmployers()
     {
-        return view('pages.for-employers');
+        $content = EmployersPageContent::where('is_active', true)
+            ->orderBy('created_at', 'desc')
+            ->first();
+        
+        return view('pages.for-employers', compact('content'));
     }
 
     public function dashboard()

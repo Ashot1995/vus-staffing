@@ -2,6 +2,13 @@
 
 @section('title', __('messages.contact.title') . ' - VUS')
 
+@push('structured-data')
+<x-breadcrumbs :items="[
+    ['name' => __('messages.nav.home'), 'url' => route('home')],
+    ['name' => __('messages.nav.contact'), 'url' => route('contact')]
+]" />
+@endpush
+
 @section('content')
 <section class="section-bg-image">
     <div class="container">
@@ -145,7 +152,7 @@
                         {{-- Fallback to default values if no settings exist --}}
                         <div class="mb-4">
                             <h5><i class="bi-envelope me-2"></i> {{ __('messages.contact.email') }}</h5>
-                            <p><a href="mailto:info@vus-bemanning.se">info@vus-bemanning.se</a></p>
+                            <p><a href="mailto:abdulrazek.mahmoud@vus-bemanning.se">abdulrazek.mahmoud@vus-bemanning.se</a></p>
                         </div>
 
                         <div class="mb-4">

@@ -10,7 +10,16 @@
            class="language-option {{ $isSwedish ? 'active' : '' }}"
            style="flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: {{ $isSwedish ? '#fff' : '#706f6c' }}; background: {{ $isSwedish ? '#1b1b18' : 'transparent' }}; transition: all 0.3s ease; position: relative; z-index: 2; font-size: 13px; font-weight: 500;">
             <span style="display: flex; align-items: center; gap: 5px;">
-                <span class="flag flag-sweden"></span>
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
+                    <!-- Swedish blue background -->
+                    <rect width="16" height="12" fill="#006AA7"/>
+                    
+                    <!-- Yellow Nordic cross - horizontal bar (centered vertically) -->
+                    <rect x="0" y="5" width="16" height="2" fill="#FECC00"/>
+                    
+                    <!-- Yellow Nordic cross - vertical bar (offset to the left, approximately 5/16 from left) -->
+                    <rect x="5" y="0" width="2" height="12" fill="#FECC00"/>
+                </svg>
                 <span>SV</span>
             </span>
         </a>
@@ -18,7 +27,30 @@
            class="language-option {{ $isEnglish ? 'active' : '' }}"
            style="flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: {{ $isEnglish ? '#fff' : '#706f6c' }}; background: {{ $isEnglish ? '#1b1b18' : 'transparent' }}; transition: all 0.3s ease; position: relative; z-index: 2; font-size: 13px; font-weight: 500;">
             <span style="display: flex; align-items: center; gap: 5px;">
-                <span class="flag flag-uk"></span>
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
+                    <!-- Navy blue background -->
+                    <rect width="16" height="12" fill="#012169"/>
+                    
+                    <!-- White diagonal crosses (St. Andrew's - wide) -->
+                    <path d="M0 0L16 12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M16 0L0 12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                    
+                    <!-- Red diagonal crosses (St. Patrick's - narrower, centered on white) -->
+                    <path d="M0 0L16 12" stroke="#C8102E" stroke-width="1.2" stroke-linecap="round"/>
+                    <path d="M16 0L0 12" stroke="#C8102E" stroke-width="1.2" stroke-linecap="round"/>
+                    
+                    <!-- White border for horizontal red cross (St. George's) -->
+                    <rect x="0" y="4.5" width="16" height="3" fill="white"/>
+                    
+                    <!-- Red horizontal cross (St. George's) -->
+                    <rect x="0" y="5.25" width="16" height="1.5" fill="#C8102E"/>
+                    
+                    <!-- White border for vertical red cross (St. George's) -->
+                    <rect x="6.5" y="0" width="3" height="12" fill="white"/>
+                    
+                    <!-- Red vertical cross (St. George's) -->
+                    <rect x="7.25" y="0" width="1.5" height="12" fill="#C8102E"/>
+                </svg>
                 <span>EN</span>
             </span>
         </a>
@@ -96,7 +128,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: 
+        background:
             /* White diagonal cross - top-left to bottom-right (wide) */
             linear-gradient(
                 45deg,
@@ -171,7 +203,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: 
+        background:
             /* Red diagonal cross - top-left to bottom-right (narrow) */
             linear-gradient(
                 45deg,

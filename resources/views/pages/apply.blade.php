@@ -123,6 +123,24 @@
                         </div>
 
                         <div class="mb-3">
+                            <label class="form-label">{{ __('messages.apply.upload_additional_file_1') }} ({{ __('messages.apply.optional') }})</label>
+                            <input type="file" name="additional_file_1" class="form-control @error('additional_file_1') is-invalid @enderror" accept=".pdf,.doc,.docx,image/*">
+                            <small class="form-text text-muted">{{ __('messages.apply.file_size_notice') }}</small>
+                            @error('additional_file_1')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">{{ __('messages.apply.upload_additional_file_2') }} ({{ __('messages.apply.optional') }})</label>
+                            <input type="file" name="additional_file_2" class="form-control @error('additional_file_2') is-invalid @enderror" accept=".pdf,.doc,.docx,image/*">
+                            <small class="form-text text-muted">{{ __('messages.apply.file_size_notice') }}</small>
+                            @error('additional_file_2')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
                             <label class="form-label">{{ __('messages.apply.upload_personal_image') }}</label>
                             <input type="file" name="personal_image" class="form-control @error('personal_image') is-invalid @enderror" accept="image/*">
                             <small class="form-text text-muted">{{ __('messages.apply.personal_image_notice') }}</small>
@@ -171,15 +189,6 @@
                             </div>
                             @error('start_date_option')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Other -->
-                        <h5 class="mb-3 mt-4" style="text-transform: capitalize;">{{ __('messages.apply.other') }}</h5>
-                        <div class="mb-4">
-                            <textarea name="other" class="form-control @error('other') is-invalid @enderror" rows="3" placeholder="{{ __('messages.apply.other_placeholder') }}">{{ old('other') }}</textarea>
-                            @error('other')
-                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 

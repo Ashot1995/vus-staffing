@@ -6,6 +6,13 @@ use Illuminate\Support\Facades\Storage;
 
 @section('title', __('messages.about.title') . ' - V U S')
 
+@push('structured-data')
+<x-breadcrumbs :items="[
+    ['name' => __('messages.nav.home'), 'url' => route('home')],
+    ['name' => __('messages.nav.about'), 'url' => route('about')]
+]" />
+@endpush
+
 @section('content')
 <section class="section-padding">
     <div class="container">

@@ -2,6 +2,51 @@
 
 @section('title', $job->title . ' - VUS')
 
+@push('structured-data')
+@php
+    $jobPostingJson = json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'JobPosting',
+        'title' => $job->title,
+        'description' => strip_tags($job->description),
+        'identifier' => [
+            '@type' => 'PropertyValue',
+            'name' => 'VUS Bemanning',
+            'value' => (string) $job->id
+        ],
+        'datePosted' => $job->created_at->toIso8601String(),
+        'validThrough' => ($job->deadline ? $job->deadline->toIso8601String() : $job->created_at->addMonths(3)->toIso8601String()),
+        'employmentType' => $job->employment_type,
+        'hiringOrganization' => [
+            '@type' => 'Organization',
+            'name' => 'VUS Bemanning',
+            'sameAs' => config('app.url', 'https://vus-bemanning.se')
+        ],
+        'jobLocation' => [
+            '@type' => 'Place',
+            'address' => [
+                '@type' => 'PostalAddress',
+                'addressLocality' => $job->location,
+                'addressCountry' => 'SE'
+            ]
+        ],
+        'baseSalary' => [
+            '@type' => 'MonetaryAmount',
+            'currency' => 'SEK'
+        ]
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+@endphp
+<script type="application/ld+json">
+{!! $jobPostingJson !!}
+</script>
+
+<x-breadcrumbs :items="[
+    ['name' => __('messages.nav.home'), 'url' => route('home')],
+    ['name' => __('messages.nav.jobs'), 'url' => route('jobs.index')],
+    ['name' => $job->title, 'url' => route('jobs.show', $job)]
+]" />
+@endpush
+
 @section('content')
 <section class="section-bg-image">
     <div class="container">
