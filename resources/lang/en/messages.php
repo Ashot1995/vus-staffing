@@ -274,6 +274,12 @@ We offer tailored services in recruitment and staffing for both long-term and se
     'employers.why_choose.support' => 'Ongoing follow-up and support',
     'employers.why_choose.title' => 'Why choose V U S?',
 
+    // Company Values
+    'company_values.title' => 'Company Values',
+    'company_values.subtitle' => 'Our core values that guide everything we do',
+    'company_values.no_values.title' => 'No Company Values Available',
+    'company_values.no_values.description' => 'Company values will be displayed here once they are added.',
+
     // Footer
     'footer.copyright' => '© 2025 V U S Entreprenad & Bemanning AB - Org.nr 559540-8963',
     'footer.follow_us' => 'Follow us',
@@ -357,6 +363,7 @@ We offer tailored services in recruitment and staffing for both long-term and se
 
     // Nav
     'nav.about' => 'About us',
+    'nav.company_values' => 'Company Values',
     'nav.contact' => 'Contact us',
     'nav.for_employers' => 'For employers',
     'nav.for_job_seekers' => 'For job Seekers',

@@ -275,6 +275,12 @@ Vi erbjuder skräddarsydda tjänster inom rekrytering och bemanning för både l
     'employers.why_choose.support' => 'Löpande uppföljning och stöd',
     'employers.why_choose.title' => 'Varför välja V U S?',
 
+    // Company Values
+    'company_values.title' => 'Företagsvärderingar',
+    'company_values.subtitle' => 'Våra kärnvärderingar som styr allt vi gör',
+    'company_values.no_values.title' => 'Inga Företagsvärderingar Tillgängliga',
+    'company_values.no_values.description' => 'Företagsvärderingar kommer att visas här när de har lagts till.',
+
     // Footer
     'footer.copyright' => '© 2025 V U S VUS Entreprenad & Bemanning AB - Org.nr 559540-8963',
     'footer.follow_us' => 'Följ oss',
@@ -358,6 +364,7 @@ Vi erbjuder skräddarsydda tjänster inom rekrytering och bemanning för både l
 
     // Nav
     'nav.about' => 'Om oss',
+    'nav.company_values' => 'Företagsvärderingar',
     'nav.contact' => 'Kontakta oss',
     'nav.for_employers' => 'För arbetsgivare',
     'nav.for_job_seekers' => 'För jobbsökande',

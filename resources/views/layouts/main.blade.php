@@ -103,7 +103,7 @@
             </button>
 
             <a href="{{ route('home') }}" class="navbar-brand mx-auto mx-lg-0">
-                <img src="{{ asset('images/logo.png') }}" alt="V U S" style="height:50px" class="brand-logo navbar-logo">
+                <span class="brand-text" style="font-size: 28px; font-weight: bold; color: #000000; letter-spacing: 4px;">V U S</span>
             </a>
 
             @guest
@@ -137,7 +137,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('home') && !request()->routeIs('about') && !request()->routeIs('for-employers') && !request()->routeIs('contact') && !request()->routeIs('jobs.*') && !request()->routeIs('register') ? 'active' : '' }}" href="{{ route('home') }}">{{ __('messages.nav.home') }}</a>
+                        <a class="nav-link {{ request()->routeIs('home') && !request()->routeIs('about') && !request()->routeIs('company-values') && !request()->routeIs('for-employers') && !request()->routeIs('contact') && !request()->routeIs('jobs.*') && !request()->routeIs('register') ? 'active' : '' }}" href="{{ route('home') }}">{{ __('messages.nav.home') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('for-employers') ? 'active' : '' }}" href="{{ route('for-employers') }}">{{ __('messages.nav.for_employers') }}</a>
@@ -147,6 +147,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">{{ __('messages.nav.about') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('company-values') ? 'active' : '' }}" href="{{ route('company-values') }}">{{ __('messages.nav.company_values') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">{{ __('messages.nav.contact') }}</a>
@@ -198,7 +201,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-12 mb-4">
-                    <img src="{{ asset('images/logo.png') }}" alt="V U S" style="height:50px" class=" mb-3">
+                    <span class="brand-text" style="font-size: 28px; font-weight: bold; letter-spacing: 4px; display: block; margin-bottom: 1rem;">V U S</span>
                     <p class="text-white d-flex mb-2">
                         <i class="bi-geo-alt me-2"></i>
                         {{ __('messages.common.country.sweden') }}
