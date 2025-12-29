@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Partner;
 use App\Models\EmployersPageContent;
 use App\Models\CompanyValue;
+use App\Models\TeamMember;
 
 class PageController extends Controller
 {
@@ -20,7 +21,11 @@ class PageController extends Controller
 
     public function about()
     {
-        return view('pages.about');
+        $teamMember1 = TeamMember::getByKey('team_member_1');
+        $teamMember2 = TeamMember::getByKey('team_member_2');
+        $teamMember3 = TeamMember::getByKey('team_member_3');
+        
+        return view('pages.about', compact('teamMember1', 'teamMember2', 'teamMember3'));
     }
 
     public function companyValues()
