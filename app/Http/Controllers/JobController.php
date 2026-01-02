@@ -82,14 +82,18 @@ class JobController extends Controller
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:255',
             'address' => 'required|string|max:500',
-            'cv' => [
+            'documents' => [
+                'required',
+                'array',
+                'min:1',
+                'max:3',
+            ],
+            'documents.*' => [
                 'required',
                 'file',
-                'mimes:pdf,doc,docx',
+                'mimes:pdf,doc,docx,jpeg,png,jpg,gif',
                 'max:3072',
             ],
-            'additional_file_1' => 'nullable|file|mimes:pdf,doc,docx,jpeg,png,jpg,gif|max:3072',
-            'additional_file_2' => 'nullable|file|mimes:pdf,doc,docx,jpeg,png,jpg,gif|max:3072',
             'personal_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'driving_license_b' => 'nullable|boolean',
             'driving_license_own_car' => 'nullable|boolean',
@@ -106,45 +110,39 @@ class JobController extends Controller
             return redirect()->back()->withErrors(['date_of_birth' => __('messages.validation.date_of_birth_invalid')])->withInput();
         }
 
-        // Handle CV upload with error handling
+        // Handle documents upload - first file is CV, rest are additional files
+        $cvPath = null;
+        $additionalFiles = [];
+        
         try {
-            if (!$request->hasFile('cv')) {
-                return redirect()->back()->withErrors(['cv' => __('messages.validation.cv_required')])->withInput();
+            if (!$request->hasFile('documents') || count($request->file('documents')) === 0) {
+                return redirect()->back()->withErrors(['documents' => __('messages.validation.cv_required')])->withInput();
             }
             
-            $cvFile = $request->file('cv');
+            $documents = $request->file('documents');
+            
+            // First file is CV
+            $cvFile = $documents[0];
             $cvPath = $cvFile->store('cvs', 'public');
             
             if (!$cvPath) {
-                return redirect()->back()->withErrors(['cv' => __('messages.validation.cv_upload_failed')])->withInput();
+                return redirect()->back()->withErrors(['documents' => __('messages.validation.cv_upload_failed')])->withInput();
+            }
+            
+            // Remaining files are additional files
+            for ($i = 1; $i < count($documents); $i++) {
+                try {
+                    $file = $documents[$i];
+                    $filePath = $file->store('additional-files', 'public');
+                    if ($filePath) {
+                        $additionalFiles[] = $filePath;
+                    }
+                } catch (\Exception $e) {
+                    // Log error but don't fail the entire submission
+                }
             }
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['cv' => __('messages.validation.cv_upload_error', ['message' => $e->getMessage()])])->withInput();
-        }
-        
-        // Handle additional files
-        $additionalFiles = [];
-        if ($request->hasFile('additional_file_1')) {
-            try {
-                $file1 = $request->file('additional_file_1');
-                $file1Path = $file1->store('additional-files', 'public');
-                if ($file1Path) {
-                    $additionalFiles[] = $file1Path;
-                }
-            } catch (\Exception $e) {
-                // Log error but don't fail the entire submission
-            }
-        }
-        if ($request->hasFile('additional_file_2')) {
-            try {
-                $file2 = $request->file('additional_file_2');
-                $file2Path = $file2->store('additional-files', 'public');
-                if ($file2Path) {
-                    $additionalFiles[] = $file2Path;
-                }
-            } catch (\Exception $e) {
-                // Log error but don't fail the entire submission
-            }
+            return redirect()->back()->withErrors(['documents' => __('messages.validation.cv_upload_error', ['message' => $e->getMessage()])])->withInput();
         }
 
         $personalImagePath = null;
@@ -235,14 +233,18 @@ class JobController extends Controller
             'application_email' => 'required|email|max:255',
             'phone' => 'required|string|max:255',
             'address' => 'required|string|max:500',
-            'cv' => [
+            'documents' => [
+                'required',
+                'array',
+                'min:1',
+                'max:3',
+            ],
+            'documents.*' => [
                 'required',
                 'file',
-                'mimes:pdf,doc,docx',
+                'mimes:pdf,doc,docx,jpeg,png,jpg,gif',
                 'max:3072',
             ],
-            'additional_file_1' => 'nullable|file|mimes:pdf,doc,docx,jpeg,png,jpg,gif|max:3072',
-            'additional_file_2' => 'nullable|file|mimes:pdf,doc,docx,jpeg,png,jpg,gif|max:3072',
             'personal_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'driving_license_b' => 'nullable|boolean',
             'driving_license_own_car' => 'nullable|boolean',
@@ -260,45 +262,39 @@ class JobController extends Controller
             return redirect()->back()->withErrors(['date_of_birth' => __('messages.validation.date_of_birth_invalid')])->withInput();
         }
 
-        // Handle CV upload
+        // Handle documents upload - first file is CV, rest are additional files
+        $cvPath = null;
+        $additionalFiles = [];
+        
         try {
-            if (!$request->hasFile('cv')) {
-                return redirect()->back()->withErrors(['cv' => __('messages.validation.cv_required')])->withInput();
+            if (!$request->hasFile('documents') || count($request->file('documents')) === 0) {
+                return redirect()->back()->withErrors(['documents' => __('messages.validation.cv_required')])->withInput();
             }
             
-            $cvFile = $request->file('cv');
+            $documents = $request->file('documents');
+            
+            // First file is CV
+            $cvFile = $documents[0];
             $cvPath = $cvFile->store('cvs', 'public');
             
             if (!$cvPath) {
-                return redirect()->back()->withErrors(['cv' => __('messages.validation.cv_upload_failed')])->withInput();
+                return redirect()->back()->withErrors(['documents' => __('messages.validation.cv_upload_failed')])->withInput();
+            }
+            
+            // Remaining files are additional files
+            for ($i = 1; $i < count($documents); $i++) {
+                try {
+                    $file = $documents[$i];
+                    $filePath = $file->store('additional-files', 'public');
+                    if ($filePath) {
+                        $additionalFiles[] = $filePath;
+                    }
+                } catch (\Exception $e) {
+                    // Log error but don't fail the entire submission
+                }
             }
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['cv' => __('messages.validation.cv_upload_error', ['message' => $e->getMessage()])])->withInput();
-        }
-        
-        // Handle additional files
-        $additionalFiles = [];
-        if ($request->hasFile('additional_file_1')) {
-            try {
-                $file1 = $request->file('additional_file_1');
-                $file1Path = $file1->store('additional-files', 'public');
-                if ($file1Path) {
-                    $additionalFiles[] = $file1Path;
-                }
-            } catch (\Exception $e) {
-                // Log error but don't fail the entire submission
-            }
-        }
-        if ($request->hasFile('additional_file_2')) {
-            try {
-                $file2 = $request->file('additional_file_2');
-                $file2Path = $file2->store('additional-files', 'public');
-                if ($file2Path) {
-                    $additionalFiles[] = $file2Path;
-                }
-            } catch (\Exception $e) {
-                // Log error but don't fail the entire submission
-            }
+            return redirect()->back()->withErrors(['documents' => __('messages.validation.cv_upload_error', ['message' => $e->getMessage()])])->withInput();
         }
 
         $personalImagePath = null;

@@ -147,6 +147,8 @@ return [
     'apply.upload_cv' => 'Upload CV (PDF, DOC, DOCX)',
     'apply.upload_additional_file_1' => 'Upload Additional File 1 (PDF, DOC, DOCX, Images)',
     'apply.upload_additional_file_2' => 'Upload Additional File 2 (PDF, DOC, DOCX, Images)',
+    'apply.upload_documents' => 'Upload Documents (PDF, DOC, DOCX, Images)',
+    'apply.documents_help' => 'You can upload up to 3 files, maximum 3 MB each. The first file will be used as your CV.',
     'apply.upload_personal_image' => 'Upload Personal image',
     'apply.uploads' => 'Uploads',
     'apply.optional' => 'Optional',

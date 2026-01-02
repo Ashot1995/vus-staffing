@@ -114,29 +114,15 @@
                         <h5 class="mb-3 mt-4">{{ __('messages.apply.uploads') }}</h5>
 
                         <div class="mb-3">
-                            <label class="form-label">{{ __('messages.apply.upload_cv') }} ({{ __('messages.apply.required') }})</label>
-                            <input type="file" name="cv" class="form-control @error('cv') is-invalid @enderror" accept=".pdf,.doc,.docx" required>
-                            <small class="form-text text-muted">{{ __('messages.apply.file_size_notice') }}</small>
-                            @error('cv')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <label class="form-label">{{ __('messages.apply.upload_documents') }} ({{ __('messages.apply.required') }})</label>
+                            <input type="file" name="documents[]" id="documents" class="form-control @error('documents') is-invalid @enderror @error('documents.*') is-invalid @enderror" accept=".pdf,.doc,.docx,image/*" multiple required>
+                            <small class="form-text text-muted">{{ __('messages.apply.documents_help') }}</small>
+                            <div id="file-list" class="mt-2"></div>
+                            @error('documents')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">{{ __('messages.apply.upload_additional_file_1') }} ({{ __('messages.apply.optional') }})</label>
-                            <input type="file" name="additional_file_1" class="form-control @error('additional_file_1') is-invalid @enderror" accept=".pdf,.doc,.docx,image/*">
-                            <small class="form-text text-muted">{{ __('messages.apply.file_size_notice') }}</small>
-                            @error('additional_file_1')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">{{ __('messages.apply.upload_additional_file_2') }} ({{ __('messages.apply.optional') }})</label>
-                            <input type="file" name="additional_file_2" class="form-control @error('additional_file_2') is-invalid @enderror" accept=".pdf,.doc,.docx,image/*">
-                            <small class="form-text text-muted">{{ __('messages.apply.file_size_notice') }}</small>
-                            @error('additional_file_2')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            @error('documents.*')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -251,6 +237,74 @@
                     const phoneNumber = iti.getNumber();
                     document.getElementById('phone_country_code').value = iti.getSelectedCountryData().dialCode;
                     phoneInput.value = phoneNumber;
+                });
+            }
+        }
+
+        // File upload validation - max 3 files, max 3MB each
+        const documentsInput = document.getElementById('documents');
+        const fileList = document.getElementById('file-list');
+        const maxFiles = 3;
+        const maxFileSize = 3 * 1024 * 1024; // 3MB in bytes
+
+        if (documentsInput && fileList) {
+            documentsInput.addEventListener('change', function(e) {
+                const files = Array.from(e.target.files);
+                fileList.innerHTML = '';
+
+                // Validate number of files
+                if (files.length > maxFiles) {
+                    fileList.innerHTML = '<div class="alert alert-danger">Maximum ' + maxFiles + ' files allowed. Please select fewer files.</div>';
+                    e.target.value = '';
+                    return;
+                }
+
+                // Validate each file size and display
+                let hasError = false;
+                files.forEach((file, index) => {
+                    const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                    
+                    if (file.size > maxFileSize) {
+                        hasError = true;
+                        fileList.innerHTML += '<div class="alert alert-danger">File "' + file.name + '" is too large (' + fileSizeMB + ' MB). Maximum size is 3 MB.</div>';
+                    } else {
+                        fileList.innerHTML += '<div class="text-success small"><i class="bi bi-check-circle"></i> ' + file.name + ' (' + fileSizeMB + ' MB)</div>';
+                    }
+                });
+
+                if (hasError) {
+                    e.target.value = '';
+                    fileList.innerHTML += '<div class="alert alert-warning mt-2">Please select files that are 3 MB or smaller.</div>';
+                } else if (files.length > 0) {
+                    fileList.innerHTML += '<div class="text-muted small mt-2">Selected ' + files.length + ' of maximum ' + maxFiles + ' files.</div>';
+                }
+            });
+
+            // Validate on form submit
+            const form = documentsInput.closest('form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    const files = Array.from(documentsInput.files);
+                    
+                    if (files.length === 0) {
+                        e.preventDefault();
+                        fileList.innerHTML = '<div class="alert alert-danger">Please select at least one file.</div>';
+                        return false;
+                    }
+
+                    if (files.length > maxFiles) {
+                        e.preventDefault();
+                        fileList.innerHTML = '<div class="alert alert-danger">Maximum ' + maxFiles + ' files allowed.</div>';
+                        return false;
+                    }
+
+                    for (let file of files) {
+                        if (file.size > maxFileSize) {
+                            e.preventDefault();
+                            fileList.innerHTML = '<div class="alert alert-danger">File "' + file.name + '" exceeds the maximum size of 3 MB.</div>';
+                            return false;
+                        }
+                    }
                 });
             }
         }
