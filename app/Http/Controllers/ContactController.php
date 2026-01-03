@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactFormMail;
 use App\Models\ContactSetting;
 use App\Models\ContactSubmission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -31,6 +33,14 @@ class ContactController extends Controller
 
         // Save the submission to database
         ContactSubmission::create($validated);
+
+        // Send email notification
+        try {
+            Mail::to('abdulrazek.mahmoud@vus-bemanning.se')->send(new ContactFormMail($validated));
+        } catch (\Exception $e) {
+            // Log error but don't fail the request
+            \Log::error('Failed to send contact form email: ' . $e->getMessage());
+        }
 
         return back()->with('success', __('messages.contact.form.success_message'));
     }

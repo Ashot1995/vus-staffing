@@ -1,1 +1,1 @@
-<img src="{{ asset('images/logo.png') }}"  alt="V U S" style="height:50px" class="brand-logo auth-logo" {{ $attributes }}>
+<span class="brand-text" style="font-size: 24px; font-weight: bold; color: #000000; letter-spacing: 4px;" {{ $attributes }}>V U S</span>

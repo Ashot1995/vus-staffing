@@ -13,6 +13,7 @@ Route::get('/language/{locale}', [\App\Http\Controllers\LanguageController::clas
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/om-oss', [PageController::class, 'about'])->name('about');
+Route::get('/foretagsvarden', [PageController::class, 'companyValues'])->name('company-values');
 Route::get('/for-arbetsgivare', [PageController::class, 'forEmployers'])->name('for-employers');
 
 Route::get('/jobb', [JobController::class, 'index'])->name('jobs.index');
