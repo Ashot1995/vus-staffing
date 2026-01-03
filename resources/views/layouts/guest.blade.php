@@ -7,6 +7,11 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <!-- Google AdSense -->
+        <meta name="google-adsense-account" content="ca-pub-7948699933188715">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7948699933188715"
+         crossorigin="anonymous"></script>
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
