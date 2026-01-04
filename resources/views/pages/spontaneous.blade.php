@@ -18,9 +18,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-10 col-12 mx-auto">
-                <div class="custom-block bg-white shadow-lg p-5">
-                    <h3 class="mb-4">{{ __('messages.spontaneous.send_title') }}</h3>
-                    <p class="mb-4">{{ __('messages.spontaneous.description') }}</p>
+                <div class="custom-block bg-white shadow-lg p-4">
+                    <h3 class="mb-3">{{ __('messages.spontaneous.send_title') }}</h3>
+                    <p class="mb-3">{{ __('messages.spontaneous.description') }}</p>
 
                     @include('components.success-alert')
 

@@ -50,7 +50,7 @@
                     <div class="custom-block custom-block-full bg-white shadow-lg mb-4">
                         <div class="custom-block-body">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4 class="mb-0">{{ $job->title }}</h4>
+                                <h4 class="mb-0" style="text-transform: none;">{{ ucfirst(strtolower($job->title)) }}</h4>
                                 <span class="badge" style="background: #000000; color: #ffffff;">{{ ucfirst($job->employment_type) }}</span>
                             </div>
                             <p class="mb-2"><i class="bi-geo-alt me-2"></i>{{ $job->location }}</p>

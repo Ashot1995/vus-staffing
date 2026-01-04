@@ -52,7 +52,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-12 text-center mb-5">
-                <h1>{{ $job->title }}</h1>
+                <h2 style="font-size: 1.75rem; font-weight: 600; text-transform: none;">{{ ucfirst(strtolower($job->title)) }}</h2>
                 <p><i class="bi-geo-alt me-2"></i>{{ $job->location }} | {{ ucfirst($job->employment_type) }}</p>
             </div>
         </div>

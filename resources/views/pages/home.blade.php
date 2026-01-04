@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
                 <div class="hero-text">
                     <h1 class="mb-4">
                         <span class="text-white">{{ __('messages.home.hero.title_prefix') }}</span>
-                        <span class="vus-brand">{{ __('messages.home.hero.title_vus') }}</span>
+                        <span class="vus-brand" style="white-space: nowrap;">{{ __('messages.home.hero.title_vus') }}</span>
                     </h1>
                     <div class="d-flex justify-content-center align-items-center gap-3 mb-4">
                         <a href="{{ route('for-employers') }}" class="custom-btn btn">{{ __('messages.home.hero.button_for_employers') }}</a>

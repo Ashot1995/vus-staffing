@@ -523,6 +523,7 @@ a.btn {
 .vus-brand {
   color: #FF6B35 !important;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 /* Hero Section Buttons */
