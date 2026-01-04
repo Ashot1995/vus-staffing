@@ -64,7 +64,7 @@
   margin-bottom: 0.75rem;
   margin-top: 0.5rem;
   color: #212529;
-  text-transform: capitalize;
+  text-transform: none;
   display: block;
 }
 
@@ -100,7 +100,7 @@
   font-weight: 400;
   color: #212529;
   line-height: 1.5;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .form-check-input:checked {
@@ -125,7 +125,7 @@ input[type="radio"] + span,
   margin-left: 0.75rem;
   display: inline-block;
   margin-bottom: 0;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 /* Add spacing after radio button groups */
@@ -147,7 +147,7 @@ input[type="checkbox"] + span,
   margin-left: 0.75rem;
   display: inline-block;
   margin-bottom: 0;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 /* Add spacing after checkbox groups */
@@ -195,7 +195,7 @@ h4.text-md {
   color: #212529;
   margin-bottom: 1rem !important;
   margin-top: 1.5rem !important;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 /* Date of Birth Fields */
@@ -748,6 +748,19 @@ a.btn {
   font-size: 18px;
   margin-right: 10px;
   flex-shrink: 0;
+}
+
+/* Quick Links Section - 35% width */
+.site-footer .quick-links-section {
+  max-width: 35%;
+  flex: 0 0 35%;
+}
+
+@media (max-width: 991px) {
+  .site-footer .quick-links-section {
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
 }
 
 /* Responsive Footer */

@@ -138,29 +138,29 @@
                         <!-- Driving License & Availability -->
                         <div class="row mb-2 mt-3">
                             <div class="col-md-6">
-                                <h6 class="mb-2" style="text-transform: capitalize; font-size: 0.95rem;">{{ __('messages.apply.driving_license_privileges') }}</h6>
+                                <h6 class="mb-2" style="font-size: 0.95rem;">{{ __('messages.apply.driving_license_privileges') }}</h6>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="driving_license_b" id="driving_license_b" value="1" {{ old('driving_license_b') ? 'checked' : '' }}>
-                                    <label class="form-check-label small" for="driving_license_b" style="text-transform: capitalize;">{{ __('messages.apply.driving_license_b') }}</label>
+                                    <label class="form-check-label small" for="driving_license_b">{{ __('messages.apply.driving_license_b') }}</label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="driving_license_own_car" id="driving_license_own_car" value="1" {{ old('driving_license_own_car') ? 'checked' : '' }}>
-                                    <label class="form-check-label small" for="driving_license_own_car" style="text-transform: capitalize;">{{ __('messages.apply.driving_license_own_car') }}</label>
+                                    <label class="form-check-label small" for="driving_license_own_car">{{ __('messages.apply.driving_license_own_car') }}</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h6 class="mb-2" style="text-transform: capitalize; font-size: 0.95rem;">{{ __('messages.apply.availability') }}</h6>
+                                <h6 class="mb-2" style="font-size: 0.95rem;">{{ __('messages.apply.availability') }}</h6>
                                 <div class="form-check">
                                     <input class="form-check-input @error('start_date_option') is-invalid @enderror" type="radio" name="start_date_option" id="availability_immediately" value="immediately" {{ old('start_date_option') == 'immediately' ? 'checked' : '' }} required>
-                                    <label class="form-check-label small" for="availability_immediately" style="text-transform: capitalize;">{{ __('messages.apply.start_date_option.immediately') }}</label>
+                                    <label class="form-check-label small" for="availability_immediately">{{ __('messages.apply.start_date_option.immediately') }}</label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input @error('start_date_option') is-invalid @enderror" type="radio" name="start_date_option" id="availability_one_month" value="one_month" {{ old('start_date_option') == 'one_month' ? 'checked' : '' }} required>
-                                    <label class="form-check-label small" for="availability_one_month" style="text-transform: capitalize;">{{ __('messages.apply.start_date_option.one_month') }}</label>
+                                    <label class="form-check-label small" for="availability_one_month">{{ __('messages.apply.start_date_option.one_month') }}</label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input @error('start_date_option') is-invalid @enderror" type="radio" name="start_date_option" id="availability_two_three_months" value="two_three_months" {{ old('start_date_option') == 'two_three_months' ? 'checked' : '' }} required>
-                                    <label class="form-check-label small" for="availability_two_three_months" style="text-transform: capitalize;">{{ __('messages.apply.start_date_option.two_three_months') }}</label>
+                                    <label class="form-check-label small" for="availability_two_three_months">{{ __('messages.apply.start_date_option.two_three_months') }}</label>
                                 </div>
                                 @error('start_date_option')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -179,7 +179,7 @@
 
                         <!-- Consent -->
                         <div class="mb-3">
-                            <label class="form-label small mb-2" style="text-transform: capitalize;">{{ __('messages.apply.consent.required') }} *</label>
+                            <label class="form-label small mb-2">{{ __('messages.apply.consent.required') }} *</label>
                             <div class="form-check">
                                 <input class="form-check-input @error('consent_type') is-invalid @enderror" type="radio" name="consent_type" id="consent_full" value="full" {{ old('consent_type') == 'full' ? 'checked' : '' }} required>
                                 <label class="form-check-label small" for="consent_full">{{ __('messages.apply.consent.full') }}</label>

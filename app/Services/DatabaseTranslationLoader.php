@@ -26,7 +26,27 @@ class DatabaseTranslationLoader implements LoaderInterface
     public function load($locale, $group, $namespace = null)
     {
         // Load translations from files (primary source)
-        return $this->fileLoader->load($locale, $group, $namespace);
+        $fileTranslations = $this->fileLoader->load($locale, $group, $namespace);
+        
+        // Load translations from database and merge (database takes precedence)
+        if ($group && !$namespace) {
+            try {
+                $dbTranslations = Translation::getTranslations($locale, $group);
+                
+                if (!empty($dbTranslations)) {
+                    // Convert flat dot notation to nested array
+                    $dbNested = $this->convertToNestedArray($dbTranslations);
+                    
+                    // Merge database translations over file translations
+                    $fileTranslations = $this->arrayMergeRecursiveDistinct($fileTranslations, $dbNested);
+                }
+            } catch (\Exception $e) {
+                // If database fails, just return file translations
+                // This prevents errors during migrations or when table doesn't exist
+            }
+        }
+        
+        return $fileTranslations;
     }
 
     /**

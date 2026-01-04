@@ -204,41 +204,49 @@
 
     <footer class="site-footer">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-12 mb-4">
-                    <span class="brand-text" style="font-size: 28px; font-weight: bold; letter-spacing: 4px; display: block; margin-bottom: 1rem;">V U S</span>
-                    <p class="text-white d-flex mb-2">
-                        <i class="bi-geo-alt me-2"></i>
-                        {{ __('messages.common.country.sweden') }}
-                    </p>
-                    <p class="text-white d-flex">
-                        <i class="bi-envelope me-2"></i>
-                        <a href="mailto:abdulrazek.mahmoud@vus-bemanning.se" class="site-footer-link">
-                            abdulrazek.mahmoud@vus-bemanning.se
-                        </a>
-                    </p>
-                </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-12">
+                    <div class="row">
+                        <div class="col-12 mb-4" style="flex: 0 0 65%; max-width: 65%;">
+                            <span class="brand-text" style="font-size: 28px; font-weight: bold; letter-spacing: 4px; display: block; margin-bottom: 1rem;">V U S</span>
+                            <p class="text-white d-flex mb-2">
+                                <i class="bi-geo-alt me-2"></i>
+                                {{ __('messages.common.country.sweden') }}
+                            </p>
+                            <p class="text-white d-flex">
+                                <i class="bi-envelope me-2"></i>
+                                <a href="mailto:abdulrazek.mahmoud@vus-bemanning.se" class="site-footer-link">
+                                    abdulrazek.mahmoud@vus-bemanning.se
+                                </a>
+                            </p>
+                        </div>
 
-                <div class="col-lg-4 col-12 mb-4">
-                    <h5 class="site-footer-title mb-3">{{ __('messages.footer.quick_links') }}</h5>
-                    <ul class="footer-menu">
-                        <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.for_employers') }}</a></li>
-                        <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.free_services') }}</a></li>
-                        <li class="footer-menu-item"><a href="{{ route('contact') }}" class="footer-menu-link">{{ __('messages.nav.contact') }}</a></li>
-                        <li class="footer-menu-item"><a href="{{ route('privacy') }}" class="footer-menu-link">{{ __('messages.cookie.privacy_policy') }}</a></li>
-                    </ul>
+                        <div class="col-12 mb-4 quick-links-section">
+                            <h5 class="site-footer-title mb-3">{{ __('messages.footer.quick_links') }}</h5>
+                            <ul class="footer-menu">
+                                <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.for_employers') }}</a></li>
+                                <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.free_services') }}</a></li>
+                                <li class="footer-menu-item"><a href="{{ route('contact') }}" class="footer-menu-link">{{ __('messages.nav.contact') }}</a></li>
+                                <li class="footer-menu-item"><a href="{{ route('privacy') }}" class="footer-menu-link">{{ __('messages.cookie.privacy_policy') }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="site-footer-bottom">
             <div class="container">
-                <div class="row">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-12">
+                        <div class="row">
                     <div class="col-lg-6 col-12">
                         <p class="copyright-text mb-0">{{ __('messages.footer.copyright', ['year' => date('Y')]) }}</p>
                     </div>
                     <div class="col-lg-6 col-12 text-lg-end">
                         <a href="#" onclick="showCookieSettings(); return false;" class="site-footer-link" style="text-decoration: underline;">{{ __('messages.cookie.settings.title') }}</a>
+                    </div>
+                        </div>
                     </div>
                 </div>
             </div>

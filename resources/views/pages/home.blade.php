@@ -125,14 +125,11 @@ use Illuminate\Support\Facades\Storage;
                 </div>
             </div>
         </div>
-    </div>
-</section>
 
-<section class="section-padding" id="section_4">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-12 text-center mb-5">
-                <h2 class="mb-3">{{ __('messages.home.reviews.title') }}</h2>
+        <!-- Ratings Subsection -->
+        <div class="row mt-5">
+            <div class="col-lg-12 col-12 text-center mb-4">
+                <h3 class="mb-3">{{ __('messages.home.reviews.title') }}</h3>
                 <p>{{ __('messages.home.reviews.subtitle') }}</p>
             </div>
         </div>

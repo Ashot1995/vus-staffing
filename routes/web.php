@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
@@ -39,6 +40,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/applications', [ProfileController::class, 'applications'])->name('profile.applications');
     Route::get('/profile/applications/{id}/edit', [ProfileController::class, 'editApplication'])->name('profile.applications.edit');
     Route::patch('/profile/applications/{id}', [ProfileController::class, 'updateApplication'])->name('profile.applications.update');
+    
+    // File download routes
+    Route::get('/profile/cv/download', [FileController::class, 'downloadUserCv'])->name('profile.cv.download');
+    Route::get('/profile/cv/view', [FileController::class, 'viewUserCv'])->name('profile.cv.view');
+    Route::get('/applications/{applicationId}/cv/download', [FileController::class, 'downloadCv'])->name('application.cv.download');
+    Route::get('/applications/{applicationId}/cv/view', [FileController::class, 'viewCv'])->name('application.cv.view');
     
     Route::get('/jobb/{job}/ansok', [JobController::class, 'apply'])->name('jobs.apply');
     Route::post('/jobb/{job}/ansok', [JobController::class, 'submitApplication'])->name('jobs.submit-application');

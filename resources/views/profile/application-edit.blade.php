@@ -116,12 +116,22 @@
                                     <label class="block text-sm font-medium text-gray-700 mb-2">
                                         {{ __('messages.profile.applications.current_cv') }}
                                     </label>
-                                    <a href="{{ asset('storage/' . $application->cv_path) }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700">
-                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                        </svg>
-                                        {{ __('messages.profile.applications.download_cv') }}: {{ basename($application->cv_path) }}
-                                    </a>
+                                    <div class="flex gap-2">
+                                        <a href="{{ route('application.cv.view', $application->id) }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
+                                            {{ __('messages.profile.applications.view_cv') }}
+                                        </a>
+                                        <a href="{{ route('application.cv.download', $application->id) }}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                            </svg>
+                                            {{ __('messages.profile.applications.download_cv') }}
+                                        </a>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-2">{{ basename($application->cv_path) }}</p>
                                 </div>
                             @endif
 
@@ -149,34 +159,34 @@
 
                         <!-- Driving License Privileges -->
                         <div class="border-t border-gray-200 pt-6 mb-6">
-                            <h4 class="text-md font-medium text-gray-900 mb-4" style="text-transform: capitalize;">{{ __('messages.apply.driving_license_privileges') }}</h4>
+                            <h4 class="text-md font-medium text-gray-900 mb-4">{{ __('messages.apply.driving_license_privileges') }}</h4>
                             <div class="flex flex-col space-y-3 mb-4">
                                 <label class="flex items-center">
                                     <input type="checkbox" name="driving_license_b" value="1" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" {{ old('driving_license_b', $application->driving_license_b) ? 'checked' : '' }}>
-                                    <span class="ml-3 text-sm text-gray-600" style="text-transform: capitalize;">{{ __('messages.apply.driving_license_b') }}</span>
+                                    <span class="ml-3 text-sm text-gray-600">{{ __('messages.apply.driving_license_b') }}</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="checkbox" name="driving_license_own_car" value="1" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" {{ old('driving_license_own_car', $application->driving_license_own_car) ? 'checked' : '' }}>
-                                    <span class="ml-3 text-sm text-gray-600" style="text-transform: capitalize;">{{ __('messages.apply.driving_license_own_car') }}</span>
+                                    <span class="ml-3 text-sm text-gray-600">{{ __('messages.apply.driving_license_own_car') }}</span>
                                 </label>
                             </div>
                         </div>
 
                         <!-- Availability -->
                         <div class="border-t border-gray-200 pt-6 mb-6">
-                            <h4 class="text-md font-medium text-gray-900 mb-4" style="text-transform: capitalize;">{{ __('messages.apply.availability') }}</h4>
+                            <h4 class="text-md font-medium text-gray-900 mb-4">{{ __('messages.apply.availability') }}</h4>
                             <div class="space-y-3 mb-4">
                                 <label class="flex items-center">
                                     <input type="radio" name="start_date_option" value="immediately" class="form-radio text-indigo-600" {{ old('start_date_option', $application->start_date_option) == 'immediately' ? 'checked' : '' }} required>
-                                    <span class="ml-3 text-sm text-gray-600" style="text-transform: capitalize;">{{ __('messages.apply.start_date_option.immediately') }}</span>
+                                    <span class="ml-3 text-sm text-gray-600">{{ __('messages.apply.start_date_option.immediately') }}</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="start_date_option" value="one_month" class="form-radio text-indigo-600" {{ old('start_date_option', $application->start_date_option) == 'one_month' ? 'checked' : '' }} required>
-                                    <span class="ml-3 text-sm text-gray-600" style="text-transform: capitalize;">{{ __('messages.apply.start_date_option.one_month') }}</span>
+                                    <span class="ml-3 text-sm text-gray-600">{{ __('messages.apply.start_date_option.one_month') }}</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="start_date_option" value="two_three_months" class="form-radio text-indigo-600" {{ old('start_date_option', $application->start_date_option) == 'two_three_months' ? 'checked' : '' }} required>
-                                    <span class="ml-3 text-sm text-gray-600" style="text-transform: capitalize;">{{ __('messages.apply.start_date_option.two_three_months') }}</span>
+                                    <span class="ml-3 text-sm text-gray-600">{{ __('messages.apply.start_date_option.two_three_months') }}</span>
                                 </label>
                             </div>
                             <x-input-error class="mt-2" :messages="$errors->get('start_date_option')" />
@@ -194,7 +204,7 @@
 
                         <!-- Consent -->
                         <div class="border-t border-gray-200 pt-6 mb-6">
-                            <x-input-label :value="__('messages.apply.consent.required') . ' *'" class="mb-4" style="text-transform: capitalize;" />
+                            <x-input-label :value="__('messages.apply.consent.required') . ' *'" class="mb-4" />
                             <div class="mt-2 space-y-3 mb-4">
                                 <label class="flex items-center">
                                     <input type="radio" name="consent_type" value="full" class="form-radio text-indigo-600" {{ old('consent_type', $application->consent_type) == 'full' ? 'checked' : '' }} required>

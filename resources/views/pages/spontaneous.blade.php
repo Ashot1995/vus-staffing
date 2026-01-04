@@ -185,40 +185,40 @@
                         </div>
 
                         <!-- Driving License Privileges -->
-                        <h5 class="mb-3 mt-4" style="text-transform: capitalize;">{{ __('messages.apply.driving_license_privileges') }}</h5>
+                        <h5 class="mb-3 mt-4">{{ __('messages.apply.driving_license_privileges') }}</h5>
                         <div class="mb-4">
                             <div class="form-check mb-3">
                                 <input class="form-check-input" type="checkbox" name="driving_license_b" id="driving_license_b" value="1" {{ old('driving_license_b') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="driving_license_b" style="text-transform: capitalize;">
+                                <label class="form-check-label" for="driving_license_b">
                                     {{ __('messages.apply.driving_license_b') }}
                                 </label>
                             </div>
                             <div class="form-check mb-3">
                                 <input class="form-check-input" type="checkbox" name="driving_license_own_car" id="driving_license_own_car" value="1" {{ old('driving_license_own_car') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="driving_license_own_car" style="text-transform: capitalize;">
+                                <label class="form-check-label" for="driving_license_own_car">
                                     {{ __('messages.apply.driving_license_own_car') }}
                                 </label>
                             </div>
                         </div>
 
                         <!-- Availability -->
-                        <h5 class="mb-3 mt-4" style="text-transform: capitalize;">{{ __('messages.apply.availability') }}</h5>
+                        <h5 class="mb-3 mt-4">{{ __('messages.apply.availability') }}</h5>
                         <div class="mb-4">
                             <div class="form-check mb-3">
                                 <input class="form-check-input @error('start_date_option') is-invalid @enderror" type="radio" name="start_date_option" id="availability_immediately" value="immediately" {{ old('start_date_option') == 'immediately' ? 'checked' : '' }} required>
-                                <label class="form-check-label" for="availability_immediately" style="text-transform: capitalize;">
+                                <label class="form-check-label" for="availability_immediately">
                                     {{ __('messages.apply.start_date_option.immediately') }}
                                 </label>
                             </div>
                             <div class="form-check mb-3">
                                 <input class="form-check-input @error('start_date_option') is-invalid @enderror" type="radio" name="start_date_option" id="availability_one_month" value="one_month" {{ old('start_date_option') == 'one_month' ? 'checked' : '' }} required>
-                                <label class="form-check-label" for="availability_one_month" style="text-transform: capitalize;">
+                                <label class="form-check-label" for="availability_one_month">
                                     {{ __('messages.apply.start_date_option.one_month') }}
                                 </label>
                             </div>
                             <div class="form-check mb-3">
                                 <input class="form-check-input @error('start_date_option') is-invalid @enderror" type="radio" name="start_date_option" id="availability_two_three_months" value="two_three_months" {{ old('start_date_option') == 'two_three_months' ? 'checked' : '' }} required>
-                                <label class="form-check-label" for="availability_two_three_months" style="text-transform: capitalize;">
+                                <label class="form-check-label" for="availability_two_three_months">
                                     {{ __('messages.apply.start_date_option.two_three_months') }}
                                 </label>
                             </div>

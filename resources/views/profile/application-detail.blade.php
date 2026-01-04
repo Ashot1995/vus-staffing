@@ -75,9 +75,14 @@
                     <h4 class="text-md font-medium text-gray-900 mb-2">{{ __('messages.profile.applications.cv_document') }}</h4>
                     @if($application->cv_path)
                         <p class="text-sm text-gray-600 mb-2">{{ __('messages.profile.applications.current_cv') }}</p>
-                        <a href="{{ asset('storage/' . $application->cv_path) }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700">
-                            {{ __('messages.profile.applications.download_cv') }}: {{ basename($application->cv_path) }}
-                        </a>
+                        <div class="flex gap-2">
+                            <a href="{{ route('application.cv.view', $application->id) }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700">
+                                {{ __('messages.profile.applications.view_cv') }}: {{ basename($application->cv_path) }}
+                            </a>
+                            <a href="{{ route('application.cv.download', $application->id) }}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
+                                {{ __('messages.profile.applications.download_cv') }}
+                            </a>
+                        </div>
                     @else
                         <p class="text-sm text-gray-500">{{ __('messages.profile.applications.no_cv') }}</p>
                     @endif
