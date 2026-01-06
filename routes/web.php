@@ -12,10 +12,15 @@ Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap')
 
 Route::get('/language/{locale}', [\App\Http\Controllers\LanguageController::class, 'switch'])->name('language.switch');
 
+Route::get('/search', [\App\Http\Controllers\SearchController::class, 'index'])->name('search');
+
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/om-oss', [PageController::class, 'about'])->name('about');
 Route::get('/foretagsvarden', [PageController::class, 'companyValues'])->name('company-values');
 Route::get('/for-arbetsgivare', [PageController::class, 'forEmployers'])->name('for-employers');
+
+Route::get('/blog', [\App\Http\Controllers\BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [\App\Http\Controllers\BlogController::class, 'show'])->name('blog.show');
 
 Route::get('/jobb', [JobController::class, 'index'])->name('jobs.index');
 Route::get('/jobb/{job}', [JobController::class, 'show'])->name('jobs.show');

@@ -3,12 +3,12 @@
 @section('title', __('messages.apply.title') . ' - ' . $job->title)
 
 @section('content')
-<section class="section-padding">
+<section class="section-padding" style="padding-top: 30px; padding-bottom: 30px;">
     <div class="container">
         <div class="row">
-            <div class="col-lg-10 col-12 mx-auto">
-                <div class="custom-block bg-white shadow-lg p-4">
-                    <h2 class="mb-3" style="text-transform: none;">{{ __('messages.apply.apply_to') }}: {{ ucfirst(strtolower($job->title)) }}</h2>
+            <div class="col-lg-8 col-12 mx-auto">
+                <div class="custom-block bg-white shadow-lg p-3">
+                    <h4 class="mb-2" style="text-transform: none; font-size: 1.25rem;">{{ __('messages.apply.apply_to') }}: {{ ucfirst(strtolower($job->title)) }}</h4>
 
                     @include('components.success-alert')
 
@@ -16,10 +16,7 @@
                         @csrf
 
                         <!-- Personal Information Section -->
-                        <h5 class="mb-2 mt-3">{{ __('messages.apply.personal_info') }}</h5>
-
-                        <!-- Personal Information Section -->
-                        <h5 class="mb-2 mt-3">{{ __('messages.apply.personal_info') }}</h5>
+                        <h6 class="mb-2 mt-2" style="font-size: 0.95rem; font-weight: 600;">{{ __('messages.apply.personal_info') }}</h6>
                         
                         <div class="row mb-2">
                             <div class="col-md-6 mb-2">
@@ -111,7 +108,7 @@
                         </div>
 
                         <!-- Upload Section -->
-                        <h5 class="mb-2 mt-3">{{ __('messages.apply.uploads') }}</h5>
+                        <h6 class="mb-2 mt-2" style="font-size: 0.95rem; font-weight: 600;">{{ __('messages.apply.uploads') }}</h6>
 
                         <div class="mb-2">
                             <label class="form-label small">{{ __('messages.apply.upload_documents') }} ({{ __('messages.apply.required') }})</label>
@@ -169,7 +166,7 @@
                         </div>
 
                         <!-- Additional Information (Optional) -->
-                        <h5 class="mb-2 mt-3">{{ __('messages.apply.additional_information') }}</h5>
+                        <h6 class="mb-2 mt-2" style="font-size: 0.95rem; font-weight: 600;">{{ __('messages.apply.additional_information') }}</h6>
                         <div class="mb-2">
                             <textarea name="additional_information" rows="3" class="form-control form-control-sm @error('additional_information') is-invalid @enderror" placeholder="{{ __('messages.apply.additional_information_placeholder') }}">{{ old('additional_information') }}</textarea>
                             @error('additional_information')

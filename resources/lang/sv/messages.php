@@ -368,7 +368,9 @@ Vi erbjuder skräddarsydda tjänster inom rekrytering och bemanning för både l
 
     // Nav
     'nav.about' => 'Om oss',
+    'nav.blog' => 'Blogg',
     'nav.company_values' => 'Vår värdegrund',
+    'nav.our_employees' => 'Våra anställda',
     'nav.contact' => 'Kontakta oss',
     'nav.for_employers' => 'För arbetsgivare',
     'nav.for_job_seekers' => 'För jobbsökande',
@@ -489,4 +491,26 @@ Vi erbjuder skräddarsydda tjänster inom rekrytering och bemanning för både l
     'validation.cv_upload_failed' => 'CV-uppladdningen misslyckades. Försök igen.',
     'validation.date_of_birth_invalid' => 'Ogiltigt födelsedatum',
     'validation.spontaneous_sent' => 'Din spontanansökan har skickats!',
+
+    // Blog
+    'blog.title' => 'Blogg',
+    'blog.subtitle' => 'Senaste nyheter och uppdateringar från VUS',
+    'blog.read_more' => 'Läs mer',
+    'blog.back_to_blog' => 'Tillbaka till bloggen',
+    'blog.no_posts' => 'Inga blogginlägg tillgängliga för tillfället.',
+    'blog.recent_posts' => 'Senaste inlägg',
+
+    // Search
+    'search.title' => 'Sök',
+    'search.placeholder' => 'Sök på webbplatsen...',
+    'search.button' => 'Sök',
+    'search.results_for' => 'Sökresultat för',
+    'search.found_results' => 'Hittade :count resultat',
+    'search.no_results' => 'Inga resultat hittades',
+    'search.try_different' => 'Prova med andra nyckelord eller kontrollera stavningen',
+    'search.enter_query' => 'Ange din sökfråga ovan',
+    'search.view_page' => 'Visa sida',
+    'search.type.page' => 'Sida',
+    'search.type.blog' => 'Blogginlägg',
+    'search.type.job' => 'Jobb',
 ];

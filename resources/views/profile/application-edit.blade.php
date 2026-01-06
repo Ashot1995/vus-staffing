@@ -1,272 +1,270 @@
-<x-app-layout>
-    <x-slot name="header">
-        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-            <div>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    {{ __('messages.profile.applications.edit_application') }}
-                </h2>
-                <a href="{{ route('profile.applications') }}" class="text-sm text-gray-600 hover:text-gray-900 mt-1 inline-block">
-                    ← {{ __('messages.profile.applications.back_to_list') }}
-                </a>
-            </div>
-            <div class="border-b border-gray-200">
-                <nav class="-mb-px flex space-x-8">
-                    <a href="{{ route('profile.edit') }}" class="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
-                        {{ __('messages.profile.tab.profile') }}
-                    </a>
-                    <a href="{{ route('profile.applications') }}" class="whitespace-nowrap py-4 px-1 border-b-2 border-indigo-500 font-medium text-sm text-indigo-600">
-                        {{ __('messages.profile.tab.applications') }}
-                    </a>
-                </nav>
-            </div>
-        </div>
-    </x-slot>
+@extends('layouts.main')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+@section('title', __('messages.profile.applications.edit_application') . ' - VUS')
+
+@section('content')
+<section class="section-padding" style="padding-top: 30px; padding-bottom: 30px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12 mx-auto">
+                <div class="custom-block bg-white shadow-lg p-3">
                     @if($application->job)
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">
-                            {{ __('messages.apply.apply_to') }}: {{ $application->job->title }}
-                        </h3>
+                        <h4 class="mb-2" style="text-transform: none; font-size: 1.25rem;">{{ __('messages.apply.apply_to') }}: {{ ucfirst(strtolower($application->job->title)) }}</h4>
                     @else
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">
-                            {{ __('messages.profile.applications.spontaneous') }}
-                        </h3>
+                        <h4 class="mb-2" style="font-size: 1.25rem;">{{ __('messages.profile.applications.spontaneous') }}</h4>
                     @endif
 
                     @if (session('status') === 'application-updated')
-                        <div class="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-                            <p class="text-sm text-green-800">{{ __('messages.profile.applications.updated') }}</p>
+                        <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+                            {{ __('messages.profile.applications.updated') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('profile.applications.update', $application->id) }}" enctype="multipart/form-data" class="space-y-6">
+                    <form method="POST" action="{{ route('profile.applications.update', $application->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('patch')
 
                         <!-- Personal Information Section -->
-                        <div class="border-t border-gray-200 pt-6">
-                            <h4 class="text-md font-medium text-gray-900 mb-4">{{ __('messages.apply.personal_info') }}</h4>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <x-input-label for="first_name" :value="__('messages.apply.first_name') . ' (' . __('messages.apply.required') . ')'" />
-                                    <x-text-input id="first_name" name="first_name" type="text" class="mt-1 block w-full" value="{{ old('first_name', $application->first_name) }}" required />
-                                    <x-input-error class="mt-2" :messages="$errors->get('first_name')" />
-                                </div>
-
-                                <div>
-                                    <x-input-label for="surname" :value="__('messages.apply.surname') . ' (' . __('messages.apply.required') . ')'" />
-                                    <x-text-input id="surname" name="surname" type="text" class="mt-1 block w-full" value="{{ old('surname', $application->surname) }}" required />
-                                    <x-input-error class="mt-2" :messages="$errors->get('surname')" />
-                                </div>
+                        <h6 class="mb-2 mt-2" style="font-size: 0.95rem; font-weight: 600;">{{ __('messages.apply.personal_info') }}</h6>
+                        
+                        <div class="row mb-2">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label small">{{ __('messages.apply.first_name') }} ({{ __('messages.apply.required') }})</label>
+                                <input type="text" name="first_name" class="form-control form-control-sm @error('first_name') is-invalid @enderror" value="{{ old('first_name', $application->first_name) }}" required>
+                                @error('first_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
-
-                            <div class="mt-4">
-                                <x-input-label :value="__('messages.apply.date_of_birth') . ' (' . __('messages.apply.required') . ')'" />
-                                <div class="grid grid-cols-3 gap-4 mt-1">
-                                    <div>
-                                        <select name="birth_month" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
-                                            <option value="">{{ __('messages.apply.month') }}</option>
-                                            @for($i = 1; $i <= 12; $i++)
-                                                <option value="{{ $i }}" {{ old('birth_month', $application->date_of_birth ? $application->date_of_birth->format('n') : '') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <x-text-input name="birth_day" type="number" class="block w-full" value="{{ old('birth_day', $application->date_of_birth ? $application->date_of_birth->format('j') : '') }}" min="1" max="31" placeholder="{{ __('messages.apply.day') }}" required />
-                                    </div>
-                                    <div>
-                                        <x-text-input name="birth_year" type="number" class="block w-full" value="{{ old('birth_year', $application->date_of_birth ? $application->date_of_birth->format('Y') : '') }}" min="1900" max="{{ date('Y') }}" placeholder="{{ __('messages.apply.year') }}" required />
-                                    </div>
-                                </div>
-                                <x-input-error class="mt-2" :messages="$errors->get('date_of_birth')" />
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label small">{{ __('messages.apply.surname') }} ({{ __('messages.apply.required') }})</label>
+                                <input type="text" name="surname" class="form-control form-control-sm @error('surname') is-invalid @enderror" value="{{ old('surname', $application->surname) }}" required>
+                                @error('surname')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
+                        </div>
 
-                            <div class="mt-4">
-                                <x-input-label for="email" :value="__('messages.apply.email') . ' (' . __('messages.apply.required') . ')'" />
-                                <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" value="{{ old('email', $application->email ?? auth()->user()->email) }}" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('email')" />
+                        <div class="row mb-2">
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label small">{{ __('messages.apply.date_of_birth') }} ({{ __('messages.apply.required') }})</label>
+                                <select name="birth_month" class="form-control form-control-sm @error('birth_month') is-invalid @enderror" required>
+                                    <option value="">{{ __('messages.apply.month') }}</option>
+                                    @for($i = 1; $i <= 12; $i++)
+                                        <option value="{{ $i }}" {{ old('birth_month', $application->date_of_birth ? $application->date_of_birth->format('n') : '') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                    @endfor
+                                </select>
+                                @error('birth_month')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label small">{{ __('messages.apply.day') }}</label>
+                                <input type="number" name="birth_day" class="form-control form-control-sm @error('birth_day') is-invalid @enderror" value="{{ old('birth_day', $application->date_of_birth ? $application->date_of_birth->format('j') : '') }}" min="1" max="31" required>
+                                @error('birth_day')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label small">{{ __('messages.apply.year') }}</label>
+                                <input type="number" name="birth_year" class="form-control form-control-sm @error('birth_year') is-invalid @enderror" value="{{ old('birth_year', $application->date_of_birth ? $application->date_of_birth->format('Y') : '') }}" min="1900" max="{{ date('Y') }}" required>
+                                @error('birth_year')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
 
-                            <div class="mt-4">
-                                <x-input-label for="phone" :value="__('messages.apply.phone') . ' (' . __('messages.apply.required') . ')'" />
-                                <x-text-input id="phone" name="phone" type="tel" class="mt-1 block w-full" value="{{ old('phone', $application->phone ? preg_replace('/^\+\d+\s/', '', $application->phone) : '') }}" placeholder="{{ __('messages.apply.phone_placeholder') }}" required />
-                                <input type="hidden" name="phone_country_code" id="phone_country_code">
-                                <p class="mt-1 text-xs text-gray-500">{{ __('messages.apply.phone_help') }}</p>
-                                <x-input-error class="mt-2" :messages="$errors->get('phone')" />
-                            </div>
+                        <div class="mb-2">
+                            <label class="form-label small">{{ __('messages.apply.email') }} ({{ __('messages.apply.required') }})</label>
+                            <input type="email" name="email" class="form-control form-control-sm @error('email') is-invalid @enderror" value="{{ old('email', $application->email ?? auth()->user()->email) }}" required>
+                            @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                            <div class="mt-4">
-                                <x-input-label for="address" :value="__('messages.apply.address') . ' (' . __('messages.apply.required') . ')'" />
-                                <x-text-input id="address" name="address" type="text" class="mt-1 block w-full" value="{{ old('address', $application->address) }}" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('address')" />
-                            </div>
+                        <div class="mb-2">
+                            <label class="form-label small">{{ __('messages.apply.phone') }} ({{ __('messages.apply.required') }})</label>
+                            <input type="tel" id="phone" name="phone" class="form-control form-control-sm @error('phone') is-invalid @enderror" value="{{ old('phone', $application->phone ? preg_replace('/^\+\d+\s/', '', $application->phone) : '') }}" placeholder="{{ __('messages.apply.phone_placeholder') }}" required>
+                            <input type="hidden" name="phone_country_code" id="phone_country_code">
+                            <small class="form-text text-muted d-block mt-1">{{ __('messages.apply.phone_help') }}</small>
+                            @error('phone')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label small">{{ __('messages.apply.address') }} ({{ __('messages.apply.required') }})</label>
+                            <input type="text" name="address" class="form-control form-control-sm @error('address') is-invalid @enderror" value="{{ old('address', $application->address) }}" required>
+                            @error('address')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Upload Section -->
-                        <div class="border-t border-gray-200 pt-6">
-                            <h4 class="text-md font-medium text-gray-900 mb-4">{{ __('messages.apply.uploads') }}</h4>
-                            
-                            <!-- Current CV -->
-                            @if($application->cv_path)
-                                <div class="mb-4 p-4 bg-gray-50 rounded-lg">
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                                        {{ __('messages.profile.applications.current_cv') }}
-                                    </label>
-                                    <div class="flex gap-2">
-                                        <a href="{{ route('application.cv.view', $application->id) }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700">
-                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                            </svg>
-                                            {{ __('messages.profile.applications.view_cv') }}
-                                        </a>
-                                        <a href="{{ route('application.cv.download', $application->id) }}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
-                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                            </svg>
-                                            {{ __('messages.profile.applications.download_cv') }}
-                                        </a>
-                                    </div>
-                                    <p class="text-xs text-gray-500 mt-2">{{ basename($application->cv_path) }}</p>
+                        <h6 class="mb-2 mt-2" style="font-size: 0.95rem; font-weight: 600;">{{ __('messages.apply.uploads') }}</h6>
+                        
+                        <!-- Current CV -->
+                        @if($application->cv_path)
+                            <div class="mb-2 p-3 bg-light rounded">
+                                <label class="form-label small mb-2">{{ __('messages.profile.applications.current_cv') }}</label>
+                                <div class="d-flex gap-2 mb-2">
+                                    <a href="{{ route('application.cv.view', $application->id) }}" target="_blank" class="btn btn-sm btn-primary">
+                                        <i class="bi bi-eye me-1"></i>{{ __('messages.profile.applications.view_cv') }}
+                                    </a>
+                                    <a href="{{ route('application.cv.download', $application->id) }}" class="btn btn-sm btn-secondary">
+                                        <i class="bi bi-download me-1"></i>{{ __('messages.profile.applications.download_cv') }}
+                                    </a>
+                                </div>
+                                <p class="text-muted small mb-0">{{ basename($application->cv_path) }}</p>
+                            </div>
+                        @endif
+
+                        <!-- CV Upload -->
+                        <div class="mb-2">
+                            <label class="form-label small">{{ __('messages.profile.applications.upload_new_cv') }} ({{ __('messages.profile.applications.optional') }})</label>
+                            <input type="file" name="cv" class="form-control form-control-sm @error('cv') is-invalid @enderror" accept=".pdf,.doc,.docx">
+                            <small class="form-text text-muted">{{ __('messages.profile.cv_formats') }}</small>
+                            @error('cv')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Personal Image -->
+                        <div class="mb-2">
+                            <label class="form-label small">{{ __('messages.apply.upload_personal_image') }}</label>
+                            @if($application->personal_image_path)
+                                <div class="mb-2">
+                                    <img src="{{ asset('storage/' . $application->personal_image_path) }}" alt="Personal Image" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
                                 </div>
                             @endif
-
-                            <!-- CV Upload -->
-                            <div>
-                                <x-input-label for="cv" :value="__('messages.profile.applications.upload_new_cv') . ' (' . __('messages.profile.applications.optional') . ')'" />
-                                <input id="cv" name="cv" type="file" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" accept=".pdf,.doc,.docx" />
-                                <p class="mt-1 text-xs text-gray-500">{{ __('messages.profile.cv_formats') }}</p>
-                                <x-input-error class="mt-2" :messages="$errors->get('cv')" />
-                            </div>
-
-                            <!-- Personal Image -->
-                            <div class="mt-4">
-                                <x-input-label for="personal_image" :value="__('messages.apply.upload_personal_image')" />
-                                @if($application->personal_image_path)
-                                    <div class="mb-2">
-                                        <img src="{{ asset('storage/' . $application->personal_image_path) }}" alt="Personal Image" class="h-20 w-20 object-cover rounded">
-                                    </div>
-                                @endif
-                                <input id="personal_image" name="personal_image" type="file" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" accept="image/*" />
-                                <p class="mt-1 text-xs text-gray-500">{{ __('messages.apply.personal_image_notice') }}</p>
-                                <x-input-error class="mt-2" :messages="$errors->get('personal_image')" />
-                            </div>
+                            <input type="file" name="personal_image" class="form-control form-control-sm @error('personal_image') is-invalid @enderror" accept="image/*">
+                            <small class="form-text text-muted">{{ __('messages.apply.personal_image_notice') }}</small>
+                            @error('personal_image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Driving License Privileges -->
-                        <div class="border-t border-gray-200 pt-6 mb-6">
-                            <h4 class="text-md font-medium text-gray-900 mb-4">{{ __('messages.apply.driving_license_privileges') }}</h4>
-                            <div class="flex flex-col space-y-3 mb-4">
-                                <label class="flex items-center">
-                                    <input type="checkbox" name="driving_license_b" value="1" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" {{ old('driving_license_b', $application->driving_license_b) ? 'checked' : '' }}>
-                                    <span class="ml-3 text-sm text-gray-600">{{ __('messages.apply.driving_license_b') }}</span>
+                        <h6 class="mb-2 mt-2" style="font-size: 0.95rem; font-weight: 600;">{{ __('messages.apply.driving_license_privileges') }}</h6>
+                        <div class="mb-2">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="driving_license_b" id="driving_license_b" value="1" {{ old('driving_license_b', $application->driving_license_b) ? 'checked' : '' }}>
+                                <label class="form-check-label small" for="driving_license_b">
+                                    {{ __('messages.apply.driving_license_b') }}
                                 </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox" name="driving_license_own_car" value="1" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" {{ old('driving_license_own_car', $application->driving_license_own_car) ? 'checked' : '' }}>
-                                    <span class="ml-3 text-sm text-gray-600">{{ __('messages.apply.driving_license_own_car') }}</span>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="driving_license_own_car" id="driving_license_own_car" value="1" {{ old('driving_license_own_car', $application->driving_license_own_car) ? 'checked' : '' }}>
+                                <label class="form-check-label small" for="driving_license_own_car">
+                                    {{ __('messages.apply.driving_license_own_car') }}
                                 </label>
                             </div>
                         </div>
 
                         <!-- Availability -->
-                        <div class="border-t border-gray-200 pt-6 mb-6">
-                            <h4 class="text-md font-medium text-gray-900 mb-4">{{ __('messages.apply.availability') }}</h4>
-                            <div class="space-y-3 mb-4">
-                                <label class="flex items-center">
-                                    <input type="radio" name="start_date_option" value="immediately" class="form-radio text-indigo-600" {{ old('start_date_option', $application->start_date_option) == 'immediately' ? 'checked' : '' }} required>
-                                    <span class="ml-3 text-sm text-gray-600">{{ __('messages.apply.start_date_option.immediately') }}</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="radio" name="start_date_option" value="one_month" class="form-radio text-indigo-600" {{ old('start_date_option', $application->start_date_option) == 'one_month' ? 'checked' : '' }} required>
-                                    <span class="ml-3 text-sm text-gray-600">{{ __('messages.apply.start_date_option.one_month') }}</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="radio" name="start_date_option" value="two_three_months" class="form-radio text-indigo-600" {{ old('start_date_option', $application->start_date_option) == 'two_three_months' ? 'checked' : '' }} required>
-                                    <span class="ml-3 text-sm text-gray-600">{{ __('messages.apply.start_date_option.two_three_months') }}</span>
+                        <h6 class="mb-2 mt-2" style="font-size: 0.95rem; font-weight: 600;">{{ __('messages.apply.availability') }}</h6>
+                        <div class="mb-2">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input @error('start_date_option') is-invalid @enderror" type="radio" name="start_date_option" id="availability_immediately" value="immediately" {{ old('start_date_option', $application->start_date_option) == 'immediately' ? 'checked' : '' }} required>
+                                <label class="form-check-label small" for="availability_immediately">
+                                    {{ __('messages.apply.start_date_option.immediately') }}
                                 </label>
                             </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('start_date_option')" />
+                            <div class="form-check mb-2">
+                                <input class="form-check-input @error('start_date_option') is-invalid @enderror" type="radio" name="start_date_option" id="availability_one_month" value="one_month" {{ old('start_date_option', $application->start_date_option) == 'one_month' ? 'checked' : '' }} required>
+                                <label class="form-check-label small" for="availability_one_month">
+                                    {{ __('messages.apply.start_date_option.one_month') }}
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input @error('start_date_option') is-invalid @enderror" type="radio" name="start_date_option" id="availability_two_three_months" value="two_three_months" {{ old('start_date_option', $application->start_date_option) == 'two_three_months' ? 'checked' : '' }} required>
+                                <label class="form-check-label small" for="availability_two_three_months">
+                                    {{ __('messages.apply.start_date_option.two_three_months') }}
+                                </label>
+                            </div>
+                            @error('start_date_option')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <!-- Other -->
-                        <div class="border-t border-gray-200 pt-6">
-                            <h4 class="text-md font-medium text-gray-900 mb-4">{{ __('messages.apply.other') }}</h4>
-                            <div>
-                                <x-input-label for="other" :value="__('messages.apply.other')" />
-                                <textarea id="other" name="other" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="{{ __('messages.apply.other_placeholder') }}">{{ old('other', $application->other) }}</textarea>
-                                <x-input-error class="mt-2" :messages="$errors->get('other')" />
-                            </div>
+                        <!-- Additional Information (Optional) -->
+                        <h6 class="mb-2 mt-2" style="font-size: 0.95rem; font-weight: 600;">{{ __('messages.apply.additional_information') }}</h6>
+                        <div class="mb-2">
+                            <textarea name="other" rows="3" class="form-control form-control-sm @error('other') is-invalid @enderror" placeholder="{{ __('messages.apply.other_placeholder') }}">{{ old('other', $application->other) }}</textarea>
+                            @error('other')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Consent -->
-                        <div class="border-t border-gray-200 pt-6 mb-6">
-                            <x-input-label :value="__('messages.apply.consent.required') . ' *'" class="mb-4" />
-                            <div class="mt-2 space-y-3 mb-4">
-                                <label class="flex items-center">
-                                    <input type="radio" name="consent_type" value="full" class="form-radio text-indigo-600" {{ old('consent_type', $application->consent_type) == 'full' ? 'checked' : '' }} required>
-                                    <span class="ml-3 text-sm text-gray-600">{{ __('messages.apply.consent.full') }}</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="radio" name="consent_type" value="limited" class="form-radio text-indigo-600" {{ old('consent_type', $application->consent_type) == 'limited' ? 'checked' : '' }} required>
-                                    <span class="ml-3 text-sm text-gray-600">{{ __('messages.apply.consent.limited') }}</span>
+                        <div class="mb-3">
+                            <label class="form-label small mb-2">{{ __('messages.apply.consent.required') }} *</label>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input @error('consent_type') is-invalid @enderror" type="radio" name="consent_type" id="consent_full" value="full" {{ old('consent_type', $application->consent_type) == 'full' ? 'checked' : '' }} required>
+                                <label class="form-check-label small" for="consent_full">
+                                    {{ __('messages.apply.consent.full') }}
                                 </label>
                             </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('consent_type')" />
+                            <div class="form-check">
+                                <input class="form-check-input @error('consent_type') is-invalid @enderror" type="radio" name="consent_type" id="consent_limited" value="limited" {{ old('consent_type', $application->consent_type) == 'limited' ? 'checked' : '' }} required>
+                                <label class="form-check-label small" for="consent_limited">
+                                    {{ __('messages.apply.consent.limited') }}
+                                </label>
+                            </div>
+                            @error('consent_type')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <div class="flex items-center gap-4 pt-6 border-t border-gray-200">
-                            <x-primary-button>{{ __('messages.profile.applications.update_application') }}</x-primary-button>
-                            <a href="{{ route('profile.applications') }}" class="text-gray-600 hover:text-gray-900">
-                                {{ __('messages.apply.cancel') }}
-                            </a>
+                        <div class="d-flex gap-3 mt-3">
+                            <button type="submit" class="custom-btn btn w-100" style="background: #000; color: #fff; border: none;">{{ __('messages.profile.applications.update_application') }}</button>
+                            <a href="{{ route('profile.applications') }}" class="custom-btn btn w-100" style="background: #6c757d; color: #fff; border: none; text-decoration: none; display: flex; align-items: center; justify-content: center;">{{ __('messages.apply.cancel') }}</a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+</section>
 
-    @push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const phoneInput = document.querySelector('#phone');
-            if (phoneInput && window.intlTelInput) {
-                // Extract country code from existing phone if available
-                const existingPhone = phoneInput.value;
-                let initialCountry = 'se';
-                if (existingPhone && existingPhone.startsWith('+')) {
-                    // Try to detect country from existing number
-                    initialCountry = 'se'; // Default to Sweden
-                }
-
-                const iti = window.intlTelInput(phoneInput, {
-                    initialCountry: initialCountry,
-                    preferredCountries: ['se', 'no', 'dk', 'fi'],
-                    utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.3/build/js/utils.js',
-                    separateDialCode: true,
-                    nationalMode: false
-                });
-
-                // Set existing phone number if available
-                if (existingPhone) {
-                    iti.setNumber(existingPhone);
-                }
-
-                // Update hidden field with country code on form submit
-                const form = phoneInput.closest('form');
-                if (form) {
-                    form.addEventListener('submit', function(e) {
-                        const phoneNumber = iti.getNumber();
-                        document.getElementById('phone_country_code').value = iti.getSelectedCountryData().dialCode;
-                        phoneInput.value = phoneNumber;
-                    });
-                }
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const phoneInput = document.querySelector('#phone');
+        if (phoneInput && window.intlTelInput) {
+            // Extract country code from existing phone if available
+            const existingPhone = phoneInput.value;
+            let initialCountry = 'se';
+            if (existingPhone && existingPhone.startsWith('+')) {
+                // Try to detect country from existing number
+                initialCountry = 'se'; // Default to Sweden
             }
-        });
-    </script>
-    @endpush
-</x-app-layout>
+
+            const iti = window.intlTelInput(phoneInput, {
+                initialCountry: initialCountry,
+                preferredCountries: ['se', 'no', 'dk', 'fi'],
+                utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.3/build/js/utils.js',
+                separateDialCode: true,
+                nationalMode: false
+            });
+
+            // Set existing phone number if available
+            if (existingPhone) {
+                iti.setNumber(existingPhone);
+            }
+
+            // Update hidden field with country code on form submit
+            const form = phoneInput.closest('form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    const phoneNumber = iti.getNumber();
+                    document.getElementById('phone_country_code').value = iti.getSelectedCountryData().dialCode;
+                    phoneInput.value = phoneNumber;
+                });
+            }
+        }
+    });
+</script>
+@endpush
+
+@endsection

@@ -367,8 +367,10 @@ We offer tailored services in recruitment and staffing for both long-term and se
 
     // Nav
     'nav.about' => 'About us',
+    'nav.blog' => 'Blog',
     'nav.company_values' => 'Our core values',
     'nav.contact' => 'Contact us',
+    'nav.our_employees' => 'Our employees',
     'nav.for_employers' => 'For employers',
     'nav.for_job_seekers' => 'For job Seekers',
     'nav.free_services' => 'Our services',
@@ -488,4 +490,26 @@ We offer tailored services in recruitment and staffing for both long-term and se
     'validation.cv_upload_failed' => 'Failed to upload CV. Please try again.',
     'validation.date_of_birth_invalid' => 'Invalid date of birth',
     'validation.spontaneous_sent' => 'Your spontaneous application has been sent!',
+
+    // Blog
+    'blog.title' => 'Blog',
+    'blog.subtitle' => 'Latest news and updates from VUS',
+    'blog.read_more' => 'Read more',
+    'blog.back_to_blog' => 'Back to blog',
+    'blog.no_posts' => 'No blog posts available at the moment.',
+    'blog.recent_posts' => 'Recent posts',
+
+    // Search
+    'search.title' => 'Search',
+    'search.placeholder' => 'Search the website...',
+    'search.button' => 'Search',
+    'search.results_for' => 'Search results for',
+    'search.found_results' => 'Found :count result(s)',
+    'search.no_results' => 'No results found',
+    'search.try_different' => 'Try different keywords or check spelling',
+    'search.enter_query' => 'Enter your search query above',
+    'search.view_page' => 'View page',
+    'search.type.page' => 'Page',
+    'search.type.blog' => 'Blog Post',
+    'search.type.job' => 'Job',
 ];
