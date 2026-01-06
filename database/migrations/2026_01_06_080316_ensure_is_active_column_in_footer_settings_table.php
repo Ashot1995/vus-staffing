@@ -14,7 +14,7 @@ return new class extends Migration
         if (Schema::hasTable('footer_settings')) {
             Schema::table('footer_settings', function (Blueprint $table) {
                 if (!Schema::hasColumn('footer_settings', 'is_active')) {
-                    $table->boolean('is_active')->default(true)->after('copyright_sv');
+                    $table->boolean('is_active')->default(true);
                 }
             });
         }
