@@ -30,6 +30,8 @@ class ManageTranslations extends Page implements HasForms
 
     public array $translationData = [];
     
+    public array $keyOrder = []; // Stores the order of keys as they appear in files (chronological)
+    
     public array $keyMapping = []; // Maps form field names to translation keys
     
     public array $formData = []; // Stores form field values for validation
@@ -48,9 +50,24 @@ class ManageTranslations extends Page implements HasForms
         
         foreach ($sections as $sectionKey => $sectionName) {
             if (isset($this->translationData[$sectionKey])) {
-                $keys = collect($this->translationData[$sectionKey])->keys()->sort()->values();
+                // Use chronological order if available, otherwise fall back to sorted keys
+                if (isset($this->keyOrder[$sectionKey]) && !empty($this->keyOrder[$sectionKey])) {
+                    $keys = $this->keyOrder[$sectionKey];
+                    // Add any keys that might not be in the order array (newly added)
+                    $allKeysInSection = array_keys($this->translationData[$sectionKey]);
+                    $missingKeys = array_diff($allKeysInSection, $keys);
+                    if (!empty($missingKeys)) {
+                        $keys = array_merge($keys, $missingKeys);
+                    }
+                } else {
+                    $keys = collect($this->translationData[$sectionKey])->keys()->sort()->values()->toArray();
+                }
                 
                 foreach ($keys as $key) {
+                    if (!isset($this->translationData[$sectionKey][$key])) {
+                        continue;
+                    }
+                    
                     $fieldKey = str_replace('.', '_', $key);
                     $enFieldName = "{$sectionKey}_{$fieldKey}_en";
                     $svFieldName = "{$sectionKey}_{$fieldKey}_sv";
@@ -81,22 +98,31 @@ class ManageTranslations extends Page implements HasForms
         $enFlat = $this->flattenArray($enTranslations);
         $svFlat = $this->flattenArray($svTranslations);
         
-        // Get all unique keys from both languages
-        $allKeys = array_unique(array_merge(array_keys($enFlat), array_keys($svFlat)));
+        // Get all unique keys from both languages, preserving order from file
+        $orderedKeys = $this->getOrderedKeysFromFile();
+        $allKeys = array_unique(array_merge($orderedKeys, array_keys($enFlat), array_keys($svFlat)));
         
-        // Group by section
+        // Group by section while preserving order
         $this->translationData = [];
+        $this->keyOrder = []; // Reset key order
+        
         foreach ($allKeys as $key) {
             $section = explode('.', $key)[0];
             
             if (!isset($this->translationData[$section])) {
                 $this->translationData[$section] = [];
+                $this->keyOrder[$section] = [];
             }
             
             $this->translationData[$section][$key] = [
                 'en' => $enFlat[$key] ?? '',
                 'sv' => $svFlat[$key] ?? '',
             ];
+            
+            // Store order if not already stored (from file)
+            if (!in_array($key, $this->keyOrder[$section])) {
+                $this->keyOrder[$section][] = $key;
+            }
         }
         
         // Ensure all sections from getSections() are present (even if empty)
@@ -104,8 +130,34 @@ class ManageTranslations extends Page implements HasForms
         foreach ($sections as $sectionKey => $sectionName) {
             if (!isset($this->translationData[$sectionKey])) {
                 $this->translationData[$sectionKey] = [];
+                $this->keyOrder[$sectionKey] = [];
             }
         }
+    }
+
+    /**
+     * Extract translation keys in the order they appear in the file
+     */
+    protected function getOrderedKeysFromFile(): array
+    {
+        $orderedKeys = [];
+        $filePath = lang_path('en/messages.php');
+        
+        if (!file_exists($filePath)) {
+            return [];
+        }
+        
+        $content = file_get_contents($filePath);
+        
+        // Match translation keys in the format: 'key' => or "key" =>
+        // This regex matches both single and double quotes
+        preg_match_all("/['\"]([a-zA-Z0-9_.]+)['\"]\s*=>/", $content, $matches);
+        
+        if (!empty($matches[1])) {
+            $orderedKeys = $matches[1];
+        }
+        
+        return $orderedKeys;
     }
 
     public function form(Form $form): Form
@@ -118,10 +170,25 @@ class ManageTranslations extends Page implements HasForms
             $fields = [];
             
             if (isset($this->translationData[$sectionKey])) {
-                // Sort keys for better organization
-                $keys = collect($this->translationData[$sectionKey])->keys()->sort()->values();
+                // Use chronological order if available (as they appear in file), otherwise sort alphabetically
+                if (isset($this->keyOrder[$sectionKey]) && !empty($this->keyOrder[$sectionKey])) {
+                    $keys = $this->keyOrder[$sectionKey];
+                    // Add any keys that might not be in the order array (newly added)
+                    $allKeysInSection = array_keys($this->translationData[$sectionKey]);
+                    $missingKeys = array_diff($allKeysInSection, $keys);
+                    if (!empty($missingKeys)) {
+                        // Append missing keys at the end
+                        $keys = array_merge($keys, $missingKeys);
+                    }
+                } else {
+                    // Fallback to alphabetical sort if no order is available
+                    $keys = collect($this->translationData[$sectionKey])->keys()->sort()->values()->toArray();
+                }
                 
                 foreach ($keys as $key) {
+                    if (!isset($this->translationData[$sectionKey][$key])) {
+                        continue;
+                    }
                     $values = $this->translationData[$sectionKey][$key];
                     $keyLabel = $this->getKeyLabel($key);
                     $fieldKey = str_replace('.', '_', $key); // Replace dots with underscores for form field names
@@ -296,14 +363,35 @@ class ManageTranslations extends Page implements HasForms
 
     /**
      * Convert flat array to PHP string (for dot notation format)
+     * Preserves chronological order if keyOrder is available
      */
     protected function arrayToPhpStringFlat(array $array): string
     {
         $result = '';
         $currentSection = '';
         
-        // Sort keys for better organization
-        ksort($array);
+        // Use chronological order if available, otherwise sort alphabetically
+        if (!empty($this->keyOrder)) {
+            // Build ordered array
+            $orderedArray = [];
+            foreach ($this->keyOrder as $section => $keys) {
+                foreach ($keys as $key) {
+                    if (isset($array[$key])) {
+                        $orderedArray[$key] = $array[$key];
+                    }
+                }
+            }
+            // Add any keys not in the order (newly added ones)
+            foreach ($array as $key => $value) {
+                if (!isset($orderedArray[$key])) {
+                    $orderedArray[$key] = $value;
+                }
+            }
+            $array = $orderedArray;
+        } else {
+            // Fallback to alphabetical sort if no order available
+            ksort($array);
+        }
         
         foreach ($array as $key => $value) {
             // Add section comment

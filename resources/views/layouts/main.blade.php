@@ -101,7 +101,22 @@
     @stack('structured-data')
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg">
+    <!-- Fixed Search Bar -->
+    <div class="fixed-search-bar" style="position: fixed; top: 0; left: 0; right: 0; background: #fff; padding: 10px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 1050; display: none;">
+        <div class="container">
+            <form method="GET" action="{{ route('search') }}" class="d-flex gap-2">
+                <input type="text" name="q" id="global-search-input" class="form-control" placeholder="{{ __('messages.search.placeholder') }}" value="{{ request('q', '') }}" autofocus>
+                <button type="submit" class="btn custom-btn" style="background: #000; color: #fff; border: none; min-width: 100px;">
+                    <i class="bi-search me-1"></i>{{ __('messages.search.button') }}
+                </button>
+                <button type="button" class="btn btn-outline-secondary" onclick="closeSearchBar()" style="min-width: auto;">
+                    <i class="bi-x-lg"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg" id="main-navbar">
         <div class="container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -110,6 +125,11 @@
             <a href="{{ route('home') }}" class="navbar-brand mx-auto mx-lg-0">
                 <span class="brand-text" style="font-size: 28px; font-weight: bold; color: #000000; letter-spacing: 4px;">V U S</span>
             </a>
+            
+            <!-- Search Icon Button -->
+            <button type="button" class="btn btn-link text-dark d-lg-none ms-auto me-2" onclick="toggleSearchBar()" style="text-decoration: none; font-size: 1.25rem;">
+                <i class="bi-search"></i>
+            </button>
 
             @guest
                 <div class="d-lg-none">
@@ -150,14 +170,23 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('jobs.*') ? 'active' : '' }}" href="{{ route('jobs.index') }}">{{ __('messages.nav.jobs') }}</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">{{ __('messages.nav.about') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('company-values') ? 'active' : '' }}" href="{{ route('company-values') }}">{{ __('messages.nav.company_values') }}</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ request()->routeIs('about') || request()->routeIs('company-values') || request()->routeIs('blog.*') ? 'active' : '' }}" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ __('messages.nav.about') }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+                            <li><a class="dropdown-item {{ request()->routeIs('blog.*') ? 'active' : '' }}" href="{{ route('blog.index') }}">{{ __('messages.nav.blog') }}</a></li>
+                            <li><a class="dropdown-item {{ request()->routeIs('company-values') ? 'active' : '' }}" href="{{ route('company-values') }}">{{ __('messages.nav.company_values') }}</a></li>
+                            <li><a class="dropdown-item {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">{{ __('messages.nav.our_employees') }}</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">{{ __('messages.nav.contact') }}</a>
+                    </li>
+                    <li class="nav-item me-2">
+                        <button type="button" class="btn btn-link text-dark p-0" onclick="toggleSearchBar()" style="text-decoration: none;">
+                            <i class="bi-search fs-5"></i>
+                        </button>
                     </li>
                     <li class="nav-item me-3">
                         <x-language-switcher />
@@ -202,32 +231,54 @@
 
     <x-cookie-banner />
 
+    @php
+        $footerSettings = \App\Models\FooterSetting::getActive();
+        $locale = app()->getLocale();
+    @endphp
+    
     <footer class="site-footer">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-12">
                     <div class="row">
-                        <div class="col-12 mb-4" style="flex: 0 0 65%; max-width: 65%;">
-                            <span class="brand-text" style="font-size: 28px; font-weight: bold; letter-spacing: 4px; display: block; margin-bottom: 1rem;">V U S</span>
-                            <p class="text-white d-flex mb-2">
+                        <div class="col-12 mb-3" style="flex: 0 0 65%; max-width: 65%;">
+                            <span class="brand-text" style="font-size: 22px; font-weight: bold; letter-spacing: 3px; display: block; margin-bottom: 0.5rem;">
+                                {{ $footerSettings ? $footerSettings->brand_text : 'V U S' }}
+                            </span>
+                            <p class="text-white d-flex mb-1" style="margin-bottom: 0.3rem !important;">
                                 <i class="bi-geo-alt me-2"></i>
-                                {{ __('messages.common.country.sweden') }}
+                                {{ $footerSettings ? ($locale === 'sv' ? $footerSettings->location_sv : $footerSettings->location_en) : __('messages.common.country.sweden') }}
                             </p>
-                            <p class="text-white d-flex">
+                            <p class="text-white d-flex mb-0">
                                 <i class="bi-envelope me-2"></i>
-                                <a href="mailto:abdulrazek.mahmoud@vus-bemanning.se" class="site-footer-link">
-                                    abdulrazek.mahmoud@vus-bemanning.se
+                                <a href="mailto:{{ $footerSettings ? $footerSettings->email : 'abdulrazek.mahmoud@vus-bemanning.se' }}" class="site-footer-link">
+                                    {{ $footerSettings ? $footerSettings->email : 'abdulrazek.mahmoud@vus-bemanning.se' }}
                                 </a>
                             </p>
                         </div>
 
-                        <div class="col-12 mb-4 quick-links-section">
-                            <h5 class="site-footer-title mb-3">{{ __('messages.footer.quick_links') }}</h5>
+                        <div class="col-12 mb-3 quick-links-section">
+                            <h5 class="site-footer-title mb-2">
+                                {{ $footerSettings ? ($locale === 'sv' ? $footerSettings->quick_links_title_sv : $footerSettings->quick_links_title_en) : __('messages.footer.quick_links') }}
+                            </h5>
                             <ul class="footer-menu">
-                                <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.for_employers') }}</a></li>
-                                <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.free_services') }}</a></li>
-                                <li class="footer-menu-item"><a href="{{ route('contact') }}" class="footer-menu-link">{{ __('messages.nav.contact') }}</a></li>
-                                <li class="footer-menu-item"><a href="{{ route('privacy') }}" class="footer-menu-link">{{ __('messages.cookie.privacy_policy') }}</a></li>
+                                @if($footerSettings && !empty($footerSettings->quick_links))
+                                    @foreach($footerSettings->quick_links as $link)
+                                        @php
+                                            $label = $locale === 'sv' ? ($link['label_sv'] ?? $link['label_en'] ?? '') : ($link['label_en'] ?? '');
+                                            $url = !empty($link['route']) ? route($link['route']) : ($link['custom_url'] ?? '#');
+                                        @endphp
+                                        <li class="footer-menu-item">
+                                            <a href="{{ $url }}" class="footer-menu-link">{{ $label }}</a>
+                                        </li>
+                                    @endforeach
+                                @else
+                                    {{-- Default links if no settings --}}
+                                    <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.for_employers') }}</a></li>
+                                    <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.free_services') }}</a></li>
+                                    <li class="footer-menu-item"><a href="{{ route('contact') }}" class="footer-menu-link">{{ __('messages.nav.contact') }}</a></li>
+                                    <li class="footer-menu-item"><a href="{{ route('privacy') }}" class="footer-menu-link">{{ __('messages.cookie.privacy_policy') }}</a></li>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -240,12 +291,23 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-12">
                         <div class="row">
-                    <div class="col-lg-6 col-12">
-                        <p class="copyright-text mb-0">{{ __('messages.footer.copyright', ['year' => date('Y')]) }}</p>
-                    </div>
-                    <div class="col-lg-6 col-12 text-lg-end">
-                        <a href="#" onclick="showCookieSettings(); return false;" class="site-footer-link" style="text-decoration: underline;">{{ __('messages.cookie.settings.title') }}</a>
-                    </div>
+                            <div class="col-lg-6 col-12">
+                                <p class="copyright-text mb-0">
+                                    @if($footerSettings && ($footerSettings->copyright_en || $footerSettings->copyright_sv))
+                                        @php
+                                            $copyright = $locale === 'sv' ? ($footerSettings->copyright_sv ?: $footerSettings->copyright_en) : ($footerSettings->copyright_en ?: $footerSettings->copyright_sv);
+                                            $copyright = str_replace(':year', date('Y'), $copyright);
+                                            $copyright = str_replace('2025', date('Y'), $copyright);
+                                        @endphp
+                                        {{ $copyright }}
+                                    @else
+                                        {{ __('messages.footer.copyright', ['year' => date('Y')]) }}
+                                    @endif
+                                </p>
+                            </div>
+                            <div class="col-lg-6 col-12 text-lg-end">
+                                <a href="#" onclick="showCookieSettings(); return false;" class="site-footer-link" style="text-decoration: underline;">{{ __('messages.cookie.settings.title') }}</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -259,6 +321,122 @@
     <script src="{{ asset('js/click-scroll.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.3/build/js/intlTelInput.min.js"></script>
+    
+    <script>
+        function toggleSearchBar() {
+            const searchBar = document.querySelector('.fixed-search-bar');
+            const navbar = document.getElementById('main-navbar');
+            
+            if (searchBar.style.display === 'none' || !searchBar.style.display) {
+                searchBar.style.display = 'block';
+                searchBar.classList.add('active');
+                if (navbar) {
+                    navbar.style.marginTop = '60px';
+                }
+                setTimeout(() => {
+                    const input = document.getElementById('global-search-input');
+                    if (input) input.focus();
+                }, 100);
+            } else {
+                searchBar.style.display = 'none';
+                searchBar.classList.remove('active');
+                if (navbar) {
+                    navbar.style.marginTop = '';
+                }
+            }
+        }
+        
+        function closeSearchBar() {
+            const searchBar = document.querySelector('.fixed-search-bar');
+            const navbar = document.getElementById('main-navbar');
+            
+            searchBar.style.display = 'none';
+            searchBar.classList.remove('active');
+            if (navbar) {
+                navbar.style.marginTop = '';
+            }
+        }
+        
+        // Close search bar on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const searchBar = document.querySelector('.fixed-search-bar');
+                if (searchBar && searchBar.style.display !== 'none') {
+                    closeSearchBar();
+                }
+            }
+        });
+        
+        // Highlight search terms if search parameter exists
+        @if(request()->has('search'))
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchTerm = '{{ request('search') }}';
+            highlightSearchTerm(searchTerm);
+        });
+        @endif
+        
+        function highlightSearchTerm(term) {
+            if (!term) return;
+            
+            const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(${escapedTerm})`, 'gi');
+            
+            // Find all text nodes in the main content area
+            const mainContent = document.querySelector('main') || document.body;
+            const walker = document.createTreeWalker(
+                mainContent,
+                NodeFilter.SHOW_TEXT,
+                {
+                    acceptNode: function(node) {
+                        // Skip script, style, and nav elements
+                        const parent = node.parentElement;
+                        if (!parent) return NodeFilter.FILTER_REJECT;
+                        
+                        const tagName = parent.tagName;
+                        if (tagName === 'SCRIPT' || tagName === 'STYLE' || 
+                            tagName === 'NAV' || tagName === 'FOOTER' ||
+                            parent.closest('nav') || parent.closest('footer')) {
+                            return NodeFilter.FILTER_REJECT;
+                        }
+                        
+                        if (node.textContent.trim().length === 0) {
+                            return NodeFilter.FILTER_REJECT;
+                        }
+                        
+                        return NodeFilter.FILTER_ACCEPT;
+                    }
+                },
+                false
+            );
+            
+            const textNodes = [];
+            let node;
+            while (node = walker.nextNode()) {
+                textNodes.push(node);
+            }
+            
+            textNodes.forEach(textNode => {
+                const originalText = textNode.textContent;
+                if (regex.test(originalText)) {
+                    const highlighted = originalText.replace(regex, '<mark class="search-highlight">$1</mark>');
+                    if (highlighted !== originalText) {
+                        const wrapper = document.createElement('span');
+                        wrapper.innerHTML = highlighted;
+                        textNode.parentNode.replaceChild(wrapper, textNode);
+                    }
+                }
+            });
+            
+            // Scroll to first highlight after a short delay
+            setTimeout(() => {
+                const firstMark = document.querySelector('mark.search-highlight');
+                if (firstMark) {
+                    firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 100);
+        }
+    </script>
+    
     @stack('scripts')
 </body>
 </html>

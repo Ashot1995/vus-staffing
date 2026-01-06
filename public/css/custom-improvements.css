@@ -475,6 +475,35 @@ a.btn {
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
 }
 
+/* Fixed Search Bar Styles */
+.fixed-search-bar {
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.fixed-search-bar.active ~ .navbar,
+.fixed-search-bar.active ~ main {
+  margin-top: 60px;
+}
+
+/* Search Highlight */
+mark.search-highlight {
+  background-color: #ffeb3b !important;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
 .navbar-nav .nav-link {
   position: relative;
   transition: all 0.3s ease;
@@ -610,9 +639,9 @@ a.btn {
 /* Improved Footer */
 .site-footer {
   background: #f5f5f5 !important;
-  padding-top: 40px !important;
-  padding-bottom: 40px !important;
-  margin-top: 40px;
+  padding-top: 20px !important;
+  padding-bottom: 15px !important;
+  margin-top: 30px;
   position: relative;
   overflow: hidden;
   border-top: 1px solid #e0e0e0;
@@ -620,24 +649,25 @@ a.btn {
 
 .site-footer-title {
   color: #000000 !important;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .site-footer .text-white {
   color: #000000 !important;
-  font-size: 15px;
-  line-height: 1.8;
-  margin-bottom: 0.75rem;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
 }
 
 .site-footer-link {
   color: #000000 !important;
   text-decoration: none;
   transition: all 0.3s ease;
+  font-size: 12px;
 }
 
 .site-footer-link:hover {
@@ -653,16 +683,16 @@ a.btn {
 }
 
 .footer-menu-item {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.4rem;
 }
 
 .footer-menu-link {
   color: #000000 !important;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 14px;
   transition: all 0.3s ease;
   display: inline-block;
-  padding: 4px 0;
+  padding: 2px 0;
   position: relative;
 }
 
@@ -723,9 +753,9 @@ a.btn {
 /* Footer Bottom */
 .site-footer-bottom {
   border-top: 1px solid #e0e0e0;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  margin-top: 50px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-top: 15px;
   position: relative;
   z-index: 1;
 }
@@ -737,7 +767,7 @@ a.btn {
 
 .copyright-text {
   color: #000000 !important;
-  font-size: 14px;
+  font-size: 12px;
   margin: 0;
 }
 
@@ -745,8 +775,8 @@ a.btn {
 .site-footer .bi-geo-alt,
 .site-footer .bi-envelope {
   color: #000000;
-  font-size: 18px;
-  margin-right: 10px;
+  font-size: 14px;
+  margin-right: 6px;
   flex-shrink: 0;
 }
 
@@ -766,17 +796,17 @@ a.btn {
 /* Responsive Footer */
 @media (max-width: 991px) {
   .site-footer {
-    padding-top: 60px;
-    padding-bottom: 30px;
+    padding-top: 25px;
+    padding-bottom: 15px;
   }
 
   .site-footer-title {
-    font-size: 18px;
-    margin-bottom: 1rem;
+    font-size: 15px;
+    margin-bottom: 0.6rem;
   }
 
   .site-footer .col-lg-4 {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
   .social-icon {
@@ -786,20 +816,20 @@ a.btn {
 
 @media (max-width: 768px) {
   .site-footer {
-    padding-top: 30px;
-    padding-bottom: 25px;
-    margin-top: 40px;
+    padding-top: 20px;
+    padding-bottom: 12px;
+    margin-top: 25px;
   }
 
   .site-footer-bottom {
-    margin-top: 30px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    margin-top: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .copyright-text {
     text-align: center;
-    font-size: 13px;
+    font-size: 12px;
   }
 }
 

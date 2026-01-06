@@ -53,7 +53,7 @@
         <div class="row">
             <div class="col-lg-12 col-12 text-center mb-5">
                 <h2 style="font-size: 1.75rem; font-weight: 600; text-transform: none;">{{ ucfirst(strtolower($job->title)) }}</h2>
-                <p><i class="bi-geo-alt me-2"></i>{{ $job->location }} | {{ ucfirst($job->employment_type) }}</p>
+                <p><i class="bi-geo-alt me-2"></i>{{ $job->location }} | {{ ucfirst(str_replace('-', ' ', $job->employment_type)) }}</p>
             </div>
         </div>
     </div>
@@ -90,7 +90,7 @@
                     <h5 class="mb-3">{{ __('messages.jobs.detail.info') }}</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2"><strong>{{ __('messages.jobs.detail.location') }}:</strong> {{ $job->location }}</li>
-                        <li class="mb-2"><strong>{{ __('messages.jobs.detail.type') }}:</strong> {{ ucfirst($job->employment_type) }}</li>
+                        <li class="mb-2"><strong>{{ __('messages.jobs.detail.type') }}:</strong> {{ ucfirst(str_replace('-', ' ', $job->employment_type)) }}</li>
                         @if($job->deadline)
                             <li class="mb-2"><strong>{{ __('messages.jobs.deadline') }}:</strong> {{ $job->deadline->format('Y-m-d') }}</li>
                         @endif
