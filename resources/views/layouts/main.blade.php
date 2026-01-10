@@ -125,7 +125,7 @@
             <a href="{{ route('home') }}" class="navbar-brand mx-auto mx-lg-0">
                 <span class="brand-text" style="font-size: 28px; font-weight: bold; color: #000000; letter-spacing: 4px;">V U S</span>
             </a>
-            
+
             <!-- Search Icon Button -->
             <button type="button" class="btn btn-link text-dark d-lg-none ms-auto me-2" onclick="toggleSearchBar()" style="text-decoration: none; font-size: 1.25rem;">
                 <i class="bi-search"></i>
@@ -235,7 +235,7 @@
         $footerSettings = \App\Models\FooterSetting::getActive();
         $locale = app()->getLocale();
     @endphp
-    
+
     <footer class="site-footer">
         <div class="container">
             <div class="row justify-content-center">
@@ -262,9 +262,22 @@
                                 {{ $footerSettings ? ($locale === 'sv' ? $footerSettings->quick_links_title_sv : $footerSettings->quick_links_title_en) : __('messages.footer.quick_links') }}
                             </h5>
                             <ul class="footer-menu">
-                                @if($footerSettings && !empty($footerSettings->quick_links))
-                                    @foreach($footerSettings->quick_links as $link)
+                                {{-- About Us Section Links --}}
+                                <li class="footer-menu-item"><a href="{{ route('about') }}" class="footer-menu-link">{{ __('messages.nav.about') }}</a></li>
+                                <li class="footer-menu-item"><a href="{{ route('blog.index') }}" class="footer-menu-link">{{ __('messages.nav.blog') }}</a></li>
+                                <li class="footer-menu-item"><a href="{{ route('company-values') }}" class="footer-menu-link">{{ __('messages.nav.company_values') }}</a></li>
+                                <li class="footer-menu-item"><a href="{{ route('about') }}" class="footer-menu-link">{{ __('messages.nav.our_employees') }}</a></li>
+                                
+                                @php
+                                    $quickLinks = [];
+                                    if ($footerSettings) {
+                                        $quickLinks = is_array($footerSettings->quick_links) ? $footerSettings->quick_links : [];
+                                    }
+                                @endphp
+                                @if(!empty($quickLinks))
+                                    @foreach($quickLinks as $link)
                                         @php
+                                            if (!is_array($link)) continue;
                                             $label = $locale === 'sv' ? ($link['label_sv'] ?? $link['label_en'] ?? '') : ($link['label_en'] ?? '');
                                             $url = !empty($link['route']) ? route($link['route']) : ($link['custom_url'] ?? '#');
                                         @endphp
@@ -321,12 +334,12 @@
     <script src="{{ asset('js/click-scroll.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.3/build/js/intlTelInput.min.js"></script>
-    
+
     <script>
         function toggleSearchBar() {
             const searchBar = document.querySelector('.fixed-search-bar');
             const navbar = document.getElementById('main-navbar');
-            
+
             if (searchBar.style.display === 'none' || !searchBar.style.display) {
                 searchBar.style.display = 'block';
                 searchBar.classList.add('active');
@@ -345,18 +358,18 @@
                 }
             }
         }
-        
+
         function closeSearchBar() {
             const searchBar = document.querySelector('.fixed-search-bar');
             const navbar = document.getElementById('main-navbar');
-            
+
             searchBar.style.display = 'none';
             searchBar.classList.remove('active');
             if (navbar) {
                 navbar.style.marginTop = '';
             }
         }
-        
+
         // Close search bar on ESC key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
@@ -366,7 +379,81 @@
                 }
             }
         });
-        
+
+        // Fix dropdown behavior on mobile devices
+        (function() {
+            function initMobileDropdowns() {
+                // Wait for Bootstrap to be fully loaded
+                if (typeof bootstrap === 'undefined' && typeof window.bootstrap === 'undefined') {
+                    // Retry after a short delay if Bootstrap isn't ready yet
+                    setTimeout(initMobileDropdowns, 100);
+                    return;
+                }
+
+                const bs = window.bootstrap || bootstrap;
+                const dropdownToggles = document.querySelectorAll('.navbar-nav .dropdown-toggle[data-bs-toggle="dropdown"]');
+
+                dropdownToggles.forEach(function(toggle) {
+                    // Initialize Bootstrap dropdown if not already initialized
+                    let bsDropdown = bs.Dropdown.getInstance(toggle);
+                    if (!bsDropdown) {
+                        try {
+                            bsDropdown = new bs.Dropdown(toggle, {
+                                boundary: 'clippingParents',
+                                display: 'static'
+                            });
+                        } catch (e) {
+                            console.warn('Could not initialize Bootstrap dropdown:', e);
+                        }
+                    }
+
+                    // Prevent navbar collapse when clicking dropdown toggle on mobile
+                    if (window.innerWidth < 992) {
+                        toggle.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                        }, true);
+                    }
+
+                    // Ensure dropdown items close navbar after navigation on mobile
+                    const dropdownMenu = toggle.nextElementSibling;
+                    if (dropdownMenu && dropdownMenu.classList.contains('dropdown-menu')) {
+                        const dropdownItems = dropdownMenu.querySelectorAll('.dropdown-item');
+                        dropdownItems.forEach(function(item) {
+                            item.addEventListener('click', function() {
+                                // Close navbar on mobile after selecting an item
+                                const navbarCollapse = document.querySelector('.navbar-collapse');
+                                if (navbarCollapse && window.innerWidth < 992) {
+                                    try {
+                                        const bsCollapse = bs.Collapse.getInstance(navbarCollapse);
+                                        if (bsCollapse) {
+                                            bsCollapse.hide();
+                                        } else {
+                                            // Fallback: use jQuery if Bootstrap JS not available
+                                            if (typeof $ !== 'undefined') {
+                                                $(navbarCollapse).collapse('hide');
+                                            }
+                                        }
+                                    } catch (e) {
+                                        // Fallback to jQuery
+                                        if (typeof $ !== 'undefined') {
+                                            $(navbarCollapse).collapse('hide');
+                                        }
+                                    }
+                                }
+                            });
+                        });
+                    }
+                });
+            }
+
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initMobileDropdowns);
+            } else {
+                initMobileDropdowns();
+            }
+        })();
+
         // Highlight search terms if search parameter exists
         @if(request()->has('search'))
         document.addEventListener('DOMContentLoaded', function() {
@@ -374,13 +461,13 @@
             highlightSearchTerm(searchTerm);
         });
         @endif
-        
+
         function highlightSearchTerm(term) {
             if (!term) return;
-            
+
             const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             const regex = new RegExp(`(${escapedTerm})`, 'gi');
-            
+
             // Find all text nodes in the main content area
             const mainContent = document.querySelector('main') || document.body;
             const walker = document.createTreeWalker(
@@ -391,30 +478,30 @@
                         // Skip script, style, and nav elements
                         const parent = node.parentElement;
                         if (!parent) return NodeFilter.FILTER_REJECT;
-                        
+
                         const tagName = parent.tagName;
-                        if (tagName === 'SCRIPT' || tagName === 'STYLE' || 
+                        if (tagName === 'SCRIPT' || tagName === 'STYLE' ||
                             tagName === 'NAV' || tagName === 'FOOTER' ||
                             parent.closest('nav') || parent.closest('footer')) {
                             return NodeFilter.FILTER_REJECT;
                         }
-                        
+
                         if (node.textContent.trim().length === 0) {
                             return NodeFilter.FILTER_REJECT;
                         }
-                        
+
                         return NodeFilter.FILTER_ACCEPT;
                     }
                 },
                 false
             );
-            
+
             const textNodes = [];
             let node;
             while (node = walker.nextNode()) {
                 textNodes.push(node);
             }
-            
+
             textNodes.forEach(textNode => {
                 const originalText = textNode.textContent;
                 if (regex.test(originalText)) {
@@ -426,7 +513,7 @@
                     }
                 }
             });
-            
+
             // Scroll to first highlight after a short delay
             setTimeout(() => {
                 const firstMark = document.querySelector('mark.search-highlight');
@@ -436,7 +523,7 @@
             }, 100);
         }
     </script>
-    
+
     @stack('scripts')
 </body>
 </html>

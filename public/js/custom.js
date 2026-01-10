@@ -3,8 +3,13 @@
   
   "use strict";
 
-    // NAVBAR
-    $('.navbar-nav .nav-link').click(function(){
+    // NAVBAR - Only collapse when clicking non-dropdown links
+    $('.navbar-nav .nav-link:not(.dropdown-toggle)').click(function(){
+        $(".navbar-collapse").collapse('hide');
+    });
+    
+    // Handle dropdown items - collapse navbar after navigation
+    $('.navbar-nav .dropdown-item').click(function(){
         $(".navbar-collapse").collapse('hide');
     });
 
