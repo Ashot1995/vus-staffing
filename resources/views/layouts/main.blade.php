@@ -138,8 +138,8 @@
                 </div>
             @else
                 <div class="d-lg-none dropdown">
-                    <a class="nav-link custom-btn btn btn-sm dropdown-toggle" href="#" id="mobileUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ auth()->user()->name }}
+                    <a class="nav-link custom-btn btn btn-sm dropdown-toggle" href="#" id="mobileUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+                        {{ auth()->user()->name }} <i class="bi-chevron-down ms-1 nav-dropdown-arrow"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="mobileUserDropdown">
                         <li><a class="dropdown-item" href="{{ route('dashboard') }}"><i class="bi-speedometer2 me-2"></i>{{ __('messages.nav.profile') }}</a></li>
@@ -171,8 +171,8 @@
                         <a class="nav-link {{ request()->routeIs('jobs.*') ? 'active' : '' }}" href="{{ route('jobs.index') }}">{{ __('messages.nav.jobs') }}</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ request()->routeIs('about') || request()->routeIs('company-values') || request()->routeIs('blog.*') ? 'active' : '' }}" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ __('messages.nav.about') }}
+                        <a class="nav-link dropdown-toggle {{ request()->routeIs('about') || request()->routeIs('company-values') || request()->routeIs('blog.*') ? 'active' : '' }}" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+                            {{ __('messages.nav.about') }} <i class="bi-chevron-down ms-1 nav-dropdown-arrow"></i>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
                             <li><a class="dropdown-item {{ request()->routeIs('blog.*') ? 'active' : '' }}" href="{{ route('blog.index') }}">{{ __('messages.nav.blog') }}</a></li>
@@ -200,8 +200,8 @@
                         </li>
                     @else
                         <li class="nav-item dropdown me-2">
-                            <a class="nav-link dropdown-toggle d-none d-lg-block" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi-person-circle me-1"></i>{{ auth()->user()->name }}
+                            <a class="nav-link dropdown-toggle d-none d-lg-block" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+                                <i class="bi-person-circle me-1"></i>{{ auth()->user()->name }} <i class="bi-chevron-down ms-1 nav-dropdown-arrow"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li><a class="dropdown-item" href="{{ route('dashboard') }}"><i class="bi-speedometer2 me-2"></i>{{ __('messages.nav.profile') }}</a></li>
@@ -262,11 +262,26 @@
                                 {{ $footerSettings ? ($locale === 'sv' ? $footerSettings->quick_links_title_sv : $footerSettings->quick_links_title_en) : __('messages.footer.quick_links') }}
                             </h5>
                             <ul class="footer-menu">
-                                {{-- About Us Section Links --}}
-                                <li class="footer-menu-item"><a href="{{ route('about') }}" class="footer-menu-link">{{ __('messages.nav.about') }}</a></li>
-                                <li class="footer-menu-item"><a href="{{ route('blog.index') }}" class="footer-menu-link">{{ __('messages.nav.blog') }}</a></li>
-                                <li class="footer-menu-item"><a href="{{ route('company-values') }}" class="footer-menu-link">{{ __('messages.nav.company_values') }}</a></li>
-                                <li class="footer-menu-item"><a href="{{ route('about') }}" class="footer-menu-link">{{ __('messages.nav.our_employees') }}</a></li>
+                                {{-- About Us Dropdown --}}
+                                <li class="footer-menu-item footer-dropdown-wrapper">
+                                    <div class="footer-dropdown">
+                                        <button class="footer-dropdown-toggle footer-menu-link" type="button" id="footerAboutToggle" aria-expanded="false" aria-controls="footerAboutDropdown">
+                                            <span>{{ __('messages.nav.about') }}</span>
+                                            <i class="bi-chevron-down ms-2 footer-dropdown-icon"></i>
+                                        </button>
+                                        <ul class="footer-menu collapse footer-dropdown-menu" id="footerAboutDropdown">
+                                            <li class="footer-menu-item">
+                                                <a href="{{ route('blog.index') }}" class="footer-menu-link">{{ __('messages.nav.blog') }}</a>
+                                            </li>
+                                            <li class="footer-menu-item">
+                                                <a href="{{ route('company-values') }}" class="footer-menu-link">{{ __('messages.nav.company_values') }}</a>
+                                            </li>
+                                            <li class="footer-menu-item">
+                                                <a href="{{ route('about') }}" class="footer-menu-link">{{ __('messages.nav.our_employees') }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
                                 
                                 @php
                                     $quickLinks = [];
@@ -451,6 +466,158 @@
                 document.addEventListener('DOMContentLoaded', initMobileDropdowns);
             } else {
                 initMobileDropdowns();
+            }
+        })();
+
+        // Footer About Us Dropdown - Fixed for iOS and mobile devices
+        (function() {
+            function initFooterDropdown() {
+                const footerDropdownToggle = document.getElementById('footerAboutToggle');
+                const footerDropdown = document.getElementById('footerAboutDropdown');
+                
+                if (!footerDropdownToggle || !footerDropdown) {
+                    return;
+                }
+                
+                // Ensure dropdown starts closed (important for iOS)
+                footerDropdown.classList.remove('show');
+                footerDropdown.style.display = 'none';
+                footerDropdown.style.height = '0';
+                footerDropdown.style.opacity = '0';
+                footerDropdownToggle.setAttribute('aria-expanded', 'false');
+                footerDropdownToggle.classList.remove('active');
+                
+                let isOpen = false;
+                let isToggling = false;
+                
+                function toggleDropdown(e) {
+                    // Prevent multiple rapid toggles
+                    if (isToggling) {
+                        return;
+                    }
+                    
+                    if (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                    }
+                    
+                    isToggling = true;
+                    isOpen = !isOpen;
+                    
+                    if (isOpen) {
+                        // Open dropdown
+                        footerDropdown.style.display = 'block';
+                        footerDropdown.style.height = '0';
+                        footerDropdown.style.opacity = '0';
+                        footerDropdown.classList.add('show');
+                        footerDropdownToggle.setAttribute('aria-expanded', 'true');
+                        footerDropdownToggle.classList.add('active');
+                        
+                        // Force reflow for iOS
+                        void footerDropdown.offsetHeight;
+                        
+                        // Calculate height and animate
+                        requestAnimationFrame(function() {
+                            const height = footerDropdown.scrollHeight;
+                            footerDropdown.style.height = height + 'px';
+                            footerDropdown.style.opacity = '1';
+                            
+                            setTimeout(function() {
+                                if (footerDropdown.classList.contains('show')) {
+                                    footerDropdown.style.height = 'auto';
+                                }
+                                isToggling = false;
+                            }, 350);
+                        });
+                    } else {
+                        // Close dropdown
+                        const height = footerDropdown.scrollHeight;
+                        footerDropdown.style.height = height + 'px';
+                        footerDropdown.style.opacity = '1';
+                        
+                        // Force reflow for iOS
+                        void footerDropdown.offsetHeight;
+                        
+                        requestAnimationFrame(function() {
+                            footerDropdown.style.height = '0';
+                            footerDropdown.style.opacity = '0';
+                            footerDropdownToggle.setAttribute('aria-expanded', 'false');
+                            footerDropdownToggle.classList.remove('active');
+                            
+                            setTimeout(function() {
+                                footerDropdown.classList.remove('show');
+                                footerDropdown.style.display = 'none';
+                                footerDropdown.style.height = '';
+                                footerDropdown.style.opacity = '';
+                                isToggling = false;
+                            }, 350);
+                        });
+                    }
+                }
+                
+                // Remove existing event listeners to avoid duplicates
+                const newToggle = footerDropdownToggle.cloneNode(true);
+                footerDropdownToggle.parentNode.replaceChild(newToggle, footerDropdownToggle);
+                const freshToggle = document.getElementById('footerAboutToggle');
+                
+                // Handle click events (works for desktop and most mobile)
+                freshToggle.addEventListener('click', function(e) {
+                    toggleDropdown(e);
+                    return false;
+                }, false);
+                
+                // Handle touch events specifically for iOS
+                let touchStartTime = 0;
+                freshToggle.addEventListener('touchstart', function(e) {
+                    touchStartTime = Date.now();
+                }, { passive: true });
+                
+                freshToggle.addEventListener('touchend', function(e) {
+                    const touchDuration = Date.now() - touchStartTime;
+                    // Only trigger if it's a quick tap (not a swipe)
+                    if (touchDuration < 300) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        toggleDropdown(e);
+                    }
+                }, { passive: false });
+                
+                // Close dropdown when clicking/touching outside
+                function handleOutsideClick(e) {
+                    if (isOpen && 
+                        footerDropdown && 
+                        freshToggle &&
+                        !footerDropdown.contains(e.target) && 
+                        !freshToggle.contains(e.target)) {
+                        toggleDropdown();
+                    }
+                }
+                
+                document.addEventListener('click', handleOutsideClick, false);
+                document.addEventListener('touchend', handleOutsideClick, false);
+                
+                // Close dropdown when clicking on a link inside
+                const dropdownLinks = footerDropdown.querySelectorAll('.footer-menu-link');
+                dropdownLinks.forEach(function(link) {
+                    link.addEventListener('click', function(e) {
+                        // Allow navigation, close dropdown after a short delay
+                        setTimeout(function() {
+                            if (isOpen) {
+                                toggleDropdown();
+                            }
+                        }, 150);
+                    }, false);
+                });
+            }
+            
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initFooterDropdown);
+            } else {
+                // Small delay to ensure DOM is fully ready
+                setTimeout(initFooterDropdown, 50);
             }
         })();
 
