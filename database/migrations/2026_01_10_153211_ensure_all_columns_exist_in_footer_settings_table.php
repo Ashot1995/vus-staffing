@@ -30,7 +30,7 @@ return new class extends Migration
 
                 // Add email if missing (should exist, but check anyway)
                 if (!Schema::hasColumn('footer_settings', 'email')) {
-                    $table->string('email')->default('abdulrazek.mahmoud@vus-bemanning.se'));
+                    $table->string('email')->default('abdulrazek.mahmoud@vus-bemanning.se');
                 }
 
                 // Add quick_links_title_en if missing
