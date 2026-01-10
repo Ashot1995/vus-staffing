@@ -51,6 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/cv/view', [FileController::class, 'viewUserCv'])->name('profile.cv.view');
     Route::get('/applications/{applicationId}/cv/download', [FileController::class, 'downloadCv'])->name('application.cv.download');
     Route::get('/applications/{applicationId}/cv/view', [FileController::class, 'viewCv'])->name('application.cv.view');
+    Route::get('/applications/{applicationId}/file/{index}/download', [FileController::class, 'downloadAdditionalFile'])->name('application.file.download');
+    Route::get('/applications/{applicationId}/file/{index}/view', [FileController::class, 'viewAdditionalFile'])->name('application.file.view');
     
     Route::get('/jobb/{job}/ansok', [JobController::class, 'apply'])->name('jobs.apply');
     Route::post('/jobb/{job}/ansok', [JobController::class, 'submitApplication'])->name('jobs.submit-application');

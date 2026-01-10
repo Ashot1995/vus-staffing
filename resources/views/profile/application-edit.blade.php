@@ -103,29 +103,70 @@
                         <!-- Upload Section -->
                         <h6 class="mb-2 mt-2" style="font-size: 0.95rem; font-weight: 600;">{{ __('messages.apply.uploads') }}</h6>
                         
-                        <!-- Current CV -->
-                        @if($application->cv_path)
-                            <div class="mb-2 p-3 bg-light rounded">
-                                <label class="form-label small mb-2">{{ __('messages.profile.applications.current_cv') }}</label>
-                                <div class="d-flex gap-2 mb-2">
-                                    <a href="{{ route('application.cv.view', $application->id) }}" target="_blank" class="btn btn-sm btn-primary">
-                                        <i class="bi bi-eye me-1"></i>{{ __('messages.profile.applications.view_cv') }}
-                                    </a>
-                                    <a href="{{ route('application.cv.download', $application->id) }}" class="btn btn-sm btn-secondary">
-                                        <i class="bi bi-download me-1"></i>{{ __('messages.profile.applications.download_cv') }}
-                                    </a>
-                                </div>
-                                <p class="text-muted small mb-0">{{ basename($application->cv_path) }}</p>
+                        <!-- Current Documents -->
+                        @if($application->cv_path || ($application->additional_files && count($application->additional_files) > 0))
+                            <div class="mb-3">
+                                <label class="form-label small mb-2">{{ __('messages.profile.applications.current_documents') }}</label>
+                                
+                                <!-- Current CV -->
+                                @if($application->cv_path)
+                                    <div class="mb-2 p-2 bg-light rounded border">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="flex-grow-1">
+                                                <p class="mb-1 small"><strong>{{ __('messages.profile.applications.cv_document') }}:</strong> {{ basename($application->cv_path) }}</p>
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <a href="{{ route('application.cv.view', $application->id) }}" target="_blank" class="btn btn-sm btn-primary">
+                                                    <i class="bi bi-eye me-1"></i>{{ __('messages.profile.applications.view') }}
+                                                </a>
+                                                <a href="{{ route('application.cv.download', $application->id) }}" class="btn btn-sm btn-secondary">
+                                                    <i class="bi bi-download me-1"></i>{{ __('messages.profile.applications.download') }}
+                                                </a>
+                                                <button type="button" class="btn btn-sm btn-danger remove-existing-file" data-file-type="cv" data-application-id="{{ $application->id }}">
+                                                    <i class="bi bi-trash me-1"></i>{{ __('messages.profile.applications.delete') }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                                
+                                <!-- Additional Files -->
+                                @if($application->additional_files && is_array($application->additional_files) && count($application->additional_files) > 0)
+                                    @foreach($application->additional_files as $index => $filePath)
+                                        <div class="mb-2 p-2 bg-light rounded border existing-additional-file" data-file-index="{{ $index }}">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="flex-grow-1">
+                                                    <p class="mb-1 small"><strong>{{ __('messages.profile.applications.additional_document') }} {{ $index + 1 }}:</strong> {{ basename($filePath) }}</p>
+                                                </div>
+                                                <div class="d-flex gap-2">
+                                                    <a href="{{ route('application.file.view', ['applicationId' => $application->id, 'index' => $index]) }}" target="_blank" class="btn btn-sm btn-primary">
+                                                        <i class="bi bi-eye me-1"></i>{{ __('messages.profile.applications.view') }}
+                                                    </a>
+                                                    <a href="{{ route('application.file.download', ['applicationId' => $application->id, 'index' => $index]) }}" class="btn btn-sm btn-secondary">
+                                                        <i class="bi bi-download me-1"></i>{{ __('messages.profile.applications.download') }}
+                                                    </a>
+                                                    <button type="button" class="btn btn-sm btn-danger remove-existing-file" data-file-type="additional" data-file-index="{{ $index }}" data-application-id="{{ $application->id }}">
+                                                        <i class="bi bi-trash me-1"></i>{{ __('messages.profile.applications.delete') }}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
                         @endif
 
-                        <!-- CV Upload -->
+                        <!-- Documents Upload -->
                         <div class="mb-2">
-                            <label class="form-label small">{{ __('messages.profile.applications.upload_new_cv') }} ({{ __('messages.profile.applications.optional') }})</label>
-                            <input type="file" name="cv" class="form-control form-control-sm @error('cv') is-invalid @enderror" accept=".pdf,.doc,.docx">
-                            <small class="form-text text-muted">{{ __('messages.profile.cv_formats') }}</small>
-                            @error('cv')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <label class="form-label small">{{ __('messages.profile.applications.upload_documents') }} ({{ __('messages.profile.applications.optional') }})</label>
+                            <input type="file" name="documents[]" id="documents" class="form-control form-control-sm @error('documents') is-invalid @enderror @error('documents.*') is-invalid @enderror" accept=".pdf,.doc,.docx,image/*" multiple>
+                            <small class="form-text text-muted">{{ __('messages.profile.applications.upload_documents_help') }}</small>
+                            <div id="file-list" class="mt-2"></div>
+                            @error('documents')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                            @error('documents.*')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -263,6 +304,112 @@
                 });
             }
         }
+
+        // File upload validation - max 3 files total, max 3MB each
+        const documentsInput = document.getElementById('documents');
+        const fileList = document.getElementById('file-list');
+        const maxFiles = 3;
+        const maxFileSize = 3 * 1024 * 1024; // 3MB in bytes
+        
+        // Count existing files
+        function countExistingFiles() {
+            let count = 0;
+            if (document.querySelector('.existing-additional-file')) {
+                count += document.querySelectorAll('.existing-additional-file').length;
+            }
+            if (document.querySelector('[data-file-type="cv"]')) {
+                count += 1;
+            }
+            return count;
+        }
+
+        if (documentsInput && fileList) {
+            documentsInput.addEventListener('change', function(e) {
+                const files = Array.from(e.target.files);
+                const existingCount = countExistingFiles();
+                const totalFiles = existingCount + files.length;
+                fileList.innerHTML = '';
+
+                // Check total files count (existing + new)
+                if (totalFiles > maxFiles) {
+                    fileList.innerHTML = '<div class="alert alert-danger">Maximum ' + maxFiles + ' files allowed total. You have ' + existingCount + ' existing file(s). Please select no more than ' + (maxFiles - existingCount) + ' file(s).</div>';
+                    e.target.value = '';
+                    return;
+                }
+
+                // Validate each file size and display
+                let hasError = false;
+                files.forEach((file, index) => {
+                    const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                    
+                    if (file.size > maxFileSize) {
+                        hasError = true;
+                        fileList.innerHTML += '<div class="alert alert-danger">File "' + file.name + '" is too large (' + fileSizeMB + ' MB). Maximum size is 3 MB.</div>';
+                    } else {
+                        fileList.innerHTML += '<div class="text-success small mb-1"><i class="bi bi-check-circle"></i> ' + file.name + ' (' + fileSizeMB + ' MB)</div>';
+                    }
+                });
+
+                if (hasError) {
+                    e.target.value = '';
+                    fileList.innerHTML += '<div class="alert alert-warning mt-2">Please select files that are 3 MB or smaller.</div>';
+                } else if (files.length > 0) {
+                    fileList.innerHTML += '<div class="text-muted small mt-2">Selected ' + files.length + ' file(s). Total files will be ' + totalFiles + ' of maximum ' + maxFiles + ' files.</div>';
+                }
+            });
+
+            // Validate on form submit
+            const form = documentsInput.closest('form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    const files = Array.from(documentsInput.files);
+                    const existingCount = countExistingFiles();
+                    const totalFiles = existingCount + files.length;
+                    
+                    if (totalFiles > maxFiles) {
+                        e.preventDefault();
+                        fileList.innerHTML = '<div class="alert alert-danger">Maximum ' + maxFiles + ' files allowed total. You have ' + existingCount + ' existing file(s).</div>';
+                        return false;
+                    }
+
+                    for (let file of files) {
+                        if (file.size > maxFileSize) {
+                            e.preventDefault();
+                            fileList.innerHTML = '<div class="alert alert-danger">File "' + file.name + '" exceeds the maximum size of 3 MB.</div>';
+                            return false;
+                        }
+                    }
+                });
+            }
+        }
+
+        // Handle remove existing file buttons
+        document.querySelectorAll('.remove-existing-file').forEach(button => {
+            button.addEventListener('click', function() {
+                const fileType = this.getAttribute('data-file-type');
+                const applicationId = this.getAttribute('data-application-id');
+                const fileIndex = this.getAttribute('data-file-index');
+                
+                if (!confirm('{{ __("messages.profile.applications.confirm_delete_file") }}')) {
+                    return;
+                }
+
+                // Create a hidden input to mark file for deletion
+                const form = this.closest('form');
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = fileType === 'cv' ? 'delete_cv' : 'delete_additional_files[]';
+                hiddenInput.value = fileType === 'cv' ? '1' : fileIndex;
+                form.appendChild(hiddenInput);
+
+                // Remove the visual element
+                if (fileType === 'cv') {
+                    this.closest('.mb-2').remove();
+                } else {
+                    this.closest('.existing-additional-file').remove();
+                }
+            });
+        });
     });
 </script>
 @endpush

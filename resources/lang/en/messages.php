@@ -444,6 +444,14 @@ We offer tailored services in recruitment and staffing for both long-term and se
     'profile.applications.upload_new_cv' => 'Upload new CV',
     'profile.applications.view_cv' => 'View CV',
     'profile.applications.view_details' => 'View details',
+    'profile.applications.current_documents' => 'Current Documents',
+    'profile.applications.additional_document' => 'Additional Document',
+    'profile.applications.upload_documents' => 'Upload Documents',
+    'profile.applications.upload_documents_help' => 'You can upload up to 3 files total (including CV). Accepted formats: PDF, DOC, DOCX, Images. Maximum size: 3MB per file.',
+    'profile.applications.view' => 'View',
+    'profile.applications.download' => 'Download',
+    'profile.applications.delete' => 'Delete',
+    'profile.applications.confirm_delete_file' => 'Are you sure you want to delete this file?',
     'profile.current_cv' => 'Current CV:',
     'profile.cv' => 'CV / Resume',
     'profile.cv_description' => 'Upload or update your CV. This CV will be used for all your job applications.',
@@ -490,6 +498,7 @@ We offer tailored services in recruitment and staffing for both long-term and se
     'validation.cv_upload_error' => 'CV upload failed: :message',
     'validation.cv_upload_failed' => 'Failed to upload CV. Please try again.',
     'validation.date_of_birth_invalid' => 'Invalid date of birth',
+    'validation.max_files_exceeded' => 'Maximum :max files allowed. Please remove some files or delete existing ones first.',
     'validation.spontaneous_sent' => 'Your spontaneous application has been sent!',
 
     // Blog

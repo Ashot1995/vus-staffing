@@ -445,6 +445,14 @@ Vi erbjuder skräddarsydda tjänster inom rekrytering och bemanning för både l
     'profile.applications.upload_new_cv' => 'Ladda upp nytt CV',
     'profile.applications.view_cv' => 'Visa CV',
     'profile.applications.view_details' => 'Visa detaljer',
+    'profile.applications.current_documents' => 'Nuvarande Dokument',
+    'profile.applications.additional_document' => 'Ytterligare Dokument',
+    'profile.applications.upload_documents' => 'Ladda upp Dokument',
+    'profile.applications.upload_documents_help' => 'Du kan ladda upp upp till 3 filer totalt (inklusive CV). Godkända format: PDF, DOC, DOCX, Bilder. Maximal storlek: 3MB per fil.',
+    'profile.applications.view' => 'Visa',
+    'profile.applications.download' => 'Ladda ner',
+    'profile.applications.delete' => 'Radera',
+    'profile.applications.confirm_delete_file' => 'Är du säker på att du vill radera denna fil?',
     'profile.current_cv' => 'Nuvarande CV:',
     'profile.cv' => 'CV / Meritförteckning',
     'profile.cv_description' => 'Ladda upp eller uppdatera ditt CV. Detta CV kommer att användas för alla dina jobbansökningar.',
@@ -491,6 +499,7 @@ Vi erbjuder skräddarsydda tjänster inom rekrytering och bemanning för både l
     'validation.cv_upload_error' => 'CV-uppladdning misslyckades: :message',
     'validation.cv_upload_failed' => 'CV-uppladdningen misslyckades. Försök igen.',
     'validation.date_of_birth_invalid' => 'Ogiltigt födelsedatum',
+    'validation.max_files_exceeded' => 'Maximalt :max filer tillåtna. Ta bort några filer eller radera befintliga först.',
     'validation.spontaneous_sent' => 'Din spontanansökan har skickats!',
 
     // Blog

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -112,7 +113,19 @@ class ProfileController extends Controller
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:255',
             'address' => 'required|string|max:500',
-            'cv' => 'nullable|file|mimes:pdf,doc,docx|max:3072',
+            'documents' => [
+                'nullable',
+                'array',
+                'max:3',
+            ],
+            'documents.*' => [
+                'file',
+                'mimes:pdf,doc,docx,jpeg,png,jpg,gif',
+                'max:3072',
+            ],
+            'delete_cv' => 'nullable|string',
+            'delete_additional_files' => 'nullable|array',
+            'delete_additional_files.*' => 'nullable|integer',
             'personal_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'driving_license_b' => 'nullable|boolean',
             'driving_license_own_car' => 'nullable|boolean',
@@ -132,19 +145,82 @@ class ProfileController extends Controller
         // Build phone with country code
         $phoneWithCode = ($request->input('phone_country_code', '+46') . ' ' . $validated['phone']);
 
-        // Handle CV upload if provided
-        if ($request->hasFile('cv')) {
-            // Delete old CV if exists
+        // Handle file deletions
+        if ($request->has('delete_cv') && $request->input('delete_cv') == '1') {
+            // Delete CV
             if ($application->cv_path && Storage::disk('public')->exists($application->cv_path)) {
                 Storage::disk('public')->delete($application->cv_path);
             }
+            $application->cv_path = null;
+        }
 
-            // Store new CV
-            $cvPath = $request->file('cv')->store('cvs', 'public');
-            $validated['cv_path'] = $cvPath;
+        // Handle additional files deletion
+        $additionalFiles = $application->additional_files ?? [];
+        if ($request->has('delete_additional_files') && is_array($request->input('delete_additional_files'))) {
+            $indexesToDelete = array_map('intval', $request->input('delete_additional_files'));
+            // Sort in descending order to delete from end to beginning
+            rsort($indexesToDelete);
+            foreach ($indexesToDelete as $index) {
+                if (isset($additionalFiles[$index])) {
+                    // Delete file from storage
+                    if (Storage::disk('public')->exists($additionalFiles[$index])) {
+                        Storage::disk('public')->delete($additionalFiles[$index]);
+                    }
+                    // Remove from array
+                    unset($additionalFiles[$index]);
+                }
+            }
+            // Re-index array
+            $additionalFiles = array_values($additionalFiles);
+        }
+
+        // Handle new documents upload
+        if ($request->hasFile('documents') && count($request->file('documents')) > 0) {
+            $documents = $request->file('documents');
+            $currentFileCount = 0;
+            
+            // Count existing files (CV + additional files)
+            if ($application->cv_path && !$request->has('delete_cv')) {
+                $currentFileCount++;
+            }
+            $currentFileCount += count($additionalFiles);
+            
+            // Check total file count doesn't exceed 3
+            if ($currentFileCount + count($documents) > 3) {
+                return redirect()->back()->withErrors([
+                    'documents' => __('messages.validation.max_files_exceeded', ['max' => 3])
+                ])->withInput();
+            }
+
+            // First document becomes CV if no CV exists, otherwise all are additional files
+            $hasCv = $application->cv_path && !($request->has('delete_cv') && $request->input('delete_cv') == '1');
+            $firstIsCv = !$hasCv;
+            $cvPath = $hasCv ? $application->cv_path : null;
+            
+            foreach ($documents as $index => $file) {
+                try {
+                    if ($index === 0 && $firstIsCv) {
+                        // First file becomes CV
+                        $cvPath = $file->store('cvs', 'public');
+                    } else {
+                        // Additional files
+                        $filePath = $file->store('additional-files', 'public');
+                        if ($filePath) {
+                            $additionalFiles[] = $filePath;
+                        }
+                    }
+                } catch (\Exception $e) {
+                    // Log error but continue with other files
+                    Log::error('File upload error: ' . $e->getMessage());
+                }
+            }
+        } else {
+            // No new files uploaded, keep existing CV if not deleted
+            $cvPath = ($request->has('delete_cv') && $request->input('delete_cv') == '1') ? null : $application->cv_path;
         }
 
         // Handle personal image upload if provided
+        $personalImagePath = $application->personal_image_path;
         if ($request->hasFile('personal_image')) {
             // Delete old image if exists
             if ($application->personal_image_path && Storage::disk('public')->exists($application->personal_image_path)) {
@@ -153,7 +229,6 @@ class ProfileController extends Controller
 
             // Store new image
             $personalImagePath = $request->file('personal_image')->store('personal-images', 'public');
-            $validated['personal_image_path'] = $personalImagePath;
         }
 
         // Calculate start date based on option
@@ -178,8 +253,9 @@ class ProfileController extends Controller
             'phone' => $phoneWithCode,
             'address' => $validated['address'],
             'email' => $validated['email'],
-            'cv_path' => $validated['cv_path'] ?? $application->cv_path,
-            'personal_image_path' => $validated['personal_image_path'] ?? $application->personal_image_path,
+            'cv_path' => $cvPath,
+            'additional_files' => !empty($additionalFiles) ? $additionalFiles : null,
+            'personal_image_path' => $personalImagePath,
             'start_date_option' => $validated['start_date_option'],
             'start_date' => $startDate,
             'consent_type' => $validated['consent_type'],
