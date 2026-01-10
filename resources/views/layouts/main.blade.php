@@ -171,11 +171,12 @@
                         <a class="nav-link {{ request()->routeIs('jobs.*') ? 'active' : '' }}" href="{{ route('jobs.index') }}">{{ __('messages.nav.jobs') }}</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ request()->routeIs('about') || request()->routeIs('company-values') || request()->routeIs('blog.*') ? 'active' : '' }}" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+                        <a class="nav-link dropdown-toggle {{ request()->routeIs('about') || request()->routeIs('company-values') || request()->routeIs('candidate-information') || request()->routeIs('blog.*') ? 'active' : '' }}" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
                             {{ __('messages.nav.about') }} <i class="bi-chevron-down ms-1 nav-dropdown-arrow"></i>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
                             <li><a class="dropdown-item {{ request()->routeIs('blog.*') ? 'active' : '' }}" href="{{ route('blog.index') }}">{{ __('messages.nav.blog') }}</a></li>
+                            <li><a class="dropdown-item {{ request()->routeIs('candidate-information') ? 'active' : '' }}" href="{{ route('candidate-information') }}">{{ __('messages.nav.candidate_information') }}</a></li>
                             <li><a class="dropdown-item {{ request()->routeIs('company-values') ? 'active' : '' }}" href="{{ route('company-values') }}">{{ __('messages.nav.company_values') }}</a></li>
                             <li><a class="dropdown-item {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">{{ __('messages.nav.our_employees') }}</a></li>
                         </ul>
@@ -272,6 +273,9 @@
                                         <ul class="footer-menu collapse footer-dropdown-menu" id="footerAboutDropdown">
                                             <li class="footer-menu-item">
                                                 <a href="{{ route('blog.index') }}" class="footer-menu-link">{{ __('messages.nav.blog') }}</a>
+                                            </li>
+                                            <li class="footer-menu-item">
+                                                <a href="{{ route('candidate-information') }}" class="footer-menu-link">{{ __('messages.nav.candidate_information') }}</a>
                                             </li>
                                             <li class="footer-menu-item">
                                                 <a href="{{ route('company-values') }}" class="footer-menu-link">{{ __('messages.nav.company_values') }}</a>
