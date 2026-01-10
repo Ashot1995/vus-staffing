@@ -545,6 +545,54 @@ mark.search-highlight {
 /* Remove underline from dropdown toggles */
 .navbar-nav .nav-link.dropdown-toggle::after {
   display: none !important;
+  content: none !important;
+  border: none !important;
+}
+
+/* Remove Bootstrap's default dropdown caret from all dropdown toggles */
+.dropdown-toggle::after {
+  display: none !important;
+  content: none !important;
+  border: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.nav-link.dropdown-toggle::after,
+.custom-btn.dropdown-toggle::after,
+.btn.dropdown-toggle::after,
+.btn-sm.dropdown-toggle::after {
+  display: none !important;
+  content: none !important;
+  border: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Specific targeting for mobile dropdown - completely remove Bootstrap caret */
+.d-lg-none .dropdown-toggle::after,
+.d-lg-none .custom-btn.dropdown-toggle::after,
+.d-lg-none .btn.dropdown-toggle::after,
+.d-lg-none .nav-link.dropdown-toggle::after,
+#mobileUserDropdown::after,
+.nav-link.custom-btn.btn.btn-sm.dropdown-toggle::after,
+a#mobileUserDropdown.dropdown-toggle::after {
+  display: none !important;
+  content: none !important;
+  border: 0 !important;
+  border-width: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
 }
 
 .nav-dropdown-arrow {
@@ -555,7 +603,9 @@ mark.search-highlight {
   margin-left: 0.25rem;
 }
 
-.navbar-nav .nav-link.dropdown-toggle[aria-expanded="true"] .nav-dropdown-arrow {
+.navbar-nav .nav-link.dropdown-toggle[aria-expanded="true"] .nav-dropdown-arrow,
+.dropdown-toggle[aria-expanded="true"] .nav-dropdown-arrow,
+.custom-btn.dropdown-toggle[aria-expanded="true"] .nav-dropdown-arrow {
   transform: rotate(180deg);
 }
 

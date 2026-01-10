@@ -138,7 +138,7 @@
                 </div>
             @else
                 <div class="d-lg-none dropdown">
-                    <a class="nav-link custom-btn btn btn-sm dropdown-toggle" href="#" id="mobileUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+                    <a class="nav-link custom-btn btn btn-sm dropdown-toggle" href="#" id="mobileUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none; --bs-dropdown-toggle-arrow: none;">
                         {{ auth()->user()->name }} <i class="bi-chevron-down ms-1 nav-dropdown-arrow"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="mobileUserDropdown">
