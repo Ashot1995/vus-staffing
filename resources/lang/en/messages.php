@@ -185,6 +185,12 @@ We offer tailored services in recruitment and staffing for both long-term and se
     'company_values.subtitle' => 'Our core values that guide everything we do',
     'company_values.title' => 'Company Values',
 
+    // Candidate Information
+    'candidate_info.no_items.description' => 'Candidate information will be displayed here once it is added.',
+    'candidate_info.no_items.title' => 'No Information Available',
+    'candidate_info.subtitle' => 'Important information for job seekers',
+    'candidate_info.title' => 'Candidate Information',
+
     // Contact
     'contact.address' => 'Address',
     'contact.contact_info' => 'Contact Information',
@@ -369,6 +375,7 @@ We offer tailored services in recruitment and staffing for both long-term and se
     // Nav
     'nav.about' => 'About us',
     'nav.blog' => 'Blog',
+    'nav.candidate_information' => 'Candidate information',
     'nav.company_values' => 'Our core values',
     'nav.contact' => 'Contact us',
     'nav.our_employees' => 'Our employees',

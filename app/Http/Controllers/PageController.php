@@ -34,8 +34,18 @@ class PageController extends Controller
             ->orderBy('sort_order', 'asc')
             ->orderBy('created_at', 'asc')
             ->get();
-        
+
         return view('pages.company-values', compact('values'));
+    }
+
+    public function candidateInformation()
+    {
+        $items = \App\Models\CandidateInformation::where('is_active', true)
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return view('pages.candidate-information', compact('items'));
     }
 
     public function forEmployers()

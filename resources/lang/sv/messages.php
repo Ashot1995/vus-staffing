@@ -186,6 +186,12 @@ Vi erbjuder skräddarsydda tjänster inom rekrytering och bemanning för både l
     'company_values.subtitle' => 'Våra kärnvärderingar som styr allt vi gör',
     'company_values.title' => 'Företagsvärderingar',
 
+    // Candidate Information
+    'candidate_info.no_items.description' => 'Kandidatinformation kommer att visas här när den har lagts till.',
+    'candidate_info.no_items.title' => 'Ingen Information Tillgänglig',
+    'candidate_info.subtitle' => 'Viktig information för jobbsökande',
+    'candidate_info.title' => 'Kandidatinformation',
+
     // Contact
     'contact.address' => 'Adress',
     'contact.contact_info' => 'Kontaktinformation',
@@ -370,6 +376,7 @@ Vi erbjuder skräddarsydda tjänster inom rekrytering och bemanning för både l
     // Nav
     'nav.about' => 'Om oss',
     'nav.blog' => 'Blogg',
+    'nav.candidate_information' => 'Kandidatinformation',
     'nav.company_values' => 'Vår värdegrund',
     'nav.contact' => 'Kontakta oss',
     'nav.our_employees' => 'Våra anställda',

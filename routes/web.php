@@ -17,6 +17,7 @@ Route::get('/search', [\App\Http\Controllers\SearchController::class, 'index'])-
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/om-oss', [PageController::class, 'about'])->name('about');
 Route::get('/foretagsvarden', [PageController::class, 'companyValues'])->name('company-values');
+Route::get('/kandidatinformation', [PageController::class, 'candidateInformation'])->name('candidate-information');
 Route::get('/for-arbetsgivare', [PageController::class, 'forEmployers'])->name('for-employers');
 
 Route::get('/blog', [\App\Http\Controllers\BlogController::class, 'index'])->name('blog.index');
