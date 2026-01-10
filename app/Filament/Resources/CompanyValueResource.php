@@ -58,16 +58,33 @@ class CompanyValueResource extends Resource
                             ->maxLength(255)
                             ->columnSpan(1),
 
-                        Forms\Components\Textarea::make('description_en')
+                        Forms\Components\RichEditor::make('description_en')
                             ->label('Description (English)')
-                            ->required()
-                            ->rows(4)
+                            ->toolbarButtons([
+                                'bold',
+                                'italic',
+                                'underline',
+                                'link',
+                                'bulletList',
+                                'orderedList',
+                                'h2',
+                                'h3',
+                                'blockquote',
+                            ])
                             ->columnSpanFull(),
-
-                        Forms\Components\Textarea::make('description_sv')
+                            Forms\Components\RichEditor::make('description_sv')
                             ->label('Description (Swedish)')
-                            ->required()
-                            ->rows(4)
+                            ->toolbarButtons([
+                                'bold',
+                                'italic',
+                                'underline',
+                                'link',
+                                'bulletList',
+                                'orderedList',
+                                'h2',
+                                'h3',
+                                'blockquote',
+                            ])
                             ->columnSpanFull(),
 
                         Forms\Components\TextInput::make('sort_order')
