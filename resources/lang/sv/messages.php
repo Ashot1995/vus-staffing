@@ -304,7 +304,7 @@ Vi erbjuder skräddarsydda tjänster inom rekrytering och bemanning för både l
     'home.fast_matching.description' => 'Vi arbetar effektivt för att snabbt hitta rätt kandidater för dina behov.',
     'home.fast_matching.title' => 'Effektiv matchning',
     'home.find_job.button' => 'Visa lediga tjänster',
-    'home.find_job.description' => 'Sök igenom våra tillgängliga tjänster och hitta den perfekta matchningen för dina färdigheter och erfarenhet.',
+    'home.find_job.description' => 'Sök genom våra tillgängliga tjänster och hitta den perfekta matchningen för dina färdigheter och erfarenhet.',
     'home.find_job.title' => 'Hitta ditt drömjobb',
     'home.hero.button_available_jobs' => 'Tillgängliga jobb',
     'home.hero.button_for_employers' => 'För arbetsgivare',
