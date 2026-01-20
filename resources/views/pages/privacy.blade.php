@@ -18,9 +18,9 @@
         <div class="row">
             <div class="col-lg-10 col-12 mx-auto">
                 <div class="custom-block bg-white shadow-lg p-5">
-                    @if(isset($privacyContent) && $privacyContent)
+                    @if($privacyPolicy)
                         <div class="privacy-content">
-                            {!! $privacyContent !!}
+                            {!! app()->getLocale() === 'sv' ? $privacyPolicy->content_sv : $privacyPolicy->content_en !!}
                         </div>
                     @else
                         <div class="privacy-content">

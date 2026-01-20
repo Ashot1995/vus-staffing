@@ -64,6 +64,7 @@ class PageController extends Controller
 
     public function privacy()
     {
-        return view('pages.privacy');
+        $privacyPolicy = \App\Models\PrivacyPolicy::getActive();
+        return view('pages.privacy', compact('privacyPolicy'));
     }
 }
