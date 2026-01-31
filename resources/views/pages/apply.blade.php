@@ -165,6 +165,15 @@
                             </div>
                         </div>
 
+                        <!-- Cover Letter -->
+                        <h6 class="mb-2 mt-2" style="font-size: 0.95rem; font-weight: 600;">{{ __('messages.spontaneous.cover_letter') }} ({{ __('messages.apply.required') }})</h6>
+                        <div class="mb-2">
+                            <textarea name="cover_letter" rows="5" class="form-control form-control-sm @error('cover_letter') is-invalid @enderror" placeholder="{{ __('messages.spontaneous.cover_letter_placeholder') }}" required>{{ old('cover_letter') }}</textarea>
+                            @error('cover_letter')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <!-- Additional Information (Optional) -->
                         <h6 class="mb-2 mt-2" style="font-size: 0.95rem; font-weight: 600;">{{ __('messages.apply.additional_information') }}</h6>
                         <div class="mb-2">

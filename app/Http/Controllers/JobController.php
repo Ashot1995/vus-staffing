@@ -97,6 +97,7 @@ class JobController extends Controller
             'personal_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'driving_license_b' => 'nullable|boolean',
             'driving_license_own_car' => 'nullable|boolean',
+            'cover_letter' => 'required|string',
             'additional_information' => 'nullable|string|max:2000',
             'start_date_option' => 'required|in:immediately,one_month,two_three_months',
             'consent_type' => 'required|in:full,limited',
@@ -180,7 +181,7 @@ class JobController extends Controller
             'cv_path' => $cvPath,
             'additional_files' => !empty($additionalFiles) ? $additionalFiles : null,
             'personal_image_path' => $personalImagePath,
-            'cover_letter' => '', // Not in new form, but keep for compatibility
+            'cover_letter' => $validated['cover_letter'],
             'is_spontaneous' => false,
             'status' => 'pending',
             'consent_type' => $validated['consent_type'],
@@ -251,7 +252,7 @@ class JobController extends Controller
             'cover_letter' => 'required|string',
             'additional_information' => 'nullable|string|max:2000',
             'start_date_option' => 'required|in:immediately,one_month,two_three_months',
-            'spontaneous_consent' => 'required|accepted',
+            'consent_type' => 'required|in:full,limited',
         ]);
 
         // Build date of birth
@@ -336,7 +337,7 @@ class JobController extends Controller
             'additional_information' => $validated['additional_information'] ?? null,
             'is_spontaneous' => true,
             'status' => 'pending',
-            'consent_type' => 'full', // Spontaneous applications always use full consent
+            'consent_type' => $validated['consent_type'],
             'start_date_option' => $validated['start_date_option'],
             'start_date' => $startDate,
             'driving_license_b' => $request->has('driving_license_b'),

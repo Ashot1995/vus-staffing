@@ -34,12 +34,7 @@ class JobResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('employment_type')
-                    ->options([
-                        'full-time' => 'Full-time',
-                        'part-time' => 'Part-time',
-                        'contract' => 'Contract',
-                        'temporary' => 'Temporary',
-                    ])
+                    ->options(\App\Models\Job::getEmploymentTypeOptions())
                     ->required(),
                 Forms\Components\TextInput::make('salary')
                     ->maxLength(255),
@@ -62,7 +57,8 @@ class JobResource extends Resource
                 Tables\Columns\TextColumn::make('location')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('employment_type')
-                    ->badge(),
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => \App\Models\Job::getEmploymentTypeOptions()[$state] ?? $state),
                 Tables\Columns\IconColumn::make('is_published')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('deadline')

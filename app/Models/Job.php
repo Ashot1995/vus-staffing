@@ -30,4 +30,26 @@ class Job extends Model
     {
         return $this->hasMany(Application::class);
     }
+
+    /**
+     * Get the translated employment type label
+     */
+    public function getEmploymentTypeLabelAttribute(): string
+    {
+        $translationKey = 'messages.jobs.filter.' . str_replace('-', '_', $this->employment_type);
+        return __($translationKey);
+    }
+
+    /**
+     * Get all employment type options with translations
+     */
+    public static function getEmploymentTypeOptions(): array
+    {
+        return [
+            'full-time' => __('messages.jobs.filter.full_time'),
+            'part-time' => __('messages.jobs.filter.part_time'),
+            'contract' => __('messages.jobs.filter.contract'),
+            'temporary' => __('messages.jobs.filter.temporary'),
+        ];
+    }
 }
