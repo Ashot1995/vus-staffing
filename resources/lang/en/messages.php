@@ -1,6 +1,18 @@
 <?php
 
 return [
+    // SEO Meta
+    'seo.home.title' => 'VUS Bemanning – Staffing and Recruitment in Luleå & Norrbotten',
+    'seo.home.description' => 'VUS Bemanning is your partner for staffing and recruitment in Luleå and Norrbotten. Professional service, broad competence, and fast matching. Contact us today.',
+    'seo.jobs.description' => 'Search available jobs at VUS Bemanning. Staffing and recruitment in Luleå and Norrbotten. Find your next job.',
+    'seo.contact.description' => 'Contact VUS Bemanning. We help with staffing and recruitment in Luleå and Norrbotten.',
+    'seo.about.description' => 'Learn more about VUS Bemanning. Your partner for staffing and recruitment in Norrbotten.',
+    'seo.employers.description' => 'Staffing and recruitment for companies. Contact VUS Bemanning for professional staff in Luleå.',
+    'seo.blog.description' => 'Latest news and insights from VUS Bemanning. Staffing and recruitment in Norrbotten.',
+    'seo.company_values.description' => 'VUS Bemanning – our core values. Professional staffing and recruitment.',
+    'seo.candidate_info.description' => 'Information for job seekers at VUS Bemanning. Staffing and recruitment in Luleå.',
+    'seo.spontaneous.description' => 'Submit a spontaneous application to VUS Bemanning. We will contact you when a suitable position becomes available.',
+
     // About
     'about.cta.button' => 'Contact us',
     'about.cta.title' => 'Want to know more?',
@@ -293,7 +305,7 @@ Every assignment should start with clear prerequisites, the right introduction a
     'employers.why_choose.title' => 'Why choose V U S?',
 
     // Footer
-    'footer.copyright' => '© 2025 V U S Entreprenad & Bemanning AB - Org.nr 559540-8963',
+    'footer.copyright' => '© :year VUS Bemanning – Org.nr 559540-8963',
     'footer.follow_us' => 'Follow us',
     'footer.quick_links' => 'Quick links',
 
@@ -318,7 +330,7 @@ Every assignment should start with clear prerequisites, the right introduction a
     'home.hero.subtitle' => 'Professional staffing',
     'home.hero.title' => 'Welcome to V U S',
     'home.hero.title_prefix' => 'Welcome to',
-    'home.hero.title_vus' => 'V U S',
+    'home.hero.title_vus' => 'VUS Bemanning',
     'home.partners.subtitle' => 'Our partners and customers',
     'home.partners.title' => 'Cooperation Partners',
     'home.partners.visit_website' => 'Visit website',

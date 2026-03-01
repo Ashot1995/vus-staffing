@@ -4,7 +4,8 @@
 use Illuminate\Support\Facades\Storage;
 @endphp
 
-@section('title', __('messages.about.title') . ' - V U S')
+@section('title', __('messages.nav.about') . ' – ' . config('seo.brand', 'VUS Bemanning'))
+@php $pageDescription = __('messages.seo.about.description'); @endphp
 
 @push('structured-data')
 <x-breadcrumbs :items="[

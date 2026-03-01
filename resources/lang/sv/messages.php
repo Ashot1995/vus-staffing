@@ -1,6 +1,18 @@
 <?php
 
 return [
+    // SEO Meta
+    'seo.home.title' => 'VUS Bemanning – Bemanning och rekrytering i Luleå & Norrbotten',
+    'seo.home.description' => 'VUS Bemanning är din partner för bemanning och rekrytering i Luleå och Norrbotten. Vi erbjuder professionell service, bred kompetens och snabb matchning. Kontakta oss idag.',
+    'seo.jobs.description' => 'Sök lediga tjänster hos VUS Bemanning. Bemanning och rekrytering i Luleå och Norrbotten. Hitta ditt nästa jobb.',
+    'seo.contact.description' => 'Kontakta VUS Bemanning. Vi hjälper dig med bemanning och rekrytering i Luleå och Norrbotten.',
+    'seo.about.description' => 'Läs mer om VUS Bemanning. Din partner för bemanning och rekrytering i Norrbotten.',
+    'seo.employers.description' => 'Bemanning och rekrytering för företag. Kontakta VUS Bemanning för professionell personal i Luleå.',
+    'seo.blog.description' => 'Senaste nyheter och insikter från VUS Bemanning. Bemanning och rekrytering i Norrbotten.',
+    'seo.company_values.description' => 'VUS Bemanning – våra kärnvärderingar. Professionell bemanning och rekrytering.',
+    'seo.candidate_info.description' => 'Information för jobbsökande hos VUS Bemanning. Bemanning och rekrytering i Luleå.',
+    'seo.spontaneous.description' => 'Skicka spontanansökan till VUS Bemanning. Vi kontaktar dig när en lämplig tjänst blir tillgänglig.',
+
     // About
     'about.cta.button' => 'Kontakta oss',
     'about.cta.title' => 'Vill du veta mer?',
@@ -291,7 +303,7 @@ Varje uppdrag ska starta med tydliga förutsättningar, rätt introduktion och l
     'employers.why_choose.title' => 'Varför välja V U S?',
 
     // Footer
-    'footer.copyright' => '© 2025 V U S Entreprenad & Bemanning AB - Org.nr 559540-8963',
+    'footer.copyright' => '© :year VUS Bemanning – Org.nr 559540-8963',
     'footer.follow_us' => 'Följ oss',
     'footer.quick_links' => 'Snabb länkar',
 
@@ -316,7 +328,7 @@ Varje uppdrag ska starta med tydliga förutsättningar, rätt introduktion och l
     'home.hero.subtitle' => 'Professionell bemanning',
     'home.hero.title' => 'Välkommen till V U S',
     'home.hero.title_prefix' => 'Välkommen till',
-    'home.hero.title_vus' => 'V U S',
+    'home.hero.title_vus' => 'VUS Bemanning',
     'home.partners.subtitle' => 'Våra samarbetspartners och kunder ',
     'home.partners.title' => 'Samarbetspartners',
     'home.partners.visit_website' => 'Besök webbplats',

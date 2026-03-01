@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
-@section('title', __('messages.contact.title') . ' - VUS')
+@section('title', __('messages.contact.title') . ' – ' . config('seo.brand', 'VUS Bemanning'))
+@php $pageDescription = __('messages.seo.contact.description'); @endphp
 
 @push('structured-data')
 <x-breadcrumbs :items="[

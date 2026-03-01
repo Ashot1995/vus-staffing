@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
-@section('title', $job->title . ' - VUS')
+@section('title', $job->title . ' – ' . config('seo.brand', 'VUS Bemanning'))
+@php $pageDescription = \Illuminate\Support\Str::limit(strip_tags($job->description), 155) ?: __('messages.seo.jobs.description'); @endphp
 
 @push('structured-data')
 @php
@@ -20,7 +21,7 @@
         'hiringOrganization' => [
             '@type' => 'Organization',
             'name' => 'VUS Bemanning',
-            'sameAs' => config('app.url', 'https://vus-bemanning.se')
+            'sameAs' => rtrim(config('app.url', 'https://www.vus-bemanning.se'), '/')
         ],
         'jobLocation' => [
             '@type' => 'Place',

@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Storage;
 $locale = app()->getLocale();
 @endphp
 
-@section('title', __('messages.candidate_info.title') . ' - V U S')
+@section('title', __('messages.candidate_info.title') . ' – ' . config('seo.brand', 'VUS Bemanning'))
+@php $pageDescription = __('messages.seo.candidate_info.description'); @endphp
 
 @push('structured-data')
 <x-breadcrumbs :items="[

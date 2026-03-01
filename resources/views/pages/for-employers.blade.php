@@ -1,6 +1,14 @@
 @extends('layouts.main')
 
-@section('title', __('messages.employers.title') . ' - VUS')
+@section('title', __('messages.employers.title') . ' – ' . config('seo.brand', 'VUS Bemanning'))
+@php $pageDescription = __('messages.seo.employers.description'); @endphp
+
+@push('structured-data')
+<x-breadcrumbs :items="[
+    ['name' => __('messages.nav.home'), 'url' => route('home')],
+    ['name' => __('messages.nav.for_employers'), 'url' => route('for-employers')]
+]" />
+@endpush
 
 @section('content')
 <section class="section-bg-image">

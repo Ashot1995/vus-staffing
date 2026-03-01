@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vus-bemanning.se/sitemap.xml
+Sitemap: https://www.vus-bemanning.se/sitemap.xml

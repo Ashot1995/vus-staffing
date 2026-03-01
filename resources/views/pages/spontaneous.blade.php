@@ -1,6 +1,14 @@
 @extends('layouts.main')
 
-@section('title', __('messages.spontaneous.title') . ' - VUS')
+@section('title', __('messages.spontaneous.title') . ' – ' . config('seo.brand', 'VUS Bemanning'))
+@php $pageDescription = __('messages.seo.spontaneous.description'); @endphp
+
+@push('structured-data')
+<x-breadcrumbs :items="[
+    ['name' => __('messages.nav.home'), 'url' => route('home')],
+    ['name' => __('messages.spontaneous.title'), 'url' => route('jobs.apply-spontaneous')]
+]" />
+@endpush
 
 @section('content')
 <section class="section-bg-image">

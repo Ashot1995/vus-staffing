@@ -4,7 +4,8 @@
 use Illuminate\Support\Facades\Storage;
 @endphp
 
-@section('title', 'VUS - ' . __('messages.nav.home'))
+@section('title', __('messages.seo.home.title'))
+@php $pageDescription = __('messages.seo.home.description'); @endphp
 
 @section('content')
 <section class="hero" id="section_1">
@@ -191,6 +192,14 @@ use Illuminate\Support\Facades\Storage;
                 <p>{{ __('messages.home.cta.description') }}</p>
                 <a href="{{ route('jobs.index') }}" class="custom-btn btn btn-lg mt-3 me-3">{{ __('messages.home.cta.jobs') }}</a>
                 <a href="{{ route('contact') }}" class="custom-btn btn btn-lg mt-3">{{ __('messages.home.cta.contact') }}</a>
+                <nav class="mt-4" aria-label="{{ __('messages.footer.quick_links') }}">
+                    <p class="text-white-50 small mb-2">{{ __('messages.footer.quick_links') }}</p>
+                    <a href="{{ route('jobs.index') }}" class="text-white me-3">{{ __('messages.nav.jobs') }}</a>
+                    <a href="{{ route('contact') }}" class="text-white me-3">{{ __('messages.nav.contact') }}</a>
+                    <a href="{{ route('about') }}" class="text-white me-3">{{ __('messages.nav.about') }}</a>
+                    <a href="{{ route('for-employers') }}" class="text-white me-3">{{ __('messages.nav.for_employers') }}</a>
+                    <a href="{{ route('blog.index') }}" class="text-white">{{ __('messages.nav.blog') }}</a>
+                </nav>
             </div>
         </div>
     </div>

@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     @php
-        $siteUrl = config('app.url', 'https://vus-bemanning.se');
+        $siteUrl = rtrim(config('app.url', 'https://www.vus-bemanning.se'), '/');
         $currentUrl = url()->current();
         $pageTitle = isset($pageTitle) ? $pageTitle : (isset($title) ? $title : __('messages.nav.home'));
-        $pageDescription = isset($pageDescription) ? $pageDescription : __('messages.about.subtitle');
+        $pageDescription = isset($pageDescription) ? $pageDescription : (config('seo.default_description') ?? __('messages.about.subtitle'));
         $pageImage = isset($pageImage) ? $pageImage : asset('images/logo.png');
     @endphp
 
     <!-- Primary Meta Tags -->
-    <title>@yield('title', 'VUS - ' . $pageTitle)</title>
-    <meta name="title" content="@yield('title', 'VUS - ' . $pageTitle)">
-    <meta name="description" content="{{ $pageDescription }}">
-    <meta name="author" content="VUS Bemanning">
+    <title>@yield('title', __('messages.nav.home') . ' – ' . config('seo.brand', 'VUS Bemanning'))</title>
+    <meta name="title" content="@yield('title', __('messages.nav.home') . ' – ' . config('seo.brand', 'VUS Bemanning'))">
+    <meta name="description" content="{{ \Illuminate\Support\Str::limit($pageDescription, 160) }}">
+    <meta name="author" content="{{ config('seo.brand', 'VUS Bemanning') }}">
     <meta name="keywords" content="rekrytering, bemanning, staffing, recruitment, Sverige, Sweden, jobb, lediga tjänster">
     <link rel="canonical" href="{{ $currentUrl }}">
 
@@ -26,7 +26,7 @@
     <meta property="og:title" content="@yield('title', 'VUS - ' . $pageTitle)">
     <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:image" content="{{ $pageImage }}">
-    <meta property="og:site_name" content="VUS Bemanning">
+    <meta property="og:site_name" content="{{ config('seo.brand', 'VUS Bemanning') }}">
     <meta property="og:locale" content="{{ app()->getLocale() === 'sv' ? 'sv_SE' : 'en_US' }}">
 
     <!-- Twitter -->
@@ -57,20 +57,23 @@
         $organizationJson = json_encode([
             '@context' => 'https://schema.org',
             '@type' => 'Organization',
-            'name' => 'VUS Bemanning',
-            'alternateName' => 'VUS',
+            'name' => config('seo.brand', 'VUS Bemanning'),
+            'alternateName' => [config('seo.brand_short', 'VUS'), config('seo.brand_spaced', 'V U S') . ' Bemanning'],
             'url' => $siteUrl,
-            'logo' => asset('images/logo.png'),
-            'description' => __('messages.about.subtitle'),
+            'logo' => $siteUrl . '/images/logo.png',
+            'description' => config('seo.default_description', __('messages.about.subtitle')),
             'address' => [
                 '@type' => 'PostalAddress',
                 'addressCountry' => 'SE',
-                'addressLocality' => 'Sweden'
+                'addressRegion' => 'Norrbotten',
+                'addressLocality' => 'Luleå'
             ],
             'contactPoint' => [
                 '@type' => 'ContactPoint',
                 'email' => 'abdulrazek.mahmoud@vus-bemanning.se',
-                'contactType' => 'customer service'
+                'contactType' => 'customer service',
+                'areaServed' => 'SE',
+                'availableLanguage' => ['Swedish', 'English']
             ],
             'sameAs' => []
         ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
@@ -78,7 +81,7 @@
         $websiteJson = json_encode([
             '@context' => 'https://schema.org',
             '@type' => 'WebSite',
-            'name' => 'VUS Bemanning',
+            'name' => config('seo.brand', 'VUS Bemanning'),
             'url' => $siteUrl,
             'potentialAction' => [
                 '@type' => 'SearchAction',
@@ -244,11 +247,11 @@
                     <div class="row">
                         <div class="col-12 mb-3" style="flex: 0 0 65%; max-width: 65%;">
                             <span class="brand-text" style="font-size: 22px; font-weight: bold; letter-spacing: 3px; display: block; margin-bottom: 0.5rem;">
-                                {{ $footerSettings ? $footerSettings->brand_text : 'V U S' }}
+                                {{ $footerSettings ? $footerSettings->brand_text : config('seo.brand', 'VUS Bemanning') }}
                             </span>
                             <p class="text-white d-flex mb-1" style="margin-bottom: 0.3rem !important;">
                                 <i class="bi-geo-alt me-2"></i>
-                                {{ $footerSettings ? ($locale === 'sv' ? $footerSettings->location_sv : $footerSettings->location_en) : __('messages.common.country.sweden') }}
+                                {{ $footerSettings ? ($locale === 'sv' ? $footerSettings->location_sv : $footerSettings->location_en) : (__('messages.home.hero.location') ?? __('messages.common.country.sweden')) }}
                             </p>
                             <p class="text-white d-flex mb-0">
                                 <i class="bi-envelope me-2"></i>
@@ -305,10 +308,12 @@
                                         </li>
                                     @endforeach
                                 @else
-                                    {{-- Default links if no settings --}}
-                                    <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.for_employers') }}</a></li>
-                                    <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.free_services') }}</a></li>
+                                    {{-- Default links if no settings - optimized for sitelinks --}}
+                                    <li class="footer-menu-item"><a href="{{ route('jobs.index') }}" class="footer-menu-link">{{ __('messages.nav.jobs') }}</a></li>
                                     <li class="footer-menu-item"><a href="{{ route('contact') }}" class="footer-menu-link">{{ __('messages.nav.contact') }}</a></li>
+                                    <li class="footer-menu-item"><a href="{{ route('about') }}" class="footer-menu-link">{{ __('messages.nav.about') }}</a></li>
+                                    <li class="footer-menu-item"><a href="{{ route('for-employers') }}" class="footer-menu-link">{{ __('messages.nav.for_employers') }}</a></li>
+                                    <li class="footer-menu-item"><a href="{{ route('blog.index') }}" class="footer-menu-link">{{ __('messages.nav.blog') }}</a></li>
                                     <li class="footer-menu-item"><a href="{{ route('privacy') }}" class="footer-menu-link">{{ __('messages.cookie.privacy_policy') }}</a></li>
                                 @endif
                             </ul>
