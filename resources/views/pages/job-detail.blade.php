@@ -21,7 +21,7 @@
         'hiringOrganization' => [
             '@type' => 'Organization',
             'name' => 'VUS Bemanning',
-            'sameAs' => rtrim(config('app.url', 'https://www.vus-bemanning.se'), '/')
+            'sameAs' => rtrim(url('/'), '/')
         ],
         'jobLocation' => [
             '@type' => 'Place',

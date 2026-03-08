@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     @php
-        $siteUrl = rtrim(config('app.url', 'https://www.vus-bemanning.se'), '/');
+        $siteUrl = rtrim(url('/'), '/');
         $currentUrl = url()->current();
         $pageTitle = isset($pageTitle) ? $pageTitle : (isset($title) ? $title : __('messages.nav.home'));
         $pageDescription = isset($pageDescription) ? $pageDescription : (config('seo.default_description') ?? __('messages.about.subtitle'));
