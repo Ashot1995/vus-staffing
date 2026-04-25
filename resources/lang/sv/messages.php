@@ -1,7 +1,7 @@
 <?php
 
 return [
-    // SEO Meta
+    // Seo
     'seo.home.title' => 'VUS Bemanning – Bemanning och rekrytering i Luleå & Norrbotten',
     'seo.home.description' => 'VUS Bemanning är din partner för bemanning och rekrytering i Luleå och Norrbotten. Vi erbjuder professionell service, bred kompetens och snabb matchning. Kontakta oss idag.',
     'seo.jobs.description' => 'Sök lediga tjänster hos VUS Bemanning. Bemanning och rekrytering i Luleå och Norrbotten. Hitta ditt nästa jobb.',
@@ -44,7 +44,7 @@ Varje uppdrag ska starta med tydliga förutsättningar, rätt introduktion och l
     'about.values.transparency' => 'Transparens och ärlighet',
     'about.vision.description' => 'Att vara det självklara valet för företag och individer som söker kvalificerad personal eller nya karriärmöjligheter.',
     'about.vision.title' => 'Vår vision',
-    'about.welcome.description' => 'V U S står för värde, utmärkt arbete, service och säkerhet.',
+    'about.welcome.description' => 'V U S står för värde, utmärkt arbete och service.',
     'about.welcome.description2' => 'V U S grundades med höga ambitioner att vara både en professionell och mänsklig arbetsgivare. För att uppnå målet behöver människor må bra – både i arbetet och utanför arbetet. I våra uppdrag ska våra medarbetare utvecklas, ta ansvar och stärka sina positiva egenskaper. Vi vet att människor är den viktigaste resursen i varje organisation, och därför är vårt fokus alltid detsamma: rätt person med rätt kompetens och rätt attityd på rätt plats.',
     'about.welcome.description3' => 'Vi erbjuder skräddarsydda tjänster inom rekrytering och bemanning för både långsiktiga och säsongsbetonade uppdrag.',
     'about.welcome.title' => 'Välkommen till V U S',
@@ -209,7 +209,7 @@ Varje uppdrag ska starta med tydliga förutsättningar, rätt introduktion och l
     'contact.form.name' => 'Namn',
     'contact.form.phone' => 'Telefon',
     'contact.form.privacy_consent_text' => 'Jag godkänner',
-    'contact.form.response_time' => 'Vi återkommer till dig inom 24 timmar.',
+    'contact.form.response_time' => 'Vi återkommer till dig inom 24 timmar. ',
     'contact.form.subject' => 'Ämne',
     'contact.form.success_message' => 'Tack för ditt meddelande! Vi återkommer så snart som möjligt.',
     'contact.form.type' => 'Är du en privatperson eller ett företag?',
@@ -219,7 +219,7 @@ Varje uppdrag ska starta med tydliga förutsättningar, rätt introduktion och l
     'contact.hours_weekdays' => 'Måndag till fredag 08:00 - 16:30',
     'contact.hours_weekend' => 'Helger och röda dagar 12:00 - 15:00',
     'contact.send_message' => 'Skicka meddelande',
-    'contact.subtitle' => 'Vi stöttar er tillväxt med rekrytering och bemanning',
+    'contact.subtitle' => 'Vi stöttar er tillväxt med rekrytering och bemanning – även med kort varsel',
     'contact.title' => 'Kontakta oss',
 
     // Cookie
@@ -283,8 +283,8 @@ Varje uppdrag ska starta med tydliga förutsättningar, rätt introduktion och l
     // Employers
     'employers.consulting.description' => 'Vi hanterar övertagandet från bemanning till direktanställning – snabbt, enkelt och enligt avtal',
     'employers.consulting.title' => 'Övertagande av anställning',
-    'employers.cta.button' => 'Kontakta oss',
-    'employers.cta.description' => 'Boka en kostnadsfri bemannings- och behovsanalys',
+    'employers.cta.button' => 'Skicka förfrågan',
+    'employers.cta.description' => 'Beskriv ert behov i formuläret så återkommer vi inom 24 timmar',
     'employers.cta.title' => 'Söker du personal?',
     'employers.recruitment.description' => 'Vi hjälper dig att hitta rätt kandidater – effektivt och strukturerat. Vi sköter rekryteringen från start till mål',
     'employers.recruitment.title' => 'Rekrytering',
@@ -328,8 +328,8 @@ Varje uppdrag ska starta med tydliga förutsättningar, rätt introduktion och l
     'home.hero.subtitle' => 'Professionell bemanning',
     'home.hero.title' => 'Välkommen till V U S',
     'home.hero.title_prefix' => 'Välkommen till',
-    'home.hero.title_vus' => 'VUS Bemanning',
-    'home.partners.subtitle' => 'Våra samarbetspartners och kunder ',
+    'home.hero.title_vus' => 'V U S Bemanning',
+    'home.partners.subtitle' => 'Några av våra kunder och samarbetspartners',
     'home.partners.title' => 'Samarbetspartners',
     'home.partners.visit_website' => 'Besök webbplats',
     'home.professional_service.description' => 'Vi erbjuder högkvalitativ bemanning och rekryteringstjänster för företag',
@@ -350,7 +350,7 @@ Varje uppdrag ska starta med tydliga förutsättningar, rätt introduktion och l
     // Jobs
     'jobs.deadline' => 'Ansökningsdeadline',
     'jobs.detail.already_applied' => 'Du har redan ansökt till detta jobb. Du kan redigera din ansökan från din profil.',
-    'jobs.detail.apply_now' => 'Ansök Nu',
+    'jobs.detail.apply_now' => 'Ansök nu',
     'jobs.detail.description' => 'Beskrivning',
     'jobs.detail.edit_application' => 'Redigera ansökan',
     'jobs.detail.info' => 'Jobbinformation',
@@ -359,7 +359,7 @@ Varje uppdrag ska starta med tydliga förutsättningar, rätt introduktion och l
     'jobs.detail.published' => 'Publicerad',
     'jobs.detail.register' => 'Registrera',
     'jobs.detail.requirements' => 'Krav',
-    'jobs.detail.responsibilities' => 'Ansvar',
+    'jobs.detail.responsibilities' => 'Arbetsuppgifter',
     'jobs.detail.salary' => 'Lön',
     'jobs.detail.share' => 'Deltid',
     'jobs.detail.type' => 'Typ',

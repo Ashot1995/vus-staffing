@@ -1,7 +1,7 @@
 <?php
 
 return [
-    // SEO Meta
+    // Seo
     'seo.home.title' => 'VUS Bemanning – Staffing and Recruitment in Luleå & Norrbotten',
     'seo.home.description' => 'VUS Bemanning is your partner for staffing and recruitment in Luleå and Norrbotten. Professional service, broad competence, and fast matching. Contact us today.',
     'seo.jobs.description' => 'Search available jobs at VUS Bemanning. Staffing and recruitment in Luleå and Norrbotten. Find your next job.',
@@ -45,7 +45,7 @@ Every assignment should start with clear prerequisites, the right introduction a
     'about.values.transparency' => 'Transparency and honesty',
     'about.vision.description' => 'To be the obvious choice for companies and individuals seeking qualified personnel or new career opportunities.',
     'about.vision.title' => 'Our vision',
-    'about.welcome.description' => 'V U S stands for value, excellent work, service and safety.',
+    'about.welcome.description' => 'V U S stands for value, excellent work and service.',
     'about.welcome.description2' => 'V U S was founded with high ambitions to be both a professional and humane employer. To achieve this goal, people need to feel good – both at work and outside of work. In our assignments, our employees should develop, take responsibility and strengthen their positive qualities. We know that people are the most important resource in every organization, and therefore our focus is always the same: the right person with the right skills and the right attitude in the right place.',
     'about.welcome.description3' => 'We offer tailored services in recruitment and staffing for both long-term and seasonal assignments.',
     'about.welcome.title' => 'Welcome to V U S',
@@ -220,7 +220,7 @@ Every assignment should start with clear prerequisites, the right introduction a
     'contact.hours_weekdays' => 'Monday to Friday 08:00 - 16:30',
     'contact.hours_weekend' => 'Helger och röda dagar 12:00 - 15:00',
     'contact.send_message' => 'Send message',
-    'contact.subtitle' => 'We support your growth with recruitment and staffing',
+    'contact.subtitle' => 'We support your growth with recruitment and staffing – even at short notice',
     'contact.title' => 'Contact us',
 
     // Cookie
@@ -284,8 +284,8 @@ Every assignment should start with clear prerequisites, the right introduction a
     // Employers
     'employers.consulting.description' => 'We handle the transition from staffing to direct employment – ​​quickly, easily and according to agreement',
     'employers.consulting.title' => 'Taking over employment',
-    'employers.cta.button' => 'Contact us',
-    'employers.cta.description' => 'Book a free staffing and needs analysis',
+    'employers.cta.button' => 'Send a request',
+    'employers.cta.description' => 'Describe your needs in the form and we will get back to you within 24 hours',
     'employers.cta.title' => 'Looking for staff?',
     'employers.recruitment.description' => 'We help you find the right candidates — efficiently and in a structured way. We manage recruitment from start to goal',
     'employers.recruitment.title' => 'Recruitment',
@@ -330,8 +330,8 @@ Every assignment should start with clear prerequisites, the right introduction a
     'home.hero.subtitle' => 'Professional staffing',
     'home.hero.title' => 'Welcome to V U S',
     'home.hero.title_prefix' => 'Welcome to',
-    'home.hero.title_vus' => 'VUS Bemanning',
-    'home.partners.subtitle' => 'Our partners and customers',
+    'home.hero.title_vus' => 'V U S Bemanning',
+    'home.partners.subtitle' => 'Some of our customers and partners',
     'home.partners.title' => 'Cooperation Partners',
     'home.partners.visit_website' => 'Visit website',
     'home.professional_service.description' => 'We offer high-quality staffing and recruitment services for companies',
@@ -352,7 +352,7 @@ Every assignment should start with clear prerequisites, the right introduction a
     // Jobs
     'jobs.deadline' => 'Application Deadline',
     'jobs.detail.already_applied' => 'You have already applied to this job. You can edit your application from your profile.',
-    'jobs.detail.apply_now' => 'Apply Now',
+    'jobs.detail.apply_now' => 'Apply now',
     'jobs.detail.description' => 'Description',
     'jobs.detail.edit_application' => 'Edit application',
     'jobs.detail.info' => 'Job information',
@@ -361,7 +361,7 @@ Every assignment should start with clear prerequisites, the right introduction a
     'jobs.detail.published' => 'Published',
     'jobs.detail.register' => 'Register',
     'jobs.detail.requirements' => 'Requirements',
-    'jobs.detail.responsibilities' => 'Responsibilities',
+    'jobs.detail.responsibilities' => 'Job duties',
     'jobs.detail.salary' => 'Salary',
     'jobs.detail.share' => 'Part-time',
     'jobs.detail.type' => 'Type',
