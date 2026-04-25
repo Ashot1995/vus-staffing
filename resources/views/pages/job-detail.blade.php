@@ -53,7 +53,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-12 text-center mb-5">
-                <h2 style="font-size: 1.75rem; font-weight: 600; text-transform: none;">{{ ucfirst(strtolower($job->title)) }}</h2>
+                <h2 style="font-size: 1.75rem; font-weight: 600; text-transform: none;">{{ $job->title }}</h2>
                 <p><i class="bi-geo-alt me-2"></i>{{ $job->location }} | {{ $job->employment_type_label }}</p>
             </div>
         </div>
@@ -87,7 +87,7 @@
             </div>
 
             <div class="col-lg-4 col-12">
-                <div class="custom-block bg-white shadow-lg p-4 sticky-top">
+                <div class="custom-block bg-white shadow-lg p-4 sticky-top" style="top: 80px;">
                     <h5 class="mb-3">{{ __('messages.jobs.detail.info') }}</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2"><strong>{{ __('messages.jobs.detail.location') }}:</strong> {{ $job->location }}</li>

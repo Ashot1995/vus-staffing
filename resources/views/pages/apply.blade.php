@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-lg-8 col-12 mx-auto">
                 <div class="custom-block bg-white shadow-lg p-3">
-                    <h4 class="mb-2" style="text-transform: none; font-size: 1.25rem;">{{ __('messages.apply.apply_to') }}: {{ ucfirst(strtolower($job->title)) }}</h4>
+                    <h4 class="mb-2" style="text-transform: none; font-size: 1.25rem;">{{ __('messages.apply.apply_to') }}: {{ $job->title }}</h4>
 
                     @include('components.success-alert')
 

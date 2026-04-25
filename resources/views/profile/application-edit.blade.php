@@ -9,7 +9,7 @@
             <div class="col-lg-8 col-12 mx-auto">
                 <div class="custom-block bg-white shadow-lg p-3">
                     @if($application->job)
-                        <h4 class="mb-2" style="text-transform: none; font-size: 1.25rem;">{{ __('messages.apply.apply_to') }}: {{ ucfirst(strtolower($application->job->title)) }}</h4>
+                        <h4 class="mb-2" style="text-transform: none; font-size: 1.25rem;">{{ __('messages.apply.apply_to') }}: {{ $application->job->title }}</h4>
                     @else
                         <h4 class="mb-2" style="font-size: 1.25rem;">{{ __('messages.profile.applications.spontaneous') }}</h4>
                     @endif

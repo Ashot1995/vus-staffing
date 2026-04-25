@@ -330,7 +330,7 @@ section:not(.hero):not(.highlight) .custom-btn:hover {
 
 .navbar {
   background: var(--navbar-bg-color);
-  z-index: 9;
+  z-index: 1030;
   right: 0;
   left: 0;
   transition: all 0.3s;
