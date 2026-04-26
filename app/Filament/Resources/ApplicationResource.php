@@ -145,6 +145,30 @@ class ApplicationResource extends Resource
                             Forms\Components\Toggle::make('driving_license_b')
                                 ->label(__('messages.admin.application.driving_license_b'))
                                 ->default(false),
+
+                            Forms\Components\Toggle::make('driving_license_category_1')
+                                ->label(__('messages.admin.application.driving_license_category_1'))
+                                ->default(false),
+
+                            Forms\Components\Toggle::make('driving_license_category_2')
+                                ->label(__('messages.admin.application.driving_license_category_2'))
+                                ->default(false),
+
+                            Forms\Components\Toggle::make('driving_license_category_3')
+                                ->label(__('messages.admin.application.driving_license_category_3'))
+                                ->default(false),
+
+                            Forms\Components\Toggle::make('driving_license_category_4')
+                                ->label(__('messages.admin.application.driving_license_category_4'))
+                                ->default(false),
+
+                            Forms\Components\Toggle::make('driving_license_category_5')
+                                ->label(__('messages.admin.application.driving_license_category_5'))
+                                ->default(false),
+
+                            Forms\Components\Toggle::make('driving_license_category_6')
+                                ->label(__('messages.admin.application.driving_license_category_6'))
+                                ->default(false),
                             
                             Forms\Components\Toggle::make('driving_license_own_car')
                                 ->label(__('messages.admin.application.own_car'))

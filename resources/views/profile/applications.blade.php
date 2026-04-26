@@ -78,10 +78,37 @@
                                                     @if($application->driving_license_b)
                                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{ __('messages.apply.driving_license_b') }}</span>
                                                     @endif
+                                                    @if($application->driving_license_category_1)
+                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-slate-100 text-slate-800">{{ __('messages.apply.driving_license_category_1') }}</span>
+                                                    @endif
+                                                    @if($application->driving_license_category_2)
+                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-slate-100 text-slate-800">{{ __('messages.apply.driving_license_category_2') }}</span>
+                                                    @endif
+                                                    @if($application->driving_license_category_3)
+                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-slate-100 text-slate-800">{{ __('messages.apply.driving_license_category_3') }}</span>
+                                                    @endif
+                                                    @if($application->driving_license_category_4)
+                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-slate-100 text-slate-800">{{ __('messages.apply.driving_license_category_4') }}</span>
+                                                    @endif
+                                                    @if($application->driving_license_category_5)
+                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-slate-100 text-slate-800">{{ __('messages.apply.driving_license_category_5') }}</span>
+                                                    @endif
+                                                    @if($application->driving_license_category_6)
+                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-slate-100 text-slate-800">{{ __('messages.apply.driving_license_category_6') }}</span>
+                                                    @endif
                                                     @if($application->driving_license_own_car)
                                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">{{ __('messages.apply.driving_license_own_car') }}</span>
                                                     @endif
-                                                    @if(!$application->driving_license_b && !$application->driving_license_own_car)
+                                                    @if(
+                                                        !$application->driving_license_b &&
+                                                        !$application->driving_license_category_1 &&
+                                                        !$application->driving_license_category_2 &&
+                                                        !$application->driving_license_category_3 &&
+                                                        !$application->driving_license_category_4 &&
+                                                        !$application->driving_license_category_5 &&
+                                                        !$application->driving_license_category_6 &&
+                                                        !$application->driving_license_own_car
+                                                    )
                                                         <span class="text-gray-400">-</span>
                                                     @endif
                                                 </div>
@@ -135,4 +162,3 @@
         </div>
     </div>
 </x-app-layout>
-
