@@ -190,15 +190,15 @@
                             <div class="col-md-6">
                                 <h6 class="mb-2" style="font-size: 0.95rem;">{{ __('messages.apply.availability') }}</h6>
                                 <div class="form-check">
-                                    <input class="form-check-input @error('start_date_option') is-invalid @enderror" type="radio" name="start_date_option" id="availability_immediately" value="immediately" {{ old('start_date_option') == 'immediately' ? 'checked' : '' }} required>
+                                    <input class="form-check-input @error('start_date_option') is-invalid @enderror" type="radio" name="start_date_option" id="availability_immediately" value="immediately" style="border-radius: 0;" {{ old('start_date_option') == 'immediately' ? 'checked' : '' }} required>
                                     <label class="form-check-label small" for="availability_immediately">{{ __('messages.apply.start_date_option.immediately') }}</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input @error('start_date_option') is-invalid @enderror" type="radio" name="start_date_option" id="availability_one_month" value="one_month" {{ old('start_date_option') == 'one_month' ? 'checked' : '' }} required>
+                                    <input class="form-check-input @error('start_date_option') is-invalid @enderror" type="radio" name="start_date_option" id="availability_one_month" value="one_month" style="border-radius: 0;" {{ old('start_date_option') == 'one_month' ? 'checked' : '' }} required>
                                     <label class="form-check-label small" for="availability_one_month">{{ __('messages.apply.start_date_option.one_month') }}</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input @error('start_date_option') is-invalid @enderror" type="radio" name="start_date_option" id="availability_two_three_months" value="two_three_months" {{ old('start_date_option') == 'two_three_months' ? 'checked' : '' }} required>
+                                    <input class="form-check-input @error('start_date_option') is-invalid @enderror" type="radio" name="start_date_option" id="availability_two_three_months" value="two_three_months" style="border-radius: 0;" {{ old('start_date_option') == 'two_three_months' ? 'checked' : '' }} required>
                                     <label class="form-check-label small" for="availability_two_three_months">{{ __('messages.apply.start_date_option.two_three_months') }}</label>
                                 </div>
                                 @error('start_date_option')
