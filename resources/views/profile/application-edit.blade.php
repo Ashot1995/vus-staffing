@@ -188,53 +188,71 @@
                         <!-- Driving License Privileges -->
                         <h6 class="mb-2 mt-2" style="font-size: 0.95rem; font-weight: 600;">{{ __('messages.apply.driving_license_privileges') }}</h6>
                         <div class="mb-2">
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" name="driving_license_b" id="driving_license_b" value="1" {{ old('driving_license_b', $application->driving_license_b) ? 'checked' : '' }}>
-                                <label class="form-check-label small" for="driving_license_b">
-                                    {{ __('messages.apply.driving_license_b') }}
-                                </label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" name="driving_license_category_1" id="driving_license_category_1" value="1" {{ old('driving_license_category_1', $application->driving_license_category_1) ? 'checked' : '' }}>
-                                <label class="form-check-label small" for="driving_license_category_1">
-                                    {{ __('messages.apply.driving_license_category_1') }}
-                                </label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" name="driving_license_category_2" id="driving_license_category_2" value="1" {{ old('driving_license_category_2', $application->driving_license_category_2) ? 'checked' : '' }}>
-                                <label class="form-check-label small" for="driving_license_category_2">
-                                    {{ __('messages.apply.driving_license_category_2') }}
-                                </label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" name="driving_license_category_3" id="driving_license_category_3" value="1" {{ old('driving_license_category_3', $application->driving_license_category_3) ? 'checked' : '' }}>
-                                <label class="form-check-label small" for="driving_license_category_3">
-                                    {{ __('messages.apply.driving_license_category_3') }}
-                                </label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" name="driving_license_category_4" id="driving_license_category_4" value="1" {{ old('driving_license_category_4', $application->driving_license_category_4) ? 'checked' : '' }}>
-                                <label class="form-check-label small" for="driving_license_category_4">
-                                    {{ __('messages.apply.driving_license_category_4') }}
-                                </label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" name="driving_license_category_5" id="driving_license_category_5" value="1" {{ old('driving_license_category_5', $application->driving_license_category_5) ? 'checked' : '' }}>
-                                <label class="form-check-label small" for="driving_license_category_5">
-                                    {{ __('messages.apply.driving_license_category_5') }}
-                                </label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" name="driving_license_category_6" id="driving_license_category_6" value="1" {{ old('driving_license_category_6', $application->driving_license_category_6) ? 'checked' : '' }}>
-                                <label class="form-check-label small" for="driving_license_category_6">
-                                    {{ __('messages.apply.driving_license_category_6') }}
-                                </label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" name="driving_license_own_car" id="driving_license_own_car" value="1" {{ old('driving_license_own_car', $application->driving_license_own_car) ? 'checked' : '' }}>
-                                <label class="form-check-label small" for="driving_license_own_car">
-                                    {{ __('messages.apply.driving_license_own_car') }}
-                                </label>
+                            <div class="row row-cols-2 g-1">
+                                <div class="col">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="driving_license_b" id="driving_license_b" value="1" {{ old('driving_license_b', $application->driving_license_b) ? 'checked' : '' }}>
+                                        <label class="form-check-label small" for="driving_license_b">
+                                            {{ __('messages.apply.driving_license_b') }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="driving_license_category_1" id="driving_license_category_1" value="1" {{ old('driving_license_category_1', $application->driving_license_category_1) ? 'checked' : '' }}>
+                                        <label class="form-check-label small" for="driving_license_category_1">
+                                            {{ __('messages.apply.driving_license_category_1') }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="driving_license_category_2" id="driving_license_category_2" value="1" {{ old('driving_license_category_2', $application->driving_license_category_2) ? 'checked' : '' }}>
+                                        <label class="form-check-label small" for="driving_license_category_2">
+                                            {{ __('messages.apply.driving_license_category_2') }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="driving_license_category_3" id="driving_license_category_3" value="1" {{ old('driving_license_category_3', $application->driving_license_category_3) ? 'checked' : '' }}>
+                                        <label class="form-check-label small" for="driving_license_category_3">
+                                            {{ __('messages.apply.driving_license_category_3') }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="driving_license_category_4" id="driving_license_category_4" value="1" {{ old('driving_license_category_4', $application->driving_license_category_4) ? 'checked' : '' }}>
+                                        <label class="form-check-label small" for="driving_license_category_4">
+                                            {{ __('messages.apply.driving_license_category_4') }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="driving_license_category_5" id="driving_license_category_5" value="1" {{ old('driving_license_category_5', $application->driving_license_category_5) ? 'checked' : '' }}>
+                                        <label class="form-check-label small" for="driving_license_category_5">
+                                            {{ __('messages.apply.driving_license_category_5') }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="driving_license_category_6" id="driving_license_category_6" value="1" {{ old('driving_license_category_6', $application->driving_license_category_6) ? 'checked' : '' }}>
+                                        <label class="form-check-label small" for="driving_license_category_6">
+                                            {{ __('messages.apply.driving_license_category_6') }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="driving_license_own_car" id="driving_license_own_car" value="1" {{ old('driving_license_own_car', $application->driving_license_own_car) ? 'checked' : '' }}>
+                                        <label class="form-check-label small" for="driving_license_own_car">
+                                            {{ __('messages.apply.driving_license_own_car') }}
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
