@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewJobApplicationMail;
 use App\Models\Application;
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class JobController extends Controller
 {
@@ -175,7 +177,7 @@ class JobController extends Controller
                 break;
         }
 
-        Application::create([
+        $application = Application::create([
             'job_id' => $job->id,
             'user_id' => auth()->id(),
             'first_name' => $validated['first_name'],
@@ -210,6 +212,13 @@ class JobController extends Controller
             $user->update([
                 'gdpr_consent_at' => now(),
             ]);
+        }
+
+        try {
+            Mail::to('abdulrazek.mahmoud@vus-bemanning.se')
+                ->send(new NewJobApplicationMail($application));
+        } catch (\Exception $e) {
+            \Log::error('Failed to send job application email: ' . $e->getMessage());
         }
 
         return redirect()->route('jobs.show', $job)->with('success', __('messages.validation.application_sent'));
@@ -339,7 +348,7 @@ class JobController extends Controller
                 break;
         }
 
-        Application::create([
+        $application = Application::create([
             'job_id' => null,
             'user_id' => auth()->id(),
             'first_name' => $validated['first_name'],
@@ -374,6 +383,13 @@ class JobController extends Controller
             $user->update([
                 'gdpr_consent_at' => now(),
             ]);
+        }
+
+        try {
+            Mail::to('abdulrazek.mahmoud@vus-bemanning.se')
+                ->send(new NewJobApplicationMail($application));
+        } catch (\Exception $e) {
+            \Log::error('Failed to send spontaneous application email: ' . $e->getMessage());
         }
 
         return redirect()->route('jobs.apply-spontaneous')->with('success', __('messages.validation.spontaneous_sent'));
