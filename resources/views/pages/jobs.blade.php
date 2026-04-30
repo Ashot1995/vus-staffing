@@ -19,10 +19,12 @@
 <section class="section-bg-image">
     <div class="container">
         <div class="row">
+            <div class="col-12 d-flex justify-content-end mb-3">
+                <a href="{{ route('jobs.apply-spontaneous') }}" class="custom-btn btn">{{ __('messages.spontaneous.submit') }}</a>
+            </div>
             <div class="col-lg-12 col-12 text-center mb-5">
                 <h1>{{ __('messages.jobs.title') }}</h1>
                 <p>{{ __('messages.jobs.subtitle') }}</p>
-                <a href="{{ route('jobs.apply-spontaneous') }}" class="custom-btn btn mt-3">{{ __('messages.spontaneous.submit') }}</a>
             </div>
         </div>
     </div>
