@@ -7,9 +7,11 @@
     @php
         $siteUrl = rtrim(url('/'), '/');
         $currentUrl = url()->current();
+        $canonicalUrl = $canonicalUrl ?? $currentUrl;
         $pageTitle = isset($pageTitle) ? $pageTitle : (isset($title) ? $title : __('messages.nav.home'));
         $pageDescription = isset($pageDescription) ? $pageDescription : (config('seo.default_description') ?? __('messages.about.subtitle'));
         $pageImage = isset($pageImage) ? $pageImage : asset('images/logo.png');
+        $robots = $robots ?? 'index, follow';
     @endphp
 
     <!-- Primary Meta Tags -->
@@ -17,12 +19,12 @@
     <meta name="title" content="@yield('title', __('messages.nav.home') . ' – ' . config('seo.brand', 'VUS Bemanning'))">
     <meta name="description" content="{{ \Illuminate\Support\Str::limit($pageDescription, 160) }}">
     <meta name="author" content="{{ config('seo.brand', 'VUS Bemanning') }}">
-    <meta name="keywords" content="rekrytering, bemanning, staffing, recruitment, Sverige, Sweden, jobb, lediga tjänster">
-    <link rel="canonical" href="{{ $currentUrl }}">
+    <meta name="robots" content="{{ $robots }}">
+    <link rel="canonical" href="{{ $canonicalUrl }}">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ $currentUrl }}">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
     <meta property="og:title" content="@yield('title', 'VUS - ' . $pageTitle)">
     <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:image" content="{{ $pageImage }}">
@@ -31,7 +33,7 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="{{ $currentUrl }}">
+    <meta name="twitter:url" content="{{ $canonicalUrl }}">
     <meta name="twitter:title" content="@yield('title', 'VUS - ' . $pageTitle)">
     <meta name="twitter:description" content="{{ $pageDescription }}">
     <meta name="twitter:image" content="{{ $pageImage }}">

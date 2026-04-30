@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class BlogPost extends Model
@@ -39,6 +40,10 @@ class BlogPost extends Model
                 $post->slug = Str::slug($post->title);
             }
         });
+
+        $clearSitemap = fn () => Cache::forget(\App\Http\Controllers\SitemapController::CACHE_KEY);
+        static::saved($clearSitemap);
+        static::deleted($clearSitemap);
     }
 
     public function scopePublished($query)

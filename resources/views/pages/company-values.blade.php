@@ -194,7 +194,8 @@ $locale = app()->getLocale();
                                         <img src="{{ Storage::url($value->image) }}"
                                              alt="{{ $locale === 'sv' ? $value->title_sv : $value->title_en }}"
                                              class="img-fluid w-100"
-                                             style="border-radius: 8px;">
+                                             style="border-radius: 8px;"
+                                             width="300" height="200" loading="lazy" decoding="async">
                                     </div>
                                 @endif
                                 <p>{!! $locale === 'sv' ? $value->description_sv : $value->description_en !!}</p>

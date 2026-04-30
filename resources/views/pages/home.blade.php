@@ -221,7 +221,7 @@ use Illuminate\Support\Facades\Storage;
                 <div class="custom-block bg-white shadow-lg p-4 h-100 d-flex align-items-center justify-content-center" style="min-height: 150px;">
                     @if($partner->logo)
                         <a href="{{ $partner->website_url ?? '#' }}" target="{{ $partner->website_url ? '_blank' : '_self' }}" class="text-decoration-none w-100 h-100 d-flex align-items-center justify-content-center">
-                            <img src="{{ Storage::url($partner->logo) }}" alt="{{ $partner->name }}" class="img-fluid" style="max-height: 100px; max-width: 100%; object-fit: contain;">
+                            <img src="{{ Storage::url($partner->logo) }}" alt="{{ $partner->name }}" class="img-fluid" style="max-height: 100px; max-width: 100%; object-fit: contain;" width="200" height="100" loading="lazy" decoding="async">
                         </a>
                     @else
                         <div class="text-center w-100">

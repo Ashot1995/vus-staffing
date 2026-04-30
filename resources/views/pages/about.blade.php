@@ -57,7 +57,7 @@ use Illuminate\Support\Facades\Storage;
         @if($mainImage)
         <div class="row mb-5">
             <div class="col-lg-12 col-12">
-                <img src="{{ Storage::url($mainImage->image_path) }}" alt="{{ $mainImage->alt_text ?? 'V U S' }}" class="img-fluid w-100" style="max-height: 500px; object-fit: cover; border-radius: 8px;">
+                <img src="{{ Storage::url($mainImage->image_path) }}" alt="{{ $mainImage->alt_text ?? 'V U S' }}" class="img-fluid w-100" style="max-height: 500px; object-fit: cover; border-radius: 8px;" width="1200" height="500" loading="lazy" decoding="async">
             </div>
         </div>
         @endif
@@ -80,7 +80,7 @@ use Illuminate\Support\Facades\Storage;
                         <div class="text-center">
                             <div class="mb-3 mx-auto" style="width: 200px; height: 250px; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
                                 @if($teamImage1 && $teamImage1->image_path)
-                                    <img src="{{ Storage::url($teamImage1->image_path) }}" alt="{{ $teamImage1->alt_text ?? ($teamMember1 ? $teamMember1->name : __('messages.about.team.member1.name')) }}" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
+                                    <img src="{{ Storage::url($teamImage1->image_path) }}" alt="{{ $teamImage1->alt_text ?? ($teamMember1 ? $teamMember1->name : __('messages.about.team.member1.name')) }}" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;" width="200" height="250" loading="lazy" decoding="async">
                                 @else
                                     <span style="color: #999; font-size: 14px;">{{ $teamMember1 ? $teamMember1->name : __('messages.about.team.member1.name') }}</span>
                                 @endif
@@ -110,7 +110,7 @@ use Illuminate\Support\Facades\Storage;
                         <div class="text-center">
                             <div class="mb-3 mx-auto" style="width: 200px; height: 250px; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
                                 @if($teamImage2 && $teamImage2->image_path)
-                                    <img src="{{ Storage::url($teamImage2->image_path) }}" alt="{{ $teamImage2->alt_text ?? ($teamMember2 ? $teamMember2->name : __('messages.about.team.member2.name')) }}" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
+                                    <img src="{{ Storage::url($teamImage2->image_path) }}" alt="{{ $teamImage2->alt_text ?? ($teamMember2 ? $teamMember2->name : __('messages.about.team.member2.name')) }}" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;" width="200" height="250" loading="lazy" decoding="async">
                                 @else
                                     <span style="color: #999; font-size: 14px;">{{ $teamMember2 ? $teamMember2->name : __('messages.about.team.member2.name') }}</span>
                                 @endif
@@ -140,7 +140,7 @@ use Illuminate\Support\Facades\Storage;
                         <div class="text-center">
                             <div class="mb-3 mx-auto" style="width: 200px; height: 250px; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
                                 @if($teamImage3 && $teamImage3->image_path)
-                                    <img src="{{ Storage::url($teamImage3->image_path) }}" alt="{{ $teamImage3->alt_text ?? ($teamMember3 ? $teamMember3->name : __('messages.about.team.member3.name')) }}" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
+                                    <img src="{{ Storage::url($teamImage3->image_path) }}" alt="{{ $teamImage3->alt_text ?? ($teamMember3 ? $teamMember3->name : __('messages.about.team.member3.name')) }}" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;" width="200" height="250" loading="lazy" decoding="async">
                                 @else
                                     <span style="color: #999; font-size: 14px;">{{ $teamMember3 ? $teamMember3->name : __('messages.about.team.member3.name') }}</span>
                                 @endif

@@ -1,6 +1,10 @@
 @extends('layouts.main')
 
 @section('title', __('messages.search.title') . ($query ? ': ' . $query : '') . ' - VUS')
+@php
+    $robots = 'noindex, follow';
+    $canonicalUrl = route('search');
+@endphp
 
 @section('content')
 <section class="section-padding" style="margin-top: 60px;">
