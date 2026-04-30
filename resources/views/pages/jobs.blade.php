@@ -22,6 +22,7 @@
             <div class="col-lg-12 col-12 text-center mb-5">
                 <h1>{{ __('messages.jobs.title') }}</h1>
                 <p>{{ __('messages.jobs.subtitle') }}</p>
+                <a href="{{ route('jobs.apply-spontaneous') }}" class="custom-btn btn mt-3">{{ __('messages.spontaneous.submit') }}</a>
             </div>
         </div>
     </div>
