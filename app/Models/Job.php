@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 
 class Job extends Model
 {
@@ -25,6 +26,13 @@ class Job extends Model
         'is_published' => 'boolean',
         'deadline' => 'date',
     ];
+
+    protected static function booted(): void
+    {
+        $clearSitemap = fn () => Cache::forget(\App\Http\Controllers\SitemapController::CACHE_KEY);
+        static::saved($clearSitemap);
+        static::deleted($clearSitemap);
+    }
 
     public function applications(): HasMany
     {

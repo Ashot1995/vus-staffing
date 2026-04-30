@@ -5,37 +5,45 @@
 
 @push('structured-data')
 @php
-    $jobPostingJson = json_encode([
+    $employmentTypeMap = [
+        'full-time' => 'FULL_TIME',
+        'part-time' => 'PART_TIME',
+        'contract'  => 'CONTRACTOR',
+        'temporary' => 'TEMPORARY',
+    ];
+    $jobPosting = [
         '@context' => 'https://schema.org',
         '@type' => 'JobPosting',
         'title' => $job->title,
-        'description' => strip_tags($job->description),
+        'description' => '<p>' . nl2br(e($job->description)) . '</p>'
+            . ($job->responsibilities ? '<p><strong>' . e(__('messages.jobs.detail.responsibilities')) . ':</strong> ' . nl2br(e($job->responsibilities)) . '</p>' : '')
+            . ($job->requirements ? '<p><strong>' . e(__('messages.jobs.detail.requirements')) . ':</strong> ' . nl2br(e($job->requirements)) . '</p>' : ''),
         'identifier' => [
             '@type' => 'PropertyValue',
             'name' => 'VUS Bemanning',
-            'value' => (string) $job->id
+            'value' => (string) $job->id,
         ],
         'datePosted' => $job->created_at->toIso8601String(),
-        'validThrough' => ($job->deadline ? $job->deadline->toIso8601String() : $job->created_at->addMonths(3)->toIso8601String()),
-        'employmentType' => $job->employment_type,
+        'validThrough' => ($job->deadline ? $job->deadline->toIso8601String() : $job->created_at->copy()->addMonths(3)->toIso8601String()),
+        'employmentType' => $employmentTypeMap[$job->employment_type] ?? 'OTHER',
+        'directApply' => true,
         'hiringOrganization' => [
             '@type' => 'Organization',
             'name' => 'VUS Bemanning',
-            'sameAs' => rtrim(url('/'), '/')
+            'sameAs' => rtrim(url('/'), '/'),
+            'logo' => asset('images/logo.png'),
         ],
         'jobLocation' => [
             '@type' => 'Place',
             'address' => [
                 '@type' => 'PostalAddress',
                 'addressLocality' => $job->location,
-                'addressCountry' => 'SE'
-            ]
+                'addressRegion' => 'Norrbottens län',
+                'addressCountry' => 'SE',
+            ],
         ],
-        'baseSalary' => [
-            '@type' => 'MonetaryAmount',
-            'currency' => 'SEK'
-        ]
-    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    ];
+    $jobPostingJson = json_encode($jobPosting, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 @endphp
 <script type="application/ld+json">
 {!! $jobPostingJson !!}
@@ -53,7 +61,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-12 text-center mb-5">
-                <h2 style="font-size: 1.75rem; font-weight: 600; text-transform: none;">{{ $job->title }}</h2>
+                <h1 style="font-size: 1.75rem; font-weight: 600; text-transform: none;">{{ $job->title }}</h1>
                 <p><i class="bi-geo-alt me-2"></i>{{ $job->location }} | {{ $job->employment_type_label }}</p>
             </div>
         </div>

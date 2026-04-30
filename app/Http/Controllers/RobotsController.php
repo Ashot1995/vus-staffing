@@ -14,7 +14,27 @@ class RobotsController extends Controller
         $baseUrl = rtrim($this->getBaseUrl(), '/');
 
         $content = "User-agent: *\n";
-        $content .= "Allow: /\n\n";
+        $content .= "Allow: /\n";
+        $content .= "Disallow: /admin\n";
+        $content .= "Disallow: /admin/\n";
+        $content .= "Disallow: /dashboard\n";
+        $content .= "Disallow: /profile\n";
+        $content .= "Disallow: /profile/\n";
+        $content .= "Disallow: /applications/\n";
+        $content .= "Disallow: /login\n";
+        $content .= "Disallow: /register\n";
+        $content .= "Disallow: /password/\n";
+        $content .= "Disallow: /forgot-password\n";
+        $content .= "Disallow: /reset-password\n";
+        $content .= "Disallow: /email/\n";
+        $content .= "Disallow: /verify-email\n";
+        $content .= "Disallow: /confirm-password\n";
+        $content .= "Disallow: /logout\n";
+        $content .= "Disallow: /search\n";
+        $content .= "Disallow: /*?search=\n";
+        $content .= "Disallow: /*?page=\n";
+        $content .= "Disallow: /jobb/*/ansok\n";
+        $content .= "\n";
         $content .= "Sitemap: {$baseUrl}/sitemap.xml\n";
 
         return response($content, 200)

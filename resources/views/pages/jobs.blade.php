@@ -1,7 +1,12 @@
 @extends('layouts.main')
 
 @section('title', __('messages.jobs.title') . ' – ' . config('seo.brand', 'VUS Bemanning'))
-@php $pageDescription = __('messages.seo.jobs.description'); @endphp
+@php
+    $pageDescription = __('messages.seo.jobs.description');
+    $hasFilters = request()->hasAny(['search', 'location', 'employment_type', 'page']);
+    $canonicalUrl = $hasFilters ? route('jobs.index') : url()->current();
+    $robots = $hasFilters ? 'noindex, follow' : 'index, follow';
+@endphp
 
 @push('structured-data')
 <x-breadcrumbs :items="[
