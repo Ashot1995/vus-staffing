@@ -35,43 +35,6 @@
                     <form method="POST" action="{{ route('jobs.submit-spontaneous') }}" enctype="multipart/form-data" id="spontaneous-form">
                         @csrf
                         
-                        @guest
-                        <!-- Registration Section (Only for guests) -->
-                        <h6 class="mb-2 mt-2" style="font-size: 0.95rem; font-weight: 600;">{{ __('messages.auth.register') }}</h6>
-                        <p class="text-muted mb-3 small">{{ __('messages.spontaneous.register_description') }}</p>
-                        
-                        <div class="row mb-2">
-                            <div class="col-md-6 mb-2">
-                                <label class="form-label small">{{ __('messages.auth.name') }} ({{ __('messages.apply.required') }})</label>
-                                <input type="text" name="name" class="form-control form-control-sm @error('name') is-invalid @enderror" value="{{ old('name') }}" required autofocus>
-                                @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6 mb-2">
-                                <label class="form-label small">{{ __('messages.auth.email') }} ({{ __('messages.apply.required') }})</label>
-                                <input type="email" name="email" class="form-control form-control-sm @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
-                                @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-2">
-                            <div class="col-md-6 mb-2">
-                                <label class="form-label small">{{ __('messages.auth.password') }} ({{ __('messages.apply.required') }})</label>
-                                <input type="password" name="password" class="form-control form-control-sm @error('password') is-invalid @enderror" required>
-                                @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6 mb-2">
-                                <label class="form-label small">{{ __('messages.auth.password_confirmation') }} ({{ __('messages.apply.required') }})</label>
-                                <input type="password" name="password_confirmation" class="form-control form-control-sm" required>
-                            </div>
-                        </div>
-                        @endguest
-
                         <!-- Personal Information Section -->
                         <h6 class="mb-2 mt-2" style="font-size: 0.95rem; font-weight: 600;">{{ __('messages.apply.personal_info') }}</h6>
                         

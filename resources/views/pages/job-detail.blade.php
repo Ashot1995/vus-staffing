@@ -106,22 +106,16 @@
                         <li class="mb-2"><strong>{{ __('messages.jobs.detail.published') }}:</strong> {{ $job->created_at->diffForHumans() }}</li>
                     </ul>
 
-                    @auth
-                        @if($existingApplication)
-                            <div class="alert alert-info mt-3 mb-2">
-                                <p class="mb-2">{{ __('messages.jobs.detail.already_applied') }}</p>
-                                <a href="{{ route('profile.applications.edit', $existingApplication->id) }}" class="btn btn-sm btn-outline-primary w-100">
-                                    {{ __('messages.jobs.detail.edit_application') }}
-                                </a>
-                            </div>
-                        @else
-                        <a href="{{ route('jobs.apply', $job) }}" class="custom-btn btn w-100 mt-3">{{ __('messages.jobs.detail.apply_now') }}</a>
-                        @endif
+                    @if($existingApplication)
+                        <div class="alert alert-info mt-3 mb-2">
+                            <p class="mb-2">{{ __('messages.jobs.detail.already_applied') }}</p>
+                            <a href="{{ route('profile.applications.edit', $existingApplication->id) }}" class="btn btn-sm btn-outline-primary w-100">
+                                {{ __('messages.jobs.detail.edit_application') }}
+                            </a>
+                        </div>
                     @else
-                        <p class="text-center mt-3 mb-2">{{ __('messages.jobs.detail.login_required') }}</p>
-                        <a href="{{ route('login') }}" class="custom-btn btn w-100">{{ __('messages.nav.login') }}</a>
-                        <a href="{{ route('register') }}" class="btn btn-outline-secondary w-100 mt-2">{{ __('messages.jobs.detail.register') }}</a>
-                    @endauth
+                        <a href="{{ route('jobs.apply', $job) }}" class="custom-btn btn w-100 mt-3">{{ __('messages.jobs.detail.apply_now') }}</a>
+                    @endif
                 </div>
             </div>
         </div>

@@ -27,7 +27,10 @@ Route::get('/blog/{slug}', [\App\Http\Controllers\BlogController::class, 'show']
 
 Route::get('/jobb', [JobController::class, 'index'])->name('jobs.index');
 Route::get('/jobb/{job}', [JobController::class, 'show'])->name('jobs.show');
+Route::get('/jobb/{job}/ansok', [JobController::class, 'apply'])->name('jobs.apply');
+Route::post('/jobb/{job}/ansok', [JobController::class, 'submitApplication'])->name('jobs.submit-application');
 Route::get('/spontanansok', [JobController::class, 'spontaneous'])->name('jobs.apply-spontaneous');
+Route::post('/spontanansok', [JobController::class, 'submitSpontaneous'])->name('jobs.submit-spontaneous');
 
 Route::get('/kontakt', [ContactController::class, 'index'])->name('contact');
 Route::post('/kontakt', [ContactController::class, 'send'])->name('contact.send');
@@ -56,10 +59,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/applications/{applicationId}/cv/view', [FileController::class, 'viewCv'])->name('application.cv.view');
     Route::get('/applications/{applicationId}/file/{index}/download', [FileController::class, 'downloadAdditionalFile'])->name('application.file.download');
     Route::get('/applications/{applicationId}/file/{index}/view', [FileController::class, 'viewAdditionalFile'])->name('application.file.view');
-    
-    Route::get('/jobb/{job}/ansok', [JobController::class, 'apply'])->name('jobs.apply');
-    Route::post('/jobb/{job}/ansok', [JobController::class, 'submitApplication'])->name('jobs.submit-application');
-    Route::post('/spontanansok', [JobController::class, 'submitSpontaneous'])->name('jobs.submit-spontaneous');
 });
 
 require __DIR__.'/auth.php';

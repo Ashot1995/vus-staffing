@@ -63,15 +63,17 @@ class JobController extends Controller
 
     public function submitApplication(Request $request, Job $job)
     {
-        // Check if user already applied to this job
-        $existingApplication = Application::where('job_id', $job->id)
-            ->where('user_id', auth()->id())
-            ->first();
+        // Check if authenticated user already applied to this job
+        if (auth()->check()) {
+            $existingApplication = Application::where('job_id', $job->id)
+                ->where('user_id', auth()->id())
+                ->first();
 
-        if ($existingApplication) {
-            return redirect()->back()->withErrors([
-                'application' => __('messages.validation.already_applied'),
-            ])->withInput();
+            if ($existingApplication) {
+                return redirect()->back()->withErrors([
+                    'application' => __('messages.validation.already_applied'),
+                ])->withInput();
+            }
         }
 
         $validated = $request->validate([
@@ -179,7 +181,8 @@ class JobController extends Controller
 
         $application = Application::create([
             'job_id' => $job->id,
-            'user_id' => auth()->id(),
+            'user_id' => auth()->id() ?? null,
+            'email' => $validated['email'],
             'first_name' => $validated['first_name'],
             'surname' => $validated['surname'],
             'date_of_birth' => $dateOfBirth,
@@ -206,12 +209,11 @@ class JobController extends Controller
             'additional_information' => $validated['additional_information'] ?? null,
         ]);
 
-        // Update user GDPR consent if not set
-        $user = auth()->user();
-        if (! $user->gdpr_consent_at) {
-            $user->update([
-                'gdpr_consent_at' => now(),
-            ]);
+        if (auth()->check()) {
+            $user = auth()->user();
+            if (! $user->gdpr_consent_at) {
+                $user->update(['gdpr_consent_at' => now()]);
+            }
         }
 
         try {
@@ -226,24 +228,6 @@ class JobController extends Controller
 
     public function submitSpontaneous(Request $request)
     {
-        // Handle registration if user is not authenticated
-        if (!auth()->check()) {
-            $registrationValidated = $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],
-            ]);
-
-            $user = \App\Models\User::create([
-                'name' => $registrationValidated['name'],
-                'email' => $registrationValidated['email'],
-                'password' => \Illuminate\Support\Facades\Hash::make($registrationValidated['password']),
-            ]);
-
-            \Illuminate\Support\Facades\Auth::login($user);
-            \Illuminate\Auth\Events\Registered::dispatch($user);
-        }
-
         // Validate application data
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',
@@ -350,7 +334,8 @@ class JobController extends Controller
 
         $application = Application::create([
             'job_id' => null,
-            'user_id' => auth()->id(),
+            'user_id' => auth()->id() ?? null,
+            'email' => $validated['application_email'],
             'first_name' => $validated['first_name'],
             'surname' => $validated['surname'],
             'date_of_birth' => $dateOfBirth,
@@ -377,12 +362,11 @@ class JobController extends Controller
             'driving_license_own_car' => $request->has('driving_license_own_car'),
         ]);
 
-        // Update user GDPR consent if not set
-        $user = auth()->user();
-        if (! $user->gdpr_consent_at) {
-            $user->update([
-                'gdpr_consent_at' => now(),
-            ]);
+        if (auth()->check()) {
+            $user = auth()->user();
+            if (! $user->gdpr_consent_at) {
+                $user->update(['gdpr_consent_at' => now()]);
+            }
         }
 
         try {
