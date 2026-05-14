@@ -98,6 +98,16 @@ class ApplicationResource extends Resource
                     ->columns(2)
                     ->collapsible(),
 
+                // Cover Letter Section
+                Forms\Components\Section::make(__('messages.spontaneous.cover_letter'))
+                    ->schema([
+                        Forms\Components\Textarea::make('cover_letter')
+                            ->label(__('messages.spontaneous.cover_letter'))
+                            ->rows(6)
+                            ->columnSpanFull(),
+                    ])
+                    ->collapsible(),
+
                 // CV & Documents Section
                 Forms\Components\Section::make('CV & Documents')
                     ->schema([
