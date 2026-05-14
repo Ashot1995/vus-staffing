@@ -343,7 +343,7 @@ Every assignment should start with clear prerequisites, the right introduction a
     'home.hero.title' => 'Welcome to V U S',
     'home.hero.title_prefix' => 'Welcome to',
     'home.hero.title_vus' => 'V U S Bemanning',
-    'home.partners.subtitle' => 'Some of our customers and partners',
+    'home.partners.subtitle' => 'Some of our partners',
     'home.partners.title' => 'Cooperation Partners',
     'home.partners.visit_website' => 'Visit website',
     'home.professional_service.description' => 'We offer high-quality staffing and recruitment services for companies',

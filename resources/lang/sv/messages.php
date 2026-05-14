@@ -341,7 +341,7 @@ Varje uppdrag ska starta med tydliga förutsättningar, rätt introduktion och l
     'home.hero.title' => 'Välkommen till V U S',
     'home.hero.title_prefix' => 'Välkommen till',
     'home.hero.title_vus' => 'V U S Bemanning',
-    'home.partners.subtitle' => 'Några av våra kunder och samarbetspartners',
+    'home.partners.subtitle' => 'Några av våra samarbetspartners',
     'home.partners.title' => 'Samarbetspartners',
     'home.partners.visit_website' => 'Besök webbplats',
     'home.professional_service.description' => 'Vi erbjuder högkvalitativ bemanning och rekryteringstjänster för företag',
