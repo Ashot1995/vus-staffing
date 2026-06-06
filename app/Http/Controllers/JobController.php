@@ -217,8 +217,8 @@ class JobController extends Controller
         }
 
         try {
-            Mail::to('abdulrazek.mahmoud@vus-bemanning.se')
-                ->send(new NewJobApplicationMail($application));
+            $adminEmails = \App\Models\User::where('is_admin', true)->pluck('email')->all();
+            Mail::to($adminEmails)->send(new NewJobApplicationMail($application));
         } catch (\Exception $e) {
             \Log::error('Failed to send job application email: ' . $e->getMessage());
         }
@@ -370,8 +370,8 @@ class JobController extends Controller
         }
 
         try {
-            Mail::to('abdulrazek.mahmoud@vus-bemanning.se')
-                ->send(new NewJobApplicationMail($application));
+            $adminEmails = \App\Models\User::where('is_admin', true)->pluck('email')->all();
+            Mail::to($adminEmails)->send(new NewJobApplicationMail($application));
         } catch (\Exception $e) {
             \Log::error('Failed to send spontaneous application email: ' . $e->getMessage());
         }

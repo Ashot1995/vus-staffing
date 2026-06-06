@@ -34,9 +34,10 @@ class ContactController extends Controller
         // Save the submission to database
         ContactSubmission::create($validated);
 
-        // Send email notification
+        // Send email notification to all admin users
         try {
-            Mail::to('abdulrazek.mahmoud@vus-bemanning.se')->send(new ContactFormMail($validated));
+            $adminEmails = \App\Models\User::where('is_admin', true)->pluck('email')->all();
+            Mail::to($adminEmails)->send(new ContactFormMail($validated));
         } catch (\Exception $e) {
             // Log error but don't fail the request
             \Log::error('Failed to send contact form email: ' . $e->getMessage());
