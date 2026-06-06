@@ -124,7 +124,7 @@ Varje uppdrag ska starta med tydliga förutsättningar, rätt introduktion och l
     // Apply
     'apply.additional_information' => 'Ytterligare information (Valfritt)',
     'apply.additional_information_placeholder' => 'Specificera valda behörigheter (t.ex. C2, A2, ADR, fordonsmonterad eller radiostyrd kran) samt övrig information du vill dela med oss.',
-    'apply.address' => 'Fullständig adress',
+    'apply.address' => 'Fullständig adress (ort & gatuadress)',
     'apply.apply_to' => 'Ansök till',
     'apply.availability' => 'Tillgänglighet',
     'apply.cancel' => 'Avbryt',
