@@ -128,7 +128,7 @@
             </button>
 
             <a href="{{ route('home') }}" class="navbar-brand mx-auto mx-lg-0">
-                <span class="brand-text" style="font-size: 28px; font-weight: bold; color: #000000; letter-spacing: 4px;">V U S</span>
+                <img src="{{ asset('images/logo.png') }}" alt="VUS Bemanning" style="height: 50px; width: auto;">
             </a>
 
             <!-- Search Icon Button -->
