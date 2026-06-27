@@ -1,1 +1,1 @@
-<span class="brand-text" style="font-size: 24px; font-weight: bold; color: #000000; letter-spacing: 4px;" {{ $attributes }}>V U S</span>
+<img src="{{ asset('images/logo.png') }}" alt="VUS Bemanning" {{ $attributes->merge(['style' => 'height: 50px; width: auto;']) }}>

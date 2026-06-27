@@ -42,6 +42,10 @@ use Illuminate\Support\Facades\Storage;
                     </div>
 
                     <div class="mt-5 pt-4 border-top">
+                        <x-social-share :url="url('/blog/' . $post->slug)" :title="$post->title" />
+                    </div>
+
+                    <div class="mt-3">
                         <a href="{{ route('blog.index') }}" class="btn btn-outline-secondary">
                             <i class="bi-arrow-left me-2"></i>{{ __('messages.blog.back_to_blog') }}
                         </a>

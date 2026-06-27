@@ -10,7 +10,7 @@
         $canonicalUrl = $canonicalUrl ?? $currentUrl;
         $pageTitle = isset($pageTitle) ? $pageTitle : (isset($title) ? $title : __('messages.nav.home'));
         $pageDescription = isset($pageDescription) ? $pageDescription : (config('seo.default_description') ?? __('messages.about.subtitle'));
-        $pageImage = isset($pageImage) ? $pageImage : asset('images/logo.png');
+        $pageImage = $siteUrl . '/images/logo.png';
         $robots = $robots ?? 'index, follow';
     @endphp
 
@@ -28,6 +28,12 @@
     <meta property="og:title" content="@yield('title', 'VUS - ' . $pageTitle)">
     <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:image" content="{{ $pageImage }}">
+    <meta property="og:image:url" content="{{ $pageImage }}">
+    <meta property="og:image:secure_url" content="{{ $pageImage }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1209">
+    <meta property="og:image:height" content="567">
+    <meta property="og:image:alt" content="{{ config('seo.brand', 'VUS Bemanning') }}">
     <meta property="og:site_name" content="{{ config('seo.brand', 'VUS Bemanning') }}">
     <meta property="og:locale" content="{{ app()->getLocale() === 'sv' ? 'sv_SE' : 'en_US' }}">
 
@@ -37,6 +43,7 @@
     <meta name="twitter:title" content="@yield('title', 'VUS - ' . $pageTitle)">
     <meta name="twitter:description" content="{{ $pageDescription }}">
     <meta name="twitter:image" content="{{ $pageImage }}">
+    <meta name="twitter:image:alt" content="{{ config('seo.brand', 'VUS Bemanning') }}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}">
@@ -261,6 +268,10 @@
                                     {{ $footerSettings ? $footerSettings->email : 'abdulrazek.mahmoud@vus-bemanning.se' }}
                                 </a>
                             </p>
+                        </div>
+
+                        <div class="col-12 mb-3">
+                            <x-social-share />
                         </div>
 
                         <div class="col-12 mb-3 quick-links-section">

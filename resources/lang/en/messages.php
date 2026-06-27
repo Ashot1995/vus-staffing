@@ -557,4 +557,9 @@ Every assignment should start with clear prerequisites, the right introduction a
     'search.type.page' => 'Page',
     'search.type.blog' => 'Blog Post',
     'search.type.job' => 'Job',
+
+    // Social Share
+    'share.title' => 'Share this page',
+    'share.copy_link' => 'Copy link',
+    'share.copied' => 'Copied!',
 ];

@@ -555,4 +555,9 @@ Varje uppdrag ska starta med tydliga förutsättningar, rätt introduktion och l
     'search.type.page' => 'Sida',
     'search.type.blog' => 'Blogginlägg',
     'search.type.job' => 'Jobb',
+
+    // Social Share
+    'share.title' => 'Dela den här sidan',
+    'share.copy_link' => 'Kopiera länk',
+    'share.copied' => 'Kopierad!',
 ];

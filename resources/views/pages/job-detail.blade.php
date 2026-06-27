@@ -116,6 +116,10 @@
                     @else
                         <a href="{{ route('jobs.apply', $job) }}" class="custom-btn btn w-100 mt-3">{{ __('messages.jobs.detail.apply_now') }}</a>
                     @endif
+
+                    <div class="mt-4 pt-3 border-top">
+                        <x-social-share :url="route('jobs.show', $job)" :title="$job->title" />
+                    </div>
                 </div>
             </div>
         </div>
