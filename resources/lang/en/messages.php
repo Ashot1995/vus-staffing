@@ -12,6 +12,7 @@ return [
     'seo.company_values.description' => 'VUS Bemanning – our core values. Professional staffing and recruitment.',
     'seo.candidate_info.description' => 'Information for job seekers at VUS Bemanning. Staffing and recruitment in Luleå.',
     'seo.spontaneous.description' => 'Submit a spontaneous application to VUS Bemanning. We will contact you when a suitable position becomes available.',
+    'seo.privacy.description' => 'Read VUS Bemanning\'s privacy policy. How we handle and protect your personal data.',
 
     // About
     'about.cta.button' => 'Contact us',

@@ -32,7 +32,6 @@ class RobotsController extends Controller
         $content .= "Disallow: /logout\n";
         $content .= "Disallow: /search\n";
         $content .= "Disallow: /*?search=\n";
-        $content .= "Disallow: /*?page=\n";
         $content .= "Disallow: /jobb/*/ansok\n";
         $content .= "\n";
         $content .= "Sitemap: {$baseUrl}/sitemap.xml\n";

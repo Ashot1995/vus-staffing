@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 @endphp
 
-@section('title', __('messages.blog.title') . ' - VUS')
+@section('title', __('messages.blog.title') . ' – ' . config('seo.brand', 'VUS Bemanning'))
+@php $pageDescription = __('messages.seo.blog.description'); @endphp
 
 @section('content')
 <section class="section-padding">

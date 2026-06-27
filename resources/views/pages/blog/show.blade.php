@@ -4,11 +4,15 @@
 use Illuminate\Support\Facades\Storage;
 @endphp
 
-@section('title', ($post->meta_title ?: $post->title) . ' - VUS')
-
-@if($post->meta_description)
-@section('description', $post->meta_description)
-@endif
+@section('title', ($post->meta_title ?: $post->title) . ' – ' . config('seo.brand', 'VUS Bemanning'))
+@php
+    $pageDescription = $post->meta_description
+        ?: ($post->excerpt ? \Illuminate\Support\Str::limit($post->excerpt, 160) : \Illuminate\Support\Str::limit(strip_tags($post->content ?? ''), 160));
+    $canonicalUrl = url('/blog/' . $post->slug);
+    if ($post->featured_image) {
+        $pageImage = \Illuminate\Support\Facades\Storage::url($post->featured_image);
+    }
+@endphp
 
 @section('content')
 <section class="section-padding">

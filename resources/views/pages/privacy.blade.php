@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
-@section('title', __('messages.privacy.title') . ' - VUS')
+@section('title', __('messages.privacy.title') . ' – ' . config('seo.brand', 'VUS Bemanning'))
+@php $pageDescription = __('messages.seo.privacy.description'); @endphp
 
 @section('content')
 <section class="section-bg-image">

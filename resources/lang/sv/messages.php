@@ -12,6 +12,7 @@ return [
     'seo.company_values.description' => 'VUS Bemanning – våra kärnvärderingar. Professionell bemanning och rekrytering.',
     'seo.candidate_info.description' => 'Information för jobbsökande hos VUS Bemanning. Bemanning och rekrytering i Luleå.',
     'seo.spontaneous.description' => 'Skicka spontanansökan till VUS Bemanning. Vi kontaktar dig när en lämplig tjänst blir tillgänglig.',
+    'seo.privacy.description' => 'Läs VUS Bemannings integritetspolicy. Hur vi hanterar och skyddar dina personuppgifter.',
 
     // About
     'about.cta.button' => 'Kontakta oss',
