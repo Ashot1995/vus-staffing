@@ -50,7 +50,8 @@ Varje uppdrag ska starta med tydliga förutsättningar, rätt introduktion och l
     'about.welcome.title' => 'Välkommen till V U S',
 
     // Admin
-    'admin.application.address' => 'Adress',
+    'admin.application.address' => 'Gatuadress',
+    'admin.application.city' => 'Ort',
     'admin.application.applicant' => 'Sökande',
     'admin.application.applied_date' => 'Ansökningsdatum',
     'admin.application.availability' => 'Tillgänglighet',
@@ -124,7 +125,8 @@ Varje uppdrag ska starta med tydliga förutsättningar, rätt introduktion och l
     // Apply
     'apply.additional_information' => 'Ytterligare information (Valfritt)',
     'apply.additional_information_placeholder' => 'Specificera valda behörigheter (t.ex. C2, A2, ADR, fordonsmonterad eller radiostyrd kran) samt övrig information du vill dela med oss.',
-    'apply.address' => 'Fullständig adress (ort & gatuadress)',
+    'apply.address' => 'Gatuadress',
+    'apply.city' => 'Ort',
     'apply.apply_to' => 'Ansök till',
     'apply.availability' => 'Tillgänglighet',
     'apply.cancel' => 'Avbryt',

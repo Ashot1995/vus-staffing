@@ -51,7 +51,8 @@ Every assignment should start with clear prerequisites, the right introduction a
     'about.welcome.title' => 'Welcome to V U S',
 
     // Admin
-    'admin.application.address' => 'Address',
+    'admin.application.address' => 'Street Address',
+    'admin.application.city' => 'City',
     'admin.application.applicant' => 'Applicant',
     'admin.application.applied_date' => 'Application Date',
     'admin.application.availability' => 'Availability',
@@ -125,7 +126,8 @@ Every assignment should start with clear prerequisites, the right introduction a
     // Apply
     'apply.additional_information' => 'Additional information (Optional)',
     'apply.additional_information_placeholder' => 'Specify selected license (e.g. C2, A2, ADR, truck-mounted or radio-controlled crane) and any additional information you wish to share.',
-    'apply.address' => 'Full address',
+    'apply.address' => 'Street address',
+    'apply.city' => 'City',
     'apply.apply_to' => 'Apply to',
     'apply.availability' => 'Availability',
     'apply.cancel' => 'Cancel',

@@ -16,6 +16,7 @@ class Application extends Model
         'date_of_birth',
         'is_18_or_older',
         'phone',
+        'city',
         'address',
         'cv_path',
         'additional_files',

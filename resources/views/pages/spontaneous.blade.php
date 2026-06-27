@@ -123,12 +123,21 @@
                             </div>
                         </div>
 
-                        <div class="mb-2">
-                            <label class="form-label small">{{ __('messages.apply.address') }} ({{ __('messages.apply.required') }})</label>
-                            <input type="text" name="address" class="form-control form-control-sm @error('address') is-invalid @enderror" value="{{ old('address') }}" required>
-                            @error('address')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                        <div class="row mb-2">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label small">{{ __('messages.apply.city') }} ({{ __('messages.apply.required') }})</label>
+                                <input type="text" name="city" class="form-control form-control-sm @error('city') is-invalid @enderror" value="{{ old('city') }}" required>
+                                @error('city')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label small">{{ __('messages.apply.address') }} ({{ __('messages.apply.required') }})</label>
+                                <input type="text" name="address" class="form-control form-control-sm @error('address') is-invalid @enderror" value="{{ old('address') }}" required>
+                                @error('address')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
 
                         <!-- Upload Section -->

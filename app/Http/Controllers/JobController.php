@@ -85,6 +85,7 @@ class JobController extends Controller
             'is_18_or_older' => 'required|boolean',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
             'address' => 'required|string|max:500',
             'documents' => [
                 'required',
@@ -161,9 +162,6 @@ class JobController extends Controller
             $personalImagePath = $request->file('personal_image')->store('personal-images', 'public');
         }
 
-        // Build phone with country code
-        $phoneWithCode = ($request->input('phone_country_code', '+46') . ' ' . $validated['phone']);
-
         // Calculate start date based on option
         $startDate = null;
         switch ($validated['start_date_option']) {
@@ -187,7 +185,8 @@ class JobController extends Controller
             'surname' => $validated['surname'],
             'date_of_birth' => $dateOfBirth,
             'is_18_or_older' => (bool)$validated['is_18_or_older'],
-            'phone' => $phoneWithCode,
+            'phone' => $validated['phone'],
+            'city' => $validated['city'],
             'address' => $validated['address'],
             'cv_path' => $cvPath,
             'additional_files' => !empty($additionalFiles) ? $additionalFiles : null,
@@ -238,6 +237,7 @@ class JobController extends Controller
             'is_18_or_older' => 'required|boolean',
             'application_email' => 'required|email|max:255',
             'phone' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
             'address' => 'required|string|max:500',
             'documents' => [
                 'required',
@@ -314,9 +314,6 @@ class JobController extends Controller
             $personalImagePath = $request->file('personal_image')->store('personal-images', 'public');
         }
 
-        // Build phone with country code
-        $phoneWithCode = ($request->input('phone_country_code', '+46') . ' ' . $validated['phone']);
-
         // Calculate start date based on option
         $startDate = null;
         switch ($validated['start_date_option']) {
@@ -340,7 +337,8 @@ class JobController extends Controller
             'surname' => $validated['surname'],
             'date_of_birth' => $dateOfBirth,
             'is_18_or_older' => (bool)$validated['is_18_or_older'],
-            'phone' => $phoneWithCode,
+            'phone' => $validated['phone'],
+            'city' => $validated['city'],
             'address' => $validated['address'],
             'cv_path' => $cvPath,
             'additional_files' => !empty($additionalFiles) ? $additionalFiles : null,
