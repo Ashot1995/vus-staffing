@@ -88,12 +88,15 @@ class ApplicationResource extends Resource
                             ->required()
                             ->maxLength(255),
                         
-                        Forms\Components\Textarea::make('address')
+                        Forms\Components\TextInput::make('city')
+                            ->label(__('messages.admin.application.city'))
+                            ->required()
+                            ->maxLength(255),
+
+                        Forms\Components\TextInput::make('address')
                             ->label(__('messages.admin.application.address'))
                             ->required()
-                            ->maxLength(500)
-                            ->rows(2)
-                            ->columnSpanFull(),
+                            ->maxLength(255),
                     ])
                     ->columns(2)
                     ->collapsible(),
@@ -280,6 +283,10 @@ class ApplicationResource extends Resource
                     ->label(__('messages.admin.application.date_of_birth'))
                     ->date()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('city')
+                    ->label(__('messages.admin.application.city'))
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('address')
                     ->label(__('messages.admin.application.address'))
                     ->searchable()
@@ -351,7 +358,8 @@ class ApplicationResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('created_at', 'desc');
     }
 
     public static function getRelations(): array
