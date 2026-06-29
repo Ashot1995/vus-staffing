@@ -1,7 +1,8 @@
 <?php
 
 return [
-    'canonical_url' => env('APP_URL', 'https://www.vus-bemanning.se'),
+    'canonical_url' => env('APP_URL', 'https://vus-bemanning.se'),
+    'og_image' => env('SEO_OG_IMAGE', 'https://vus-bemanning.se/images/logo.png'),
     'brand' => 'VUS Bemanning',
     'brand_short' => 'VUS',
     'brand_spaced' => 'V U S',

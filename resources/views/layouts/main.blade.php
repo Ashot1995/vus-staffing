@@ -10,7 +10,7 @@
         $canonicalUrl = $canonicalUrl ?? $currentUrl;
         $pageTitle = isset($pageTitle) ? $pageTitle : (isset($title) ? $title : __('messages.nav.home'));
         $pageDescription = isset($pageDescription) ? $pageDescription : (config('seo.default_description') ?? __('messages.about.subtitle'));
-        $pageImage = $siteUrl . '/images/logo.png';
+        $pageImage = config('seo.og_image', 'https://vus-bemanning.se/images/logo.png');
         $robots = $robots ?? 'index, follow';
     @endphp
 
