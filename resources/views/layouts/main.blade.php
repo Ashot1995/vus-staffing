@@ -27,9 +27,9 @@
     <meta property="og:url" content="{{ $canonicalUrl }}">
     <meta property="og:title" content="@yield('title', 'VUS - ' . $pageTitle)">
     <meta property="og:description" content="{{ $pageDescription }}">
-    <meta property="og:image" content="{{ $pageImage }}">
-    <meta property="og:image:url" content="{{ $pageImage }}">
-    <meta property="og:image:secure_url" content="{{ $pageImage }}">
+    <meta property="og:image" content=" {{ asset('images/logo.png') }}">
+    <meta property="og:image:url" content="{{ asset('images/logo.png') }}">
+    <meta property="og:image:secure_url" content="{{ asset('images/logo.png') }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1209">
     <meta property="og:image:height" content="567">
@@ -302,7 +302,7 @@
                                         </ul>
                                     </div>
                                 </li>
-                                
+
                                 @php
                                     $quickLinks = [];
                                     if ($footerSettings) {
@@ -496,11 +496,11 @@
             function initFooterDropdown() {
                 const footerDropdownToggle = document.getElementById('footerAboutToggle');
                 const footerDropdown = document.getElementById('footerAboutDropdown');
-                
+
                 if (!footerDropdownToggle || !footerDropdown) {
                     return;
                 }
-                
+
                 // Ensure dropdown starts closed (important for iOS)
                 footerDropdown.classList.remove('show');
                 footerDropdown.style.display = 'none';
@@ -508,25 +508,25 @@
                 footerDropdown.style.opacity = '0';
                 footerDropdownToggle.setAttribute('aria-expanded', 'false');
                 footerDropdownToggle.classList.remove('active');
-                
+
                 let isOpen = false;
                 let isToggling = false;
-                
+
                 function toggleDropdown(e) {
                     // Prevent multiple rapid toggles
                     if (isToggling) {
                         return;
                     }
-                    
+
                     if (e) {
                         e.preventDefault();
                         e.stopPropagation();
                         e.stopImmediatePropagation();
                     }
-                    
+
                     isToggling = true;
                     isOpen = !isOpen;
-                    
+
                     if (isOpen) {
                         // Open dropdown
                         footerDropdown.style.display = 'block';
@@ -535,16 +535,16 @@
                         footerDropdown.classList.add('show');
                         footerDropdownToggle.setAttribute('aria-expanded', 'true');
                         footerDropdownToggle.classList.add('active');
-                        
+
                         // Force reflow for iOS
                         void footerDropdown.offsetHeight;
-                        
+
                         // Calculate height and animate
                         requestAnimationFrame(function() {
                             const height = footerDropdown.scrollHeight;
                             footerDropdown.style.height = height + 'px';
                             footerDropdown.style.opacity = '1';
-                            
+
                             setTimeout(function() {
                                 if (footerDropdown.classList.contains('show')) {
                                     footerDropdown.style.height = 'auto';
@@ -557,16 +557,16 @@
                         const height = footerDropdown.scrollHeight;
                         footerDropdown.style.height = height + 'px';
                         footerDropdown.style.opacity = '1';
-                        
+
                         // Force reflow for iOS
                         void footerDropdown.offsetHeight;
-                        
+
                         requestAnimationFrame(function() {
                             footerDropdown.style.height = '0';
                             footerDropdown.style.opacity = '0';
                             footerDropdownToggle.setAttribute('aria-expanded', 'false');
                             footerDropdownToggle.classList.remove('active');
-                            
+
                             setTimeout(function() {
                                 footerDropdown.classList.remove('show');
                                 footerDropdown.style.display = 'none';
@@ -577,24 +577,24 @@
                         });
                     }
                 }
-                
+
                 // Remove existing event listeners to avoid duplicates
                 const newToggle = footerDropdownToggle.cloneNode(true);
                 footerDropdownToggle.parentNode.replaceChild(newToggle, footerDropdownToggle);
                 const freshToggle = document.getElementById('footerAboutToggle');
-                
+
                 // Handle click events (works for desktop and most mobile)
                 freshToggle.addEventListener('click', function(e) {
                     toggleDropdown(e);
                     return false;
                 }, false);
-                
+
                 // Handle touch events specifically for iOS
                 let touchStartTime = 0;
                 freshToggle.addEventListener('touchstart', function(e) {
                     touchStartTime = Date.now();
                 }, { passive: true });
-                
+
                 freshToggle.addEventListener('touchend', function(e) {
                     const touchDuration = Date.now() - touchStartTime;
                     // Only trigger if it's a quick tap (not a swipe)
@@ -605,21 +605,21 @@
                         toggleDropdown(e);
                     }
                 }, { passive: false });
-                
+
                 // Close dropdown when clicking/touching outside
                 function handleOutsideClick(e) {
-                    if (isOpen && 
-                        footerDropdown && 
+                    if (isOpen &&
+                        footerDropdown &&
                         freshToggle &&
-                        !footerDropdown.contains(e.target) && 
+                        !footerDropdown.contains(e.target) &&
                         !freshToggle.contains(e.target)) {
                         toggleDropdown();
                     }
                 }
-                
+
                 document.addEventListener('click', handleOutsideClick, false);
                 document.addEventListener('touchend', handleOutsideClick, false);
-                
+
                 // Close dropdown when clicking on a link inside
                 const dropdownLinks = footerDropdown.querySelectorAll('.footer-menu-link');
                 dropdownLinks.forEach(function(link) {
@@ -633,7 +633,7 @@
                     }, false);
                 });
             }
-            
+
             // Initialize when DOM is ready
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', initFooterDropdown);
