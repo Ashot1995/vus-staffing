@@ -10,7 +10,7 @@
         $canonicalUrl = $canonicalUrl ?? $currentUrl;
         $pageTitle = isset($pageTitle) ? $pageTitle : (isset($title) ? $title : __('messages.nav.home'));
         $pageDescription = isset($pageDescription) ? $pageDescription : (config('seo.default_description') ?? __('messages.about.subtitle'));
-        $pageImage = config('seo.og_image') ?: asset('images/logo.png');
+        $pageImage = asset('images/logo.png');
         $robots = $robots ?? 'index, follow';
     @endphp
 
@@ -27,9 +27,9 @@
     <meta property="og:url" content="{{ $canonicalUrl }}">
     <meta property="og:title" content="@yield('title', 'VUS - ' . $pageTitle)">
     <meta property="og:description" content="{{ $pageDescription }}">
-    <meta property="og:image" content=" {{ asset('images/logo.png') }}">
-    <meta property="og:image:url" content="{{ asset('images/logo.png') }}">
-    <meta property="og:image:secure_url" content="{{ asset('images/logo.png') }}">
+    <meta property="og:image" content="{{ $pageImage }}">
+    <meta property="og:image:url" content="{{ $pageImage }}">
+    <meta property="og:image:secure_url" content="{{ $pageImage }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1209">
     <meta property="og:image:height" content="567">

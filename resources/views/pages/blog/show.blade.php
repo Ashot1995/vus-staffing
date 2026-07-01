@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Storage;
     $pageDescription = $post->meta_description
         ?: ($post->excerpt ? \Illuminate\Support\Str::limit($post->excerpt, 160) : \Illuminate\Support\Str::limit(strip_tags($post->content ?? ''), 160));
     $canonicalUrl = url('/blog/' . $post->slug);
-    if ($post->featured_image) {
-        $pageImage = \Illuminate\Support\Facades\Storage::url($post->featured_image);
-    }
 @endphp
 
 @section('content')
