@@ -31,8 +31,8 @@
     <meta property="og:image:url" content="{{ $pageImage }}">
     <meta property="og:image:secure_url" content="{{ $pageImage }}">
     <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1209">
-    <meta property="og:image:height" content="567">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="{{ config('seo.brand', 'VUS Bemanning') }}">
     <meta property="og:site_name" content="{{ config('seo.brand', 'VUS Bemanning') }}">
     <meta property="og:locale" content="{{ app()->getLocale() === 'sv' ? 'sv_SE' : 'en_US' }}">
